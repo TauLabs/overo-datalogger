@@ -18,6 +18,8 @@
 
 #include "systemstats.h"
 
+#define PACKET_SIZE 512
+
 static int verbose;
 int received_bytes;
 FILE *file_fd;
@@ -64,8 +66,8 @@ static void parse_packet(unsigned char *buf, int len)
 			packet_to_disk(&cp[i], packet_size, timestamp);
 
 			// Send packets after removing the timestamp to the
-			// event system
-			for(j = i+4; j < i+4+packet_size; j++)
+			// event system.  Plus one for the crc.
+			for(j = i+4; j < i+4+packet_size+1; j++)
 				UAVTalkProcessInputStream(uavTalk, buf[j]);
 
 			if(packet_size == 0) 
@@ -79,7 +81,7 @@ static void parse_packet(unsigned char *buf, int len)
 
 static void grab_log_packet(int dev_fd, FILE  *file_fd)
 {
-	const int len = 1024;
+	const int len = PACKET_SIZE;
 	unsigned char	buf[len], tx_buf[len], *bp;
 	int		status;
 
@@ -104,7 +106,7 @@ static void grab_log_packet(int dev_fd, FILE  *file_fd)
 
 static void to_disk(int dev_fd, FILE  *file_fd)
 {
-	const int len = 1024;
+	const int len = PACKET_SIZE;
 	unsigned char	buf[len], tx_buf[len], *bp;
 	int		status;
 
@@ -307,13 +309,13 @@ usage:
 		for (i = 0; i < logcount; i++) {
 			if ((i % 500) == 0) {
 				UAVTalkGetStats(uavTalk, &stats);
-				fprintf(stdout, "Grabbing %d packet.  Received %d bytes.  Received %d objects.\n", i, received_bytes, stats.rxObjects);
+				fprintf(stdout, "Grabbing %d packet.  Received %d bytes.  Received %d objects.  Received %d errors.\n", i, received_bytes, stats.rxObjects, stats.rxErrors);
 				SystemStatsData sysStats;
 				SystemStatsGet(&sysStats);
 				fprintf(stdout, "Uptime: %d ms\n", sysStats.FlightTime);
 			}
 			grab_log_packet(fd, file_fd);	
-			usleep(100);
+			usleep(500);
 		}
 		fclose(file_fd);
 		fclose(file_fd_err);
@@ -325,7 +327,7 @@ usage:
 			if ((i % 500) == 0)
 				fprintf(stdout, "Grabbing %d packet.  Received %d bytes\n", i, received_bytes);
 			to_disk(fd, file_fd);	
-			usleep(100);
+			usleep(500);
 		}
 		fclose(file_fd);
 	}
