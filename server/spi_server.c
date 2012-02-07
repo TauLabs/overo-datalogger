@@ -18,7 +18,7 @@
 
 #include "systemstats.h"
 
-#define PACKET_SIZE 512
+#define PACKET_SIZE 1024
 
 static int verbose;
 int received_bytes;
