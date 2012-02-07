@@ -284,8 +284,6 @@ int32_t UAVTalkProcessInputStream(UAVTalkConnection connectionHandle, uint8_t rx
 			
 			iproc->rxPacketLength = 1;
 			
-			fprintf(stdout, "Found sync\n");
-
 			iproc->state = UAVTALK_STATE_TYPE;
 			break;
 			
@@ -460,6 +458,7 @@ int32_t UAVTalkProcessInputStream(UAVTalkConnection connectionHandle, uint8_t rx
 				iproc->state = UAVTALK_STATE_SYNC;
 				break;
 			}
+			fprintf(stdout, "Found valid objects\n");
 			
 //			xSemaphoreTakeRecursive(connection->lock, portMAX_DELAY);
 			receiveObject(connection, iproc->type, iproc->objId, iproc->instId, connection->rxBuffer, iproc->length);
