@@ -12,6 +12,7 @@
 #include <linux/types.h>
 #include <linux/spi/spidev.h>
 
+#include "openpilot.h"
 #include "uavtalk.h"
 #include "uavobjectmanager.h"
 
@@ -297,6 +298,7 @@ usage:
 
 		// Initialize the uavTalk object
 		UAVObjInitialize();
+		UAVObjectsInitializeAll();
 		uavTalk = UAVTalkInitialize(NULL);
 
 		for (i = 0; i < logcount; i++) {
