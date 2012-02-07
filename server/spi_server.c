@@ -17,6 +17,7 @@ static int verbose;
 int received_bytes;
 FILE *file_fd;
 FILE *file_fd_err;
+UAVTalkConnection uavTalk;
 
 static void packet_to_disk(unsigned char *buf, int len, __u32 timestamp)
 {
@@ -37,6 +38,9 @@ static void parse_packet(unsigned char *buf, int len)
 	__u32 timestamp;
 	int packet_size;
 	int object_id;
+
+	for(i = 0; i < len; i++)
+		UAVTalkProcessInputStream(uavTalk, buf[i]);
 
 	// Make sure there is at least room for the timestamp and uavtalk
 	// header (timestamp = 4 sync = 1 type = 1 packet size = 2 object id = 4)
@@ -285,6 +289,10 @@ usage:
 		received_bytes = 0;
 		file_fd = fopen("/home/root/log.dat", "w");
 		file_fd_err = fopen("/home/root/raw_err.dat", "w");
+
+		// Initialize the uavTalk object
+		uavTalk = UAVTalkInitialize(NULL);
+
 		for (i = 0; i < logcount; i++) {
 			if ((i % 500) == 0)
 				fprintf(stdout, "Grabbing %d packet.  Received %d bytes\n", i, received_bytes);
