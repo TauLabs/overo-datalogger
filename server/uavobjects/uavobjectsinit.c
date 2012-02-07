@@ -89,166 +89,58 @@
  */
 void UAVObjectsInitializeAll()
 {
-return;
 // This function is no longer used anyway
-#ifdef UAVOBJ_INIT_accels
     AccelsInitialize();
-#endif
-#ifdef UAVOBJ_INIT_accessorydesired
     AccessoryDesiredInitialize();
-#endif
-#ifdef UAVOBJ_INIT_actuatorcommand
     ActuatorCommandInitialize();
-#endif
-#ifdef UAVOBJ_INIT_actuatordesired
     ActuatorDesiredInitialize();
-#endif
-#ifdef UAVOBJ_INIT_actuatorsettings
     ActuatorSettingsInitialize();
-#endif
-#ifdef UAVOBJ_INIT_attitudeactual
     AttitudeActualInitialize();
-#endif
-#ifdef UAVOBJ_INIT_attitudesettings
     AttitudeSettingsInitialize();
-#endif
-#ifdef UAVOBJ_INIT_baroaltitude
     BaroAltitudeInitialize();
-#endif
-#ifdef UAVOBJ_INIT_cameradesired
     CameraDesiredInitialize();
-#endif
-#ifdef UAVOBJ_INIT_camerastabsettings
     CameraStabSettingsInitialize();
-#endif
-#ifdef UAVOBJ_INIT_faultsettings
     FaultSettingsInitialize();
-#endif
-#ifdef UAVOBJ_INIT_firmwareiapobj
     FirmwareIAPObjInitialize();
-#endif
-#ifdef UAVOBJ_INIT_flightbatterysettings
     FlightBatterySettingsInitialize();
-#endif
-#ifdef UAVOBJ_INIT_flightbatterystate
     FlightBatteryStateInitialize();
-#endif
-#ifdef UAVOBJ_INIT_flightplancontrol
     FlightPlanControlInitialize();
-#endif
-#ifdef UAVOBJ_INIT_flightplansettings
     FlightPlanSettingsInitialize();
-#endif
-#ifdef UAVOBJ_INIT_flightplanstatus
     FlightPlanStatusInitialize();
-#endif
-#ifdef UAVOBJ_INIT_flightstatus
     FlightStatusInitialize();
-#endif
-#ifdef UAVOBJ_INIT_flighttelemetrystats
     FlightTelemetryStatsInitialize();
-#endif
-#ifdef UAVOBJ_INIT_gcsreceiver
     GCSReceiverInitialize();
-#endif
-#ifdef UAVOBJ_INIT_gcstelemetrystats
     GCSTelemetryStatsInitialize();
-#endif
-#ifdef UAVOBJ_INIT_gpsposition
     GPSPositionInitialize();
-#endif
-#ifdef UAVOBJ_INIT_gpssatellites
     GPSSatellitesInitialize();
-#endif
-#ifdef UAVOBJ_INIT_gpstime
     GPSTimeInitialize();
-#endif
-#ifdef UAVOBJ_INIT_guidancesettings
     GuidanceSettingsInitialize();
-#endif
-#ifdef UAVOBJ_INIT_gyros
     GyrosInitialize();
-#endif
-#ifdef UAVOBJ_INIT_gyrosbias
     GyrosBiasInitialize();
-#endif
-#ifdef UAVOBJ_INIT_homelocation
     HomeLocationInitialize();
-#endif
-#ifdef UAVOBJ_INIT_hwsettings
     HwSettingsInitialize();
-#endif
-#ifdef UAVOBJ_INIT_i2cstats
     I2CStatsInitialize();
-#endif
-#ifdef UAVOBJ_INIT_magnetometer
     MagnetometerInitialize();
-#endif
-#ifdef UAVOBJ_INIT_manualcontrolcommand
     ManualControlCommandInitialize();
-#endif
-#ifdef UAVOBJ_INIT_manualcontrolsettings
     ManualControlSettingsInitialize();
-#endif
-#ifdef UAVOBJ_INIT_mixersettings
     MixerSettingsInitialize();
-#endif
-#ifdef UAVOBJ_INIT_mixerstatus
     MixerStatusInitialize();
-#endif
-#ifdef UAVOBJ_INIT_nedaccel
     NedAccelInitialize();
-#endif
-#ifdef UAVOBJ_INIT_objectpersistence
     ObjectPersistenceInitialize();
-#endif
-#ifdef UAVOBJ_INIT_overosyncstats
     OveroSyncStatsInitialize();
-#endif
-#ifdef UAVOBJ_INIT_positionactual
     PositionActualInitialize();
-#endif
-#ifdef UAVOBJ_INIT_positiondesired
     PositionDesiredInitialize();
-#endif
-#ifdef UAVOBJ_INIT_ratedesired
     RateDesiredInitialize();
-#endif
-#ifdef UAVOBJ_INIT_receiveractivity
     ReceiverActivityInitialize();
-#endif
-#ifdef UAVOBJ_INIT_revocalibration
     RevoCalibrationInitialize();
-#endif
-#ifdef UAVOBJ_INIT_sonaraltitude
     SonarAltitudeInitialize();
-#endif
-#ifdef UAVOBJ_INIT_stabilizationdesired
     StabilizationDesiredInitialize();
-#endif
-#ifdef UAVOBJ_INIT_stabilizationsettings
     StabilizationSettingsInitialize();
-#endif
-#ifdef UAVOBJ_INIT_systemalarms
     SystemAlarmsInitialize();
-#endif
-#ifdef UAVOBJ_INIT_systemsettings
     SystemSettingsInitialize();
-#endif
-#ifdef UAVOBJ_INIT_systemstats
     SystemStatsInitialize();
-#endif
-#ifdef UAVOBJ_INIT_taskinfo
     TaskInfoInitialize();
-#endif
-#ifdef UAVOBJ_INIT_velocityactual
     VelocityActualInitialize();
-#endif
-#ifdef UAVOBJ_INIT_velocitydesired
     VelocityDesiredInitialize();
-#endif
-#ifdef UAVOBJ_INIT_watchdogstatus
     WatchdogStatusInitialize();
-#endif
-
 }
