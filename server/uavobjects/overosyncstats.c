@@ -125,6 +125,14 @@ void OveroSyncStatsReceivedGet( uint32_t *NewReceived )
 {
 	UAVObjGetDataField(OveroSyncStatsHandle(), (void*)NewReceived, offsetof( OveroSyncStatsData, Received), sizeof(uint32_t));
 }
+void OveroSyncStatsDroppedUpdatesSet( uint32_t *NewDroppedUpdates )
+{
+	UAVObjSetDataField(OveroSyncStatsHandle(), (void*)NewDroppedUpdates, offsetof( OveroSyncStatsData, DroppedUpdates), sizeof(uint32_t));
+}
+void OveroSyncStatsDroppedUpdatesGet( uint32_t *NewDroppedUpdates )
+{
+	UAVObjGetDataField(OveroSyncStatsHandle(), (void*)NewDroppedUpdates, offsetof( OveroSyncStatsData, DroppedUpdates), sizeof(uint32_t));
+}
 void OveroSyncStatsConnectedSet( uint8_t *NewConnected )
 {
 	UAVObjSetDataField(OveroSyncStatsHandle(), (void*)NewConnected, offsetof( OveroSyncStatsData, Connected), sizeof(uint8_t));
