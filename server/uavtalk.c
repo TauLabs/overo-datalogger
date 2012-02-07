@@ -36,6 +36,7 @@
 #include "uavobjectmanager.h"
 #include "uavtalk_priv.h"
 #include "uavtalk.h"
+#include <stdio.h>
 
 
 // Private functions
@@ -283,6 +284,8 @@ int32_t UAVTalkProcessInputStream(UAVTalkConnection connectionHandle, uint8_t rx
 			
 			iproc->rxPacketLength = 1;
 			
+			fprintf(stdout, "Found sync\n");
+
 			iproc->state = UAVTALK_STATE_TYPE;
 			break;
 			
@@ -349,6 +352,7 @@ int32_t UAVTalkProcessInputStream(UAVTalkConnection connectionHandle, uint8_t rx
 			{
 				connection->stats.rxErrors++;
 				iproc->state = UAVTALK_STATE_SYNC;
+				fprintf(stdout, "Got unknown ID\n");
 				break;
 			}
 			
