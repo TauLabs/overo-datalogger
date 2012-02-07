@@ -300,6 +300,7 @@ usage:
 		file_fd_err = fopen("/home/root/raw_err.dat", "w");
 
 		// Initialize the uavTalk object
+		UAVObjInitialize();
 		uavTalk = UAVTalkInitialize(NULL);
 
 		for (i = 0; i < logcount; i++) {
