@@ -16,6 +16,8 @@
 #include "uavtalk.h"
 #include "uavobjectmanager.h"
 
+#include "systemstats.h"
+
 static int verbose;
 int received_bytes;
 FILE *file_fd;
@@ -306,6 +308,9 @@ usage:
 			if ((i % 500) == 0) {
 				UAVTalkGetStats(uavTalk, &stats);
 				fprintf(stdout, "Grabbing %d packet.  Received %d bytes.  Received %d objects.\n", i, received_bytes, stats.rxObjects);
+				SystemStatsData sysStats;
+				SystemStatsGet(&sysStats);
+				fprintf(stdout, "Uptime: %d ms\n", sysStats.FlightTime);
 			}
 			grab_log_packet(fd, file_fd);	
 			usleep(500);
