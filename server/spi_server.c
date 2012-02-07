@@ -79,7 +79,7 @@ static void parse_packet(unsigned char *buf, int len)
 
 static void grab_log_packet(int dev_fd, FILE  *file_fd)
 {
-	const int len = 256;
+	const int len = 1024;
 	unsigned char	buf[len], tx_buf[len], *bp;
 	int		status;
 
@@ -104,7 +104,7 @@ static void grab_log_packet(int dev_fd, FILE  *file_fd)
 
 static void to_disk(int dev_fd, FILE  *file_fd)
 {
-	const int len = 256;
+	const int len = 1024;
 	unsigned char	buf[len], tx_buf[len], *bp;
 	int		status;
 
