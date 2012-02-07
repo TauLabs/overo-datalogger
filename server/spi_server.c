@@ -41,11 +41,6 @@ static void parse_packet(unsigned char *buf, int len)
 	int packet_size;
 	int object_id;
 
-	fprintf(stdout, "In parse packet\n");
-
-	for(i = 0; i < len; i++)
-		UAVTalkProcessInputStream(uavTalk, buf[i]);
-
 	fprintf(stdout, "Parsing packet\n");
 
 	// Make sure there is at least room for the timestamp and uavtalk
@@ -74,6 +69,13 @@ static void parse_packet(unsigned char *buf, int len)
 			i++;
 		}	
 	}	
+
+	fprintf(stdout, "Processing with UAVTalk\n");
+
+	for(i = 0; i < len; i++)
+		UAVTalkProcessInputStream(uavTalk, buf[i]);
+
+
 }
 
 static void grab_log_packet(int dev_fd, FILE  *file_fd)
