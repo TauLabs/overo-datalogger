@@ -29,8 +29,13 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include "openpilot.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#include "uavobjectmanager.h"
 #include "uavtalk_priv.h"
+#include "uavtalk.h"
 
 
 // Private functions
@@ -51,21 +56,21 @@ static void updateAck(UAVTalkConnectionData *connection, UAVObjHandle obj, uint1
 UAVTalkConnection UAVTalkInitialize(UAVTalkOutputStream outputStream)
 {
 	// allocate object
-	UAVTalkConnectionData * connection = pvPortMalloc(sizeof(UAVTalkConnectionData));
+	UAVTalkConnectionData *connection = (UAVTalkConnectionData *) malloc(sizeof(UAVTalkConnectionData));
 	if (!connection) return 0;
 	connection->canari = UAVTALK_CANARI;
 	connection->iproc.rxPacketLength = 0;
 	connection->iproc.state = UAVTALK_STATE_SYNC;
 	connection->outStream = outputStream;
-	connection->lock = xSemaphoreCreateRecursiveMutex();
-	connection->transLock = xSemaphoreCreateRecursiveMutex();
+//	connection->lock = xSemaphoreCreateRecursiveMutex();
+//	connection->transLock = xSemaphoreCreateRecursiveMutex();
 	// allocate buffers
-	connection->rxBuffer = pvPortMalloc(UAVTALK_MAX_PACKET_LENGTH);
+	connection->rxBuffer = malloc(UAVTALK_MAX_PACKET_LENGTH);
 	if (!connection->rxBuffer) return 0;
-	connection->txBuffer = pvPortMalloc(UAVTALK_MAX_PACKET_LENGTH);
+	connection->txBuffer = malloc(UAVTALK_MAX_PACKET_LENGTH);
 	if (!connection->txBuffer) return 0;
-	vSemaphoreCreateBinary(connection->respSema);
-	xSemaphoreTake(connection->respSema, 0); // reset to zero
+//	vSemaphoreCreateBinary(connection->respSema);
+//	xSemaphoreTake(connection->respSema, 0); // reset to zero
 	UAVTalkResetStats( (UAVTalkConnection) connection );
 	return (UAVTalkConnection) connection;
 }
@@ -84,13 +89,13 @@ int32_t UAVTalkSetOutputStream(UAVTalkConnection connectionHandle, UAVTalkOutput
     CHECKCONHANDLE(connectionHandle,connection,return -1);
 
 	// Lock
-	xSemaphoreTakeRecursive(connection->lock, portMAX_DELAY);
+//	xSemaphoreTakeRecursive(connection->lock, portMAX_DELAY);
 	
 	// set output stream
 	connection->outStream = outputStream;
 	
 	// Release lock
-	xSemaphoreGiveRecursive(connection->lock);
+//	xSemaphoreGiveRecursive(connection->lock);
 
 	return 0;
 
@@ -119,13 +124,13 @@ void UAVTalkGetStats(UAVTalkConnection connectionHandle, UAVTalkStats* statsOut)
     CHECKCONHANDLE(connectionHandle,connection,return );
 
 	// Lock
-	xSemaphoreTakeRecursive(connection->lock, portMAX_DELAY);
+//	xSemaphoreTakeRecursive(connection->lock, portMAX_DELAY);
 	
 	// Copy stats
 	memcpy(statsOut, &connection->stats, sizeof(UAVTalkStats));
 	
 	// Release lock
-	xSemaphoreGiveRecursive(connection->lock);
+//	xSemaphoreGiveRecursive(connection->lock);
 }
 
 /**
@@ -138,13 +143,13 @@ void UAVTalkResetStats(UAVTalkConnection connectionHandle)
     CHECKCONHANDLE(connectionHandle,connection,return);
 
 	// Lock
-	xSemaphoreTakeRecursive(connection->lock, portMAX_DELAY);
+//	xSemaphoreTakeRecursive(connection->lock, portMAX_DELAY);
 	
 	// Clear stats
 	memset(&connection->stats, 0, sizeof(UAVTalkStats));
 	
 	// Release lock
-	xSemaphoreGiveRecursive(connection->lock);
+//	xSemaphoreGiveRecursive(connection->lock);
 }
 
 /**
@@ -209,37 +214,37 @@ static int32_t objectTransaction(UAVTalkConnectionData *connection, UAVObjHandle
 	if (type == UAVTALK_TYPE_OBJ_ACK || type == UAVTALK_TYPE_OBJ_REQ)
 	{
 		// Get transaction lock (will block if a transaction is pending)
-		xSemaphoreTakeRecursive(connection->transLock, portMAX_DELAY);
+//		xSemaphoreTakeRecursive(connection->transLock, portMAX_DELAY);
 		// Send object
-		xSemaphoreTakeRecursive(connection->lock, portMAX_DELAY);
+//		xSemaphoreTakeRecursive(connection->lock, portMAX_DELAY);
 		connection->respObj = obj;
 		connection->respInstId = instId;
 		sendObject(connection, obj, instId, type);
-		xSemaphoreGiveRecursive(connection->lock);
+//		xSemaphoreGiveRecursive(connection->lock);
 		// Wait for response (or timeout)
-		respReceived = xSemaphoreTake(connection->respSema, timeoutMs/portTICK_RATE_MS);
+//		respReceived = xSemaphoreTake(connection->respSema, timeoutMs/portTICK_RATE_MS);
 		// Check if a response was received
-		if (respReceived == pdFALSE)
+		if (0) //respReceived == pdFALSE)
 		{
 			// Cancel transaction
-			xSemaphoreTakeRecursive(connection->lock, portMAX_DELAY);
-			xSemaphoreTake(connection->respSema, 0); // non blocking call to make sure the value is reset to zero (binary sema)
+//			xSemaphoreTakeRecursive(connection->lock, portMAX_DELAY);
+//			xSemaphoreTake(connection->respSema, 0); // non blocking call to make sure the value is reset to zero (binary sema)
 			connection->respObj = 0;
-			xSemaphoreGiveRecursive(connection->lock);
-			xSemaphoreGiveRecursive(connection->transLock);
+//			xSemaphoreGiveRecursive(connection->lock);
+//			xSemaphoreGiveRecursive(connection->transLock);
 			return -1;
 		}
 		else
 		{
-			xSemaphoreGiveRecursive(connection->transLock);
+//			xSemaphoreGiveRecursive(connection->transLock);
 			return 0;
 		}
 	}
 	else if (type == UAVTALK_TYPE_OBJ)
 	{
-		xSemaphoreTakeRecursive(connection->lock, portMAX_DELAY);
+//		xSemaphoreTakeRecursive(connection->lock, portMAX_DELAY);
 		sendObject(connection, obj, instId, UAVTALK_TYPE_OBJ);
-		xSemaphoreGiveRecursive(connection->lock);
+//		xSemaphoreGiveRecursive(connection->lock);
 		return 0;
 	}
 	else
@@ -452,11 +457,11 @@ int32_t UAVTalkProcessInputStream(UAVTalkConnection connectionHandle, uint8_t rx
 				break;
 			}
 			
-			xSemaphoreTakeRecursive(connection->lock, portMAX_DELAY);
+//			xSemaphoreTakeRecursive(connection->lock, portMAX_DELAY);
 			receiveObject(connection, iproc->type, iproc->objId, iproc->instId, connection->rxBuffer, iproc->length);
 			connection->stats.rxObjectBytes += iproc->length;
 			connection->stats.rxObjects++;
-			xSemaphoreGiveRecursive(connection->lock);
+//			xSemaphoreGiveRecursive(connection->lock);
 			
 			iproc->state = UAVTALK_STATE_SYNC;
 			break;
@@ -565,7 +570,7 @@ static void updateAck(UAVTalkConnectionData *connection, UAVObjHandle obj, uint1
 {
 	if (connection->respObj == obj && (connection->respInstId == instId || connection->respInstId == UAVOBJ_ALL_INSTANCES))
 	{
-		xSemaphoreGive(connection->respSema);
+//		xSemaphoreGive(connection->respSema);
 		connection->respObj = 0;
 	}
 }

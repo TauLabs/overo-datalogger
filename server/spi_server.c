@@ -12,6 +12,8 @@
 #include <linux/types.h>
 #include <linux/spi/spidev.h>
 
+#include "uavtalk.h"
+#include "uavobjectmanager.h"
 
 static int verbose;
 int received_bytes;

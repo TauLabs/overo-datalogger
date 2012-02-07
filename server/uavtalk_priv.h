@@ -29,7 +29,9 @@
 #ifndef UAVTALK_PRIV_H
 #define UAVTALK_PRIV_H
 
-#include "uavobjectsinit.h"
+#include "uavtalk.h"
+#include "uavobjectmanager.h"
+
 
 // Private types and constants
 typedef struct {
@@ -51,7 +53,7 @@ typedef struct {
 
 typedef uint8_t uavtalk_checksum;
 #define UAVTALK_CHECKSUM_LENGTH	        sizeof(uavtalk_checksum)
-#define UAVTALK_MAX_PAYLOAD_LENGTH      (UAVOBJECTS_LARGEST + 1)
+#define UAVTALK_MAX_PAYLOAD_LENGTH      (255 + 1)
 #define UAVTALK_MIN_PACKET_LENGTH	UAVTALK_MAX_HEADER_LENGTH + UAVTALK_CHECKSUM_LENGTH
 #define UAVTALK_MAX_PACKET_LENGTH       UAVTALK_MIN_PACKET_LENGTH + UAVTALK_MAX_PAYLOAD_LENGTH
 
@@ -74,9 +76,9 @@ typedef struct {
 typedef struct {
     uint8_t canari;
     UAVTalkOutputStream outStream;
-    xSemaphoreHandle lock;
-    xSemaphoreHandle transLock;
-    xSemaphoreHandle respSema;
+//    xSemaphoreHandle lock;
+//    xSemaphoreHandle transLock;
+//    xSemaphoreHandle respSema;
     UAVObjHandle respObj;
     uint16_t respInstId;
     UAVTalkStats stats;

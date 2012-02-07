@@ -29,6 +29,10 @@
 #ifndef UAVTALK_H
 #define UAVTALK_H
 
+#include <stdint.h>
+#include "uavobjectmanager.h"
+
+
 // Public types
 typedef int32_t (*UAVTalkOutputStream)(uint8_t* data, int32_t length);
 
