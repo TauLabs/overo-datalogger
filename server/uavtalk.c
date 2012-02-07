@@ -350,7 +350,6 @@ int32_t UAVTalkProcessInputStream(UAVTalkConnection connectionHandle, uint8_t rx
 			{
 				connection->stats.rxErrors++;
 				iproc->state = UAVTALK_STATE_SYNC;
-				fprintf(stdout, "Got unknown ID %08x\n", iproc->objId);
 				break;
 			}
 			
@@ -458,7 +457,6 @@ int32_t UAVTalkProcessInputStream(UAVTalkConnection connectionHandle, uint8_t rx
 				iproc->state = UAVTALK_STATE_SYNC;
 				break;
 			}
-			fprintf(stdout, "Found valid objects\n");
 			
 //			xSemaphoreTakeRecursive(connection->lock, portMAX_DELAY);
 			receiveObject(connection, iproc->type, iproc->objId, iproc->instId, connection->rxBuffer, iproc->length);

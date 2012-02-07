@@ -97,7 +97,6 @@ static void grab_log_packet(int dev_fd, FILE  *file_fd)
 		return;
 	}
 
-	fprintf(stdout, "In parse packet\n");
 	parse_packet(buf, len);
 }
 
@@ -301,9 +300,13 @@ usage:
 		UAVObjectsInitializeAll();
 		uavTalk = UAVTalkInitialize(NULL);
 
+		UAVTalkStats stats;
+
 		for (i = 0; i < logcount; i++) {
-			if ((i % 500) == 0)
-				fprintf(stdout, "Grabbing %d packet.  Received %d bytes\n", i, received_bytes);
+			if ((i % 500) == 0) {
+				UAVTalkGetStats(uavTalk, &stats);
+				fprintf(stdout, "Grabbing %d packet.  Received %d bytes.  Received %d objects.\n", i, received_bytes, stats.rxObjects);
+			}
 			grab_log_packet(fd, file_fd);	
 			usleep(500);
 		}
