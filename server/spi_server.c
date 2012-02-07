@@ -313,7 +313,7 @@ usage:
 				fprintf(stdout, "Uptime: %d ms\n", sysStats.FlightTime);
 			}
 			grab_log_packet(fd, file_fd);	
-			usleep(500);
+			usleep(100);
 		}
 		fclose(file_fd);
 		fclose(file_fd_err);
@@ -325,7 +325,7 @@ usage:
 			if ((i % 500) == 0)
 				fprintf(stdout, "Grabbing %d packet.  Received %d bytes\n", i, received_bytes);
 			to_disk(fd, file_fd);	
-			usleep(500);
+			usleep(100);
 		}
 		fclose(file_fd);
 	}
