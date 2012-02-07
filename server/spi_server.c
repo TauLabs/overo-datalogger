@@ -44,6 +44,8 @@ static void parse_packet(unsigned char *buf, int len)
 	for(i = 0; i < len; i++)
 		UAVTalkProcessInputStream(uavTalk, buf[i]);
 
+	fprintf(stdout, "Parsing packet\n");
+
 	// Make sure there is at least room for the timestamp and uavtalk
 	// header (timestamp = 4 sync = 1 type = 1 packet size = 2 object id = 4)
 	while(i < (len - 11)) {
