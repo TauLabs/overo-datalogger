@@ -36,7 +36,6 @@ static void packet_to_disk(unsigned char *buf, int len, __u32 timestamp)
 	fwrite(&packet_size, 1, sizeof(packet_size), file_fd);
 	// Must add 1 because CRC not included in this number
 	fwrite(buf, 1, len + 1, file_fd);
-	fprintf(stdout, "CRC?: %x %x %x\n", buf[len], buf[len+1], buf[len+2]);
 }
 
 static void parse_packet(unsigned char *buf, int len)
