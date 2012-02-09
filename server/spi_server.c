@@ -36,6 +36,7 @@ static void packet_to_disk(unsigned char *buf, int len, __u32 timestamp)
 	fwrite(&packet_size, 1, sizeof(packet_size), file_fd);
 	// Must add 1 because CRC not included in this number
 	fwrite(buf, 1, len + 1, file_fd);
+	fprintf(stdout, "CRC?: %x %x %x\n", buf[len], buf[len+1], buf[len+2]);
 }
 
 static void parse_packet(unsigned char *buf, int len)
@@ -62,7 +63,7 @@ static void parse_packet(unsigned char *buf, int len)
 				return;
 			}
 			//fprintf(stdout, "Got object %x %u\n", object_id, packet_size);
-			received_bytes += packet_size;
+			received_bytes += packet_size + 1;
 			packet_to_disk(&cp[i], packet_size, timestamp);
 
 			// Send packets after removing the timestamp to the

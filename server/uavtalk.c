@@ -451,6 +451,7 @@ int32_t UAVTalkProcessInputStream(UAVTalkConnection connectionHandle, uint8_t rx
 				iproc->state = UAVTALK_STATE_SYNC;
 				break;
 			}
+			fprintf(stdout, "Received crc:% x\n", iproc->cs);
 			
 			if (iproc->rxPacketLength != (iproc->packet_size + 1))
 			{   // packet error - mismatched packet size
