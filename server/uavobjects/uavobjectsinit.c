@@ -33,6 +33,7 @@
 #include "actuatorcommand.h"
 #include "actuatordesired.h"
 #include "actuatorsettings.h"
+#include "altholdsmoothed.h"
 #include "attitudeactual.h"
 #include "attitudesettings.h"
 #include "baroaltitude.h"
@@ -89,12 +90,15 @@
  */
 void UAVObjectsInitializeAll()
 {
-// This function is no longer used anyway
     AccelsInitialize();
     AccessoryDesiredInitialize();
     ActuatorCommandInitialize();
     ActuatorDesiredInitialize();
     ActuatorSettingsInitialize();
+    
+    AltitudeHoldDesiredInitialize();
+    AltitudeHoldSettingsInitialize();
+    AltHoldSmoothedInitialize();
     AttitudeActualInitialize();
     AttitudeSettingsInitialize();
     BaroAltitudeInitialize();
