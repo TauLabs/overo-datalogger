@@ -65,6 +65,7 @@
 #include "mixersettings.h"
 #include "mixerstatus.h"
 #include "nedaccel.h"
+#include "nedposition.h"
 #include "objectpersistence.h"
 #include "overosyncstats.h"
 #include "positionactual.h"
@@ -130,6 +131,7 @@ void UAVObjectsInitializeAll()
     MixerSettingsInitialize();
     MixerStatusInitialize();
     NedAccelInitialize();
+    NEDPositionInitialize();
     ObjectPersistenceInitialize();
     OveroSyncStatsInitialize();
     PositionActualInitialize();
