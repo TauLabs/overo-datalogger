@@ -53,6 +53,7 @@
 #include "gpsposition.h"
 #include "gpssatellites.h"
 #include "gpstime.h"
+#include "gpsvelocity.h"
 #include "guidancesettings.h"
 #include "gyros.h"
 #include "gyrosbias.h"
@@ -119,6 +120,7 @@ void UAVObjectsInitializeAll()
     GPSPositionInitialize();
     GPSSatellitesInitialize();
     GPSTimeInitialize();
+    GPSVelocityInitialize();
     GuidanceSettingsInitialize();
     GyrosInitialize();
     GyrosBiasInitialize();
