@@ -84,9 +84,12 @@ void HwSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.CC_RcvrPort = 1;
 	data.CC_MainPort = 0;
 	data.CC_FlexiPort = 0;
-	data.OP_RcvrPort = 1;
-	data.OP_MainPort = 1;
-	data.OP_FlexiPort = 1;
+	data.RV_RcvrPort = 1;
+	data.RV_AuxPort = 0;
+	data.RV_AuxSBusPort = 0;
+	data.RV_FlexiPort = 0;
+	data.RV_TelemetryPort = 1;
+	data.RV_GPSPort = 2;
 	data.TelemetrySpeed = 5;
 	data.GPSSpeed = 5;
 	data.ComUsbBridgeSpeed = 5;
@@ -98,6 +101,7 @@ void HwSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.OptionalModules[2] = 0;
 	data.OptionalModules[3] = 0;
 	data.OptionalModules[4] = 0;
+	data.OptionalModules[5] = 0;
 	data.DSMxBind = 0;
 
 	UAVObjSetInstanceData(obj, instId, &data);
@@ -151,29 +155,53 @@ void HwSettingsCC_FlexiPortGet( uint8_t *NewCC_FlexiPort )
 {
 	UAVObjGetDataField(HwSettingsHandle(), (void*)NewCC_FlexiPort, offsetof( HwSettingsData, CC_FlexiPort), sizeof(uint8_t));
 }
-void HwSettingsOP_RcvrPortSet( uint8_t *NewOP_RcvrPort )
+void HwSettingsRV_RcvrPortSet( uint8_t *NewRV_RcvrPort )
 {
-	UAVObjSetDataField(HwSettingsHandle(), (void*)NewOP_RcvrPort, offsetof( HwSettingsData, OP_RcvrPort), sizeof(uint8_t));
+	UAVObjSetDataField(HwSettingsHandle(), (void*)NewRV_RcvrPort, offsetof( HwSettingsData, RV_RcvrPort), sizeof(uint8_t));
 }
-void HwSettingsOP_RcvrPortGet( uint8_t *NewOP_RcvrPort )
+void HwSettingsRV_RcvrPortGet( uint8_t *NewRV_RcvrPort )
 {
-	UAVObjGetDataField(HwSettingsHandle(), (void*)NewOP_RcvrPort, offsetof( HwSettingsData, OP_RcvrPort), sizeof(uint8_t));
+	UAVObjGetDataField(HwSettingsHandle(), (void*)NewRV_RcvrPort, offsetof( HwSettingsData, RV_RcvrPort), sizeof(uint8_t));
 }
-void HwSettingsOP_MainPortSet( uint8_t *NewOP_MainPort )
+void HwSettingsRV_AuxPortSet( uint8_t *NewRV_AuxPort )
 {
-	UAVObjSetDataField(HwSettingsHandle(), (void*)NewOP_MainPort, offsetof( HwSettingsData, OP_MainPort), sizeof(uint8_t));
+	UAVObjSetDataField(HwSettingsHandle(), (void*)NewRV_AuxPort, offsetof( HwSettingsData, RV_AuxPort), sizeof(uint8_t));
 }
-void HwSettingsOP_MainPortGet( uint8_t *NewOP_MainPort )
+void HwSettingsRV_AuxPortGet( uint8_t *NewRV_AuxPort )
 {
-	UAVObjGetDataField(HwSettingsHandle(), (void*)NewOP_MainPort, offsetof( HwSettingsData, OP_MainPort), sizeof(uint8_t));
+	UAVObjGetDataField(HwSettingsHandle(), (void*)NewRV_AuxPort, offsetof( HwSettingsData, RV_AuxPort), sizeof(uint8_t));
 }
-void HwSettingsOP_FlexiPortSet( uint8_t *NewOP_FlexiPort )
+void HwSettingsRV_AuxSBusPortSet( uint8_t *NewRV_AuxSBusPort )
 {
-	UAVObjSetDataField(HwSettingsHandle(), (void*)NewOP_FlexiPort, offsetof( HwSettingsData, OP_FlexiPort), sizeof(uint8_t));
+	UAVObjSetDataField(HwSettingsHandle(), (void*)NewRV_AuxSBusPort, offsetof( HwSettingsData, RV_AuxSBusPort), sizeof(uint8_t));
 }
-void HwSettingsOP_FlexiPortGet( uint8_t *NewOP_FlexiPort )
+void HwSettingsRV_AuxSBusPortGet( uint8_t *NewRV_AuxSBusPort )
 {
-	UAVObjGetDataField(HwSettingsHandle(), (void*)NewOP_FlexiPort, offsetof( HwSettingsData, OP_FlexiPort), sizeof(uint8_t));
+	UAVObjGetDataField(HwSettingsHandle(), (void*)NewRV_AuxSBusPort, offsetof( HwSettingsData, RV_AuxSBusPort), sizeof(uint8_t));
+}
+void HwSettingsRV_FlexiPortSet( uint8_t *NewRV_FlexiPort )
+{
+	UAVObjSetDataField(HwSettingsHandle(), (void*)NewRV_FlexiPort, offsetof( HwSettingsData, RV_FlexiPort), sizeof(uint8_t));
+}
+void HwSettingsRV_FlexiPortGet( uint8_t *NewRV_FlexiPort )
+{
+	UAVObjGetDataField(HwSettingsHandle(), (void*)NewRV_FlexiPort, offsetof( HwSettingsData, RV_FlexiPort), sizeof(uint8_t));
+}
+void HwSettingsRV_TelemetryPortSet( uint8_t *NewRV_TelemetryPort )
+{
+	UAVObjSetDataField(HwSettingsHandle(), (void*)NewRV_TelemetryPort, offsetof( HwSettingsData, RV_TelemetryPort), sizeof(uint8_t));
+}
+void HwSettingsRV_TelemetryPortGet( uint8_t *NewRV_TelemetryPort )
+{
+	UAVObjGetDataField(HwSettingsHandle(), (void*)NewRV_TelemetryPort, offsetof( HwSettingsData, RV_TelemetryPort), sizeof(uint8_t));
+}
+void HwSettingsRV_GPSPortSet( uint8_t *NewRV_GPSPort )
+{
+	UAVObjSetDataField(HwSettingsHandle(), (void*)NewRV_GPSPort, offsetof( HwSettingsData, RV_GPSPort), sizeof(uint8_t));
+}
+void HwSettingsRV_GPSPortGet( uint8_t *NewRV_GPSPort )
+{
+	UAVObjGetDataField(HwSettingsHandle(), (void*)NewRV_GPSPort, offsetof( HwSettingsData, RV_GPSPort), sizeof(uint8_t));
 }
 void HwSettingsTelemetrySpeedSet( uint8_t *NewTelemetrySpeed )
 {
@@ -225,11 +253,11 @@ void HwSettingsUSB_VCPPortGet( uint8_t *NewUSB_VCPPort )
 }
 void HwSettingsOptionalModulesSet( uint8_t *NewOptionalModules )
 {
-	UAVObjSetDataField(HwSettingsHandle(), (void*)NewOptionalModules, offsetof( HwSettingsData, OptionalModules), 5*sizeof(uint8_t));
+	UAVObjSetDataField(HwSettingsHandle(), (void*)NewOptionalModules, offsetof( HwSettingsData, OptionalModules), 6*sizeof(uint8_t));
 }
 void HwSettingsOptionalModulesGet( uint8_t *NewOptionalModules )
 {
-	UAVObjGetDataField(HwSettingsHandle(), (void*)NewOptionalModules, offsetof( HwSettingsData, OptionalModules), 5*sizeof(uint8_t));
+	UAVObjGetDataField(HwSettingsHandle(), (void*)NewOptionalModules, offsetof( HwSettingsData, OptionalModules), 6*sizeof(uint8_t));
 }
 void HwSettingsDSMxBindSet( uint8_t *NewDSMxBind )
 {

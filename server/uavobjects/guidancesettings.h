@@ -41,7 +41,7 @@
 #define GUIDANCESETTINGS_H
 
 // Object constants
-#define GUIDANCESETTINGS_OBJID 0x6EA79FB4
+#define GUIDANCESETTINGS_OBJID 0xC14AC6E2
 #define GUIDANCESETTINGS_NAME "GuidanceSettings"
 #define GUIDANCESETTINGS_METANAME "GuidanceSettingsMeta"
 #define GUIDANCESETTINGS_ISSINGLEINST 1
@@ -75,12 +75,16 @@ typedef struct {
     float HorizontalVelPID[4];
     float VerticalPosPI[3];
     float VerticalVelPID[4];
+    float VelocityFeedforward;
     float MaxRollPitch;
     int32_t UpdatePeriod;
     uint16_t HorizontalVelMax;
     uint16_t VerticalVelMax;
     uint8_t GuidanceMode;
+    uint8_t PathMode;
     uint8_t ThrottleControl;
+    uint8_t VelocitySource;
+    uint8_t PositionSource;
 
 } __attribute__((packed)) GuidanceSettingsData;
 
@@ -105,6 +109,7 @@ typedef enum { GUIDANCESETTINGS_VERTICALPOSPI_KP=0, GUIDANCESETTINGS_VERTICALPOS
 typedef enum { GUIDANCESETTINGS_VERTICALVELPID_KP=0, GUIDANCESETTINGS_VERTICALVELPID_KI=1, GUIDANCESETTINGS_VERTICALVELPID_KD=2, GUIDANCESETTINGS_VERTICALVELPID_ILIMIT=3 } GuidanceSettingsVerticalVelPIDElem;
 /* Number of elements for field VerticalVelPID */
 #define GUIDANCESETTINGS_VERTICALVELPID_NUMELEM 4
+// Field VelocityFeedforward information
 // Field MaxRollPitch information
 // Field UpdatePeriod information
 // Field HorizontalVelMax information
@@ -112,9 +117,18 @@ typedef enum { GUIDANCESETTINGS_VERTICALVELPID_KP=0, GUIDANCESETTINGS_VERTICALVE
 // Field GuidanceMode information
 /* Enumeration options for field GuidanceMode */
 typedef enum { GUIDANCESETTINGS_GUIDANCEMODE_DUAL_LOOP=0, GUIDANCESETTINGS_GUIDANCEMODE_VELOCITY_CONTROL=1 } GuidanceSettingsGuidanceModeOptions;
+// Field PathMode information
+/* Enumeration options for field PathMode */
+typedef enum { GUIDANCESETTINGS_PATHMODE_ENDPOINT=0, GUIDANCESETTINGS_PATHMODE_PATH=1 } GuidanceSettingsPathModeOptions;
 // Field ThrottleControl information
 /* Enumeration options for field ThrottleControl */
 typedef enum { GUIDANCESETTINGS_THROTTLECONTROL_FALSE=0, GUIDANCESETTINGS_THROTTLECONTROL_TRUE=1 } GuidanceSettingsThrottleControlOptions;
+// Field VelocitySource information
+/* Enumeration options for field VelocitySource */
+typedef enum { GUIDANCESETTINGS_VELOCITYSOURCE_EKF=0, GUIDANCESETTINGS_VELOCITYSOURCE_NEDVEL=1, GUIDANCESETTINGS_VELOCITYSOURCE_GPSPOS=2 } GuidanceSettingsVelocitySourceOptions;
+// Field PositionSource information
+/* Enumeration options for field PositionSource */
+typedef enum { GUIDANCESETTINGS_POSITIONSOURCE_EKF=0, GUIDANCESETTINGS_POSITIONSOURCE_GPSPOS=1 } GuidanceSettingsPositionSourceOptions;
 
 
 // Generic interface functions
@@ -131,6 +145,8 @@ extern void GuidanceSettingsVerticalPosPISet( float *NewVerticalPosPI );
 extern void GuidanceSettingsVerticalPosPIGet( float *NewVerticalPosPI );
 extern void GuidanceSettingsVerticalVelPIDSet( float *NewVerticalVelPID );
 extern void GuidanceSettingsVerticalVelPIDGet( float *NewVerticalVelPID );
+extern void GuidanceSettingsVelocityFeedforwardSet( float *NewVelocityFeedforward );
+extern void GuidanceSettingsVelocityFeedforwardGet( float *NewVelocityFeedforward );
 extern void GuidanceSettingsMaxRollPitchSet( float *NewMaxRollPitch );
 extern void GuidanceSettingsMaxRollPitchGet( float *NewMaxRollPitch );
 extern void GuidanceSettingsUpdatePeriodSet( int32_t *NewUpdatePeriod );
@@ -141,8 +157,14 @@ extern void GuidanceSettingsVerticalVelMaxSet( uint16_t *NewVerticalVelMax );
 extern void GuidanceSettingsVerticalVelMaxGet( uint16_t *NewVerticalVelMax );
 extern void GuidanceSettingsGuidanceModeSet( uint8_t *NewGuidanceMode );
 extern void GuidanceSettingsGuidanceModeGet( uint8_t *NewGuidanceMode );
+extern void GuidanceSettingsPathModeSet( uint8_t *NewPathMode );
+extern void GuidanceSettingsPathModeGet( uint8_t *NewPathMode );
 extern void GuidanceSettingsThrottleControlSet( uint8_t *NewThrottleControl );
 extern void GuidanceSettingsThrottleControlGet( uint8_t *NewThrottleControl );
+extern void GuidanceSettingsVelocitySourceSet( uint8_t *NewVelocitySource );
+extern void GuidanceSettingsVelocitySourceGet( uint8_t *NewVelocitySource );
+extern void GuidanceSettingsPositionSourceSet( uint8_t *NewPositionSource );
+extern void GuidanceSettingsPositionSourceGet( uint8_t *NewPositionSource );
 
 
 #endif // GUIDANCESETTINGS_H

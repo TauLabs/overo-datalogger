@@ -84,8 +84,10 @@ void AltitudeHoldSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.Kp = 0.025;
 	data.Ki = 0.025;
 	data.Kd = 0.25;
-	data.Tau = 0.1;
-	data.DerivativeTau = 0.1;
+	data.Ka = 0;
+	data.PressureNoise = 0.01;
+	data.AccelNoise = 10;
+	data.AccelDrift = 0.001;
 
 	UAVObjSetInstanceData(obj, instId, &data);
 
@@ -138,21 +140,37 @@ void AltitudeHoldSettingsKdGet( float *NewKd )
 {
 	UAVObjGetDataField(AltitudeHoldSettingsHandle(), (void*)NewKd, offsetof( AltitudeHoldSettingsData, Kd), sizeof(float));
 }
-void AltitudeHoldSettingsTauSet( float *NewTau )
+void AltitudeHoldSettingsKaSet( float *NewKa )
 {
-	UAVObjSetDataField(AltitudeHoldSettingsHandle(), (void*)NewTau, offsetof( AltitudeHoldSettingsData, Tau), sizeof(float));
+	UAVObjSetDataField(AltitudeHoldSettingsHandle(), (void*)NewKa, offsetof( AltitudeHoldSettingsData, Ka), sizeof(float));
 }
-void AltitudeHoldSettingsTauGet( float *NewTau )
+void AltitudeHoldSettingsKaGet( float *NewKa )
 {
-	UAVObjGetDataField(AltitudeHoldSettingsHandle(), (void*)NewTau, offsetof( AltitudeHoldSettingsData, Tau), sizeof(float));
+	UAVObjGetDataField(AltitudeHoldSettingsHandle(), (void*)NewKa, offsetof( AltitudeHoldSettingsData, Ka), sizeof(float));
 }
-void AltitudeHoldSettingsDerivativeTauSet( float *NewDerivativeTau )
+void AltitudeHoldSettingsPressureNoiseSet( float *NewPressureNoise )
 {
-	UAVObjSetDataField(AltitudeHoldSettingsHandle(), (void*)NewDerivativeTau, offsetof( AltitudeHoldSettingsData, DerivativeTau), sizeof(float));
+	UAVObjSetDataField(AltitudeHoldSettingsHandle(), (void*)NewPressureNoise, offsetof( AltitudeHoldSettingsData, PressureNoise), sizeof(float));
 }
-void AltitudeHoldSettingsDerivativeTauGet( float *NewDerivativeTau )
+void AltitudeHoldSettingsPressureNoiseGet( float *NewPressureNoise )
 {
-	UAVObjGetDataField(AltitudeHoldSettingsHandle(), (void*)NewDerivativeTau, offsetof( AltitudeHoldSettingsData, DerivativeTau), sizeof(float));
+	UAVObjGetDataField(AltitudeHoldSettingsHandle(), (void*)NewPressureNoise, offsetof( AltitudeHoldSettingsData, PressureNoise), sizeof(float));
+}
+void AltitudeHoldSettingsAccelNoiseSet( float *NewAccelNoise )
+{
+	UAVObjSetDataField(AltitudeHoldSettingsHandle(), (void*)NewAccelNoise, offsetof( AltitudeHoldSettingsData, AccelNoise), sizeof(float));
+}
+void AltitudeHoldSettingsAccelNoiseGet( float *NewAccelNoise )
+{
+	UAVObjGetDataField(AltitudeHoldSettingsHandle(), (void*)NewAccelNoise, offsetof( AltitudeHoldSettingsData, AccelNoise), sizeof(float));
+}
+void AltitudeHoldSettingsAccelDriftSet( float *NewAccelDrift )
+{
+	UAVObjSetDataField(AltitudeHoldSettingsHandle(), (void*)NewAccelDrift, offsetof( AltitudeHoldSettingsData, AccelDrift), sizeof(float));
+}
+void AltitudeHoldSettingsAccelDriftGet( float *NewAccelDrift )
+{
+	UAVObjGetDataField(AltitudeHoldSettingsHandle(), (void*)NewAccelDrift, offsetof( AltitudeHoldSettingsData, AccelDrift), sizeof(float));
 }
 
 

@@ -41,7 +41,7 @@
 #define REVOCALIBRATION_H
 
 // Object constants
-#define REVOCALIBRATION_OBJID 0xC26D37B2
+#define REVOCALIBRATION_OBJID 0x257B15D4
 #define REVOCALIBRATION_NAME "RevoCalibration"
 #define REVOCALIBRATION_METANAME "RevoCalibrationMeta"
 #define REVOCALIBRATION_ISSINGLEINST 1
@@ -81,6 +81,8 @@ typedef struct {
     float mag_bias[3];
     float mag_scale[3];
     float mag_var[3];
+    float gps_var[2];
+    float baro_var;
     uint8_t BiasCorrectedRaw;
 
 } __attribute__((packed)) RevoCalibrationData;
@@ -136,6 +138,12 @@ typedef enum { REVOCALIBRATION_MAG_SCALE_X=0, REVOCALIBRATION_MAG_SCALE_Y=1, REV
 typedef enum { REVOCALIBRATION_MAG_VAR_X=0, REVOCALIBRATION_MAG_VAR_Y=1, REVOCALIBRATION_MAG_VAR_Z=2 } RevoCalibrationmag_varElem;
 /* Number of elements for field mag_var */
 #define REVOCALIBRATION_MAG_VAR_NUMELEM 3
+// Field gps_var information
+/* Array element names for field gps_var */
+typedef enum { REVOCALIBRATION_GPS_VAR_POS=0, REVOCALIBRATION_GPS_VAR_VEL=1 } RevoCalibrationgps_varElem;
+/* Number of elements for field gps_var */
+#define REVOCALIBRATION_GPS_VAR_NUMELEM 2
+// Field baro_var information
 // Field BiasCorrectedRaw information
 /* Enumeration options for field BiasCorrectedRaw */
 typedef enum { REVOCALIBRATION_BIASCORRECTEDRAW_TRUE=0, REVOCALIBRATION_BIASCORRECTEDRAW_FALSE=1 } RevoCalibrationBiasCorrectedRawOptions;
@@ -167,6 +175,10 @@ extern void RevoCalibrationmag_scaleSet( float *Newmag_scale );
 extern void RevoCalibrationmag_scaleGet( float *Newmag_scale );
 extern void RevoCalibrationmag_varSet( float *Newmag_var );
 extern void RevoCalibrationmag_varGet( float *Newmag_var );
+extern void RevoCalibrationgps_varSet( float *Newgps_var );
+extern void RevoCalibrationgps_varGet( float *Newgps_var );
+extern void RevoCalibrationbaro_varSet( float *Newbaro_var );
+extern void RevoCalibrationbaro_varGet( float *Newbaro_var );
 extern void RevoCalibrationBiasCorrectedRawSet( uint8_t *NewBiasCorrectedRaw );
 extern void RevoCalibrationBiasCorrectedRawGet( uint8_t *NewBiasCorrectedRaw );
 

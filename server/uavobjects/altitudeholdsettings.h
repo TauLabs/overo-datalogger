@@ -41,7 +41,7 @@
 #define ALTITUDEHOLDSETTINGS_H
 
 // Object constants
-#define ALTITUDEHOLDSETTINGS_OBJID 0xEE0551C4
+#define ALTITUDEHOLDSETTINGS_OBJID 0xFEC55B42
 #define ALTITUDEHOLDSETTINGS_NAME "AltitudeHoldSettings"
 #define ALTITUDEHOLDSETTINGS_METANAME "AltitudeHoldSettingsMeta"
 #define ALTITUDEHOLDSETTINGS_ISSINGLEINST 1
@@ -74,8 +74,10 @@ typedef struct {
     float Kp;
     float Ki;
     float Kd;
-    float Tau;
-    float DerivativeTau;
+    float Ka;
+    float PressureNoise;
+    float AccelNoise;
+    float AccelDrift;
 
 } __attribute__((packed)) AltitudeHoldSettingsData;
 
@@ -83,8 +85,10 @@ typedef struct {
 // Field Kp information
 // Field Ki information
 // Field Kd information
-// Field Tau information
-// Field DerivativeTau information
+// Field Ka information
+// Field PressureNoise information
+// Field AccelNoise information
+// Field AccelDrift information
 
 
 // Generic interface functions
@@ -99,10 +103,14 @@ extern void AltitudeHoldSettingsKiSet( float *NewKi );
 extern void AltitudeHoldSettingsKiGet( float *NewKi );
 extern void AltitudeHoldSettingsKdSet( float *NewKd );
 extern void AltitudeHoldSettingsKdGet( float *NewKd );
-extern void AltitudeHoldSettingsTauSet( float *NewTau );
-extern void AltitudeHoldSettingsTauGet( float *NewTau );
-extern void AltitudeHoldSettingsDerivativeTauSet( float *NewDerivativeTau );
-extern void AltitudeHoldSettingsDerivativeTauGet( float *NewDerivativeTau );
+extern void AltitudeHoldSettingsKaSet( float *NewKa );
+extern void AltitudeHoldSettingsKaGet( float *NewKa );
+extern void AltitudeHoldSettingsPressureNoiseSet( float *NewPressureNoise );
+extern void AltitudeHoldSettingsPressureNoiseGet( float *NewPressureNoise );
+extern void AltitudeHoldSettingsAccelNoiseSet( float *NewAccelNoise );
+extern void AltitudeHoldSettingsAccelNoiseGet( float *NewAccelNoise );
+extern void AltitudeHoldSettingsAccelDriftSet( float *NewAccelDrift );
+extern void AltitudeHoldSettingsAccelDriftGet( float *NewAccelDrift );
 
 
 #endif // ALTITUDEHOLDSETTINGS_H

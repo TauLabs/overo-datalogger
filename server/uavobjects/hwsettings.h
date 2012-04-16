@@ -41,7 +41,7 @@
 #define HWSETTINGS_H
 
 // Object constants
-#define HWSETTINGS_OBJID 0x2EE6575A
+#define HWSETTINGS_OBJID 0x4730375C
 #define HWSETTINGS_NAME "HwSettings"
 #define HWSETTINGS_METANAME "HwSettingsMeta"
 #define HWSETTINGS_ISSINGLEINST 1
@@ -74,16 +74,19 @@ typedef struct {
     uint8_t CC_RcvrPort;
     uint8_t CC_MainPort;
     uint8_t CC_FlexiPort;
-    uint8_t OP_RcvrPort;
-    uint8_t OP_MainPort;
-    uint8_t OP_FlexiPort;
+    uint8_t RV_RcvrPort;
+    uint8_t RV_AuxPort;
+    uint8_t RV_AuxSBusPort;
+    uint8_t RV_FlexiPort;
+    uint8_t RV_TelemetryPort;
+    uint8_t RV_GPSPort;
     uint8_t TelemetrySpeed;
     uint8_t GPSSpeed;
     uint8_t ComUsbBridgeSpeed;
     uint8_t USB_DeviceType;
     uint8_t USB_HIDPort;
     uint8_t USB_VCPPort;
-    uint8_t OptionalModules[5];
+    uint8_t OptionalModules[6];
     uint8_t DSMxBind;
 
 } __attribute__((packed)) HwSettingsData;
@@ -98,15 +101,24 @@ typedef enum { HWSETTINGS_CC_MAINPORT_DISABLED=0, HWSETTINGS_CC_MAINPORT_TELEMET
 // Field CC_FlexiPort information
 /* Enumeration options for field CC_FlexiPort */
 typedef enum { HWSETTINGS_CC_FLEXIPORT_DISABLED=0, HWSETTINGS_CC_FLEXIPORT_TELEMETRY=1, HWSETTINGS_CC_FLEXIPORT_GPS=2, HWSETTINGS_CC_FLEXIPORT_I2C=3, HWSETTINGS_CC_FLEXIPORT_DSM2=4, HWSETTINGS_CC_FLEXIPORT_DSMX10BIT=5, HWSETTINGS_CC_FLEXIPORT_DSMX11BIT=6, HWSETTINGS_CC_FLEXIPORT_COMAUX=7, HWSETTINGS_CC_FLEXIPORT_COMBRIDGE=8 } HwSettingsCC_FlexiPortOptions;
-// Field OP_RcvrPort information
-/* Enumeration options for field OP_RcvrPort */
-typedef enum { HWSETTINGS_OP_RCVRPORT_DISABLED=0, HWSETTINGS_OP_RCVRPORT_PWM=1, HWSETTINGS_OP_RCVRPORT_PPM=2, HWSETTINGS_OP_RCVRPORT_DSM2=3, HWSETTINGS_OP_RCVRPORT_DSMX10BIT=4, HWSETTINGS_OP_RCVRPORT_DSMX11BIT=5, HWSETTINGS_OP_RCVRPORT_DEBUG=6 } HwSettingsOP_RcvrPortOptions;
-// Field OP_MainPort information
-/* Enumeration options for field OP_MainPort */
-typedef enum { HWSETTINGS_OP_MAINPORT_DISABLED=0, HWSETTINGS_OP_MAINPORT_TELEMETRY=1 } HwSettingsOP_MainPortOptions;
-// Field OP_FlexiPort information
-/* Enumeration options for field OP_FlexiPort */
-typedef enum { HWSETTINGS_OP_FLEXIPORT_DISABLED=0, HWSETTINGS_OP_FLEXIPORT_GPS=1 } HwSettingsOP_FlexiPortOptions;
+// Field RV_RcvrPort information
+/* Enumeration options for field RV_RcvrPort */
+typedef enum { HWSETTINGS_RV_RCVRPORT_DISABLED=0, HWSETTINGS_RV_RCVRPORT_PWM=1, HWSETTINGS_RV_RCVRPORT_PPM=2, HWSETTINGS_RV_RCVRPORT_PPMOUTPUTS=3, HWSETTINGS_RV_RCVRPORT_OUTPUTS=4 } HwSettingsRV_RcvrPortOptions;
+// Field RV_AuxPort information
+/* Enumeration options for field RV_AuxPort */
+typedef enum { HWSETTINGS_RV_AUXPORT_DISABLED=0, HWSETTINGS_RV_AUXPORT_TELEMETRY=1, HWSETTINGS_RV_AUXPORT_DSM2=2, HWSETTINGS_RV_AUXPORT_DSMX10BIT=3, HWSETTINGS_RV_AUXPORT_DSMX11BIT=4, HWSETTINGS_RV_AUXPORT_COMAUX=5, HWSETTINGS_RV_AUXPORT_COMBRIDGE=6 } HwSettingsRV_AuxPortOptions;
+// Field RV_AuxSBusPort information
+/* Enumeration options for field RV_AuxSBusPort */
+typedef enum { HWSETTINGS_RV_AUXSBUSPORT_DISABLED=0, HWSETTINGS_RV_AUXSBUSPORT_SBUS=1, HWSETTINGS_RV_AUXSBUSPORT_DSM2=2, HWSETTINGS_RV_AUXSBUSPORT_DSMX10BIT=3, HWSETTINGS_RV_AUXSBUSPORT_DSMX11BIT=4, HWSETTINGS_RV_AUXSBUSPORT_COMAUX=5, HWSETTINGS_RV_AUXSBUSPORT_COMBRIDGE=6 } HwSettingsRV_AuxSBusPortOptions;
+// Field RV_FlexiPort information
+/* Enumeration options for field RV_FlexiPort */
+typedef enum { HWSETTINGS_RV_FLEXIPORT_DISABLED=0, HWSETTINGS_RV_FLEXIPORT_I2C=1, HWSETTINGS_RV_FLEXIPORT_DSM2=2, HWSETTINGS_RV_FLEXIPORT_DSMX10BIT=3, HWSETTINGS_RV_FLEXIPORT_DSMX11BIT=4, HWSETTINGS_RV_FLEXIPORT_COMAUX=5, HWSETTINGS_RV_FLEXIPORT_COMBRIDGE=6 } HwSettingsRV_FlexiPortOptions;
+// Field RV_TelemetryPort information
+/* Enumeration options for field RV_TelemetryPort */
+typedef enum { HWSETTINGS_RV_TELEMETRYPORT_DISABLED=0, HWSETTINGS_RV_TELEMETRYPORT_TELEMETRY=1, HWSETTINGS_RV_TELEMETRYPORT_COMAUX=2, HWSETTINGS_RV_TELEMETRYPORT_COMBRIDGE=3 } HwSettingsRV_TelemetryPortOptions;
+// Field RV_GPSPort information
+/* Enumeration options for field RV_GPSPort */
+typedef enum { HWSETTINGS_RV_GPSPORT_DISABLED=0, HWSETTINGS_RV_GPSPORT_TELEMETRY=1, HWSETTINGS_RV_GPSPORT_GPS=2, HWSETTINGS_RV_GPSPORT_COMAUX=3, HWSETTINGS_RV_GPSPORT_COMBRIDGE=4 } HwSettingsRV_GPSPortOptions;
 // Field TelemetrySpeed information
 /* Enumeration options for field TelemetrySpeed */
 typedef enum { HWSETTINGS_TELEMETRYSPEED_2400=0, HWSETTINGS_TELEMETRYSPEED_4800=1, HWSETTINGS_TELEMETRYSPEED_9600=2, HWSETTINGS_TELEMETRYSPEED_19200=3, HWSETTINGS_TELEMETRYSPEED_38400=4, HWSETTINGS_TELEMETRYSPEED_57600=5, HWSETTINGS_TELEMETRYSPEED_115200=6 } HwSettingsTelemetrySpeedOptions;
@@ -129,9 +141,9 @@ typedef enum { HWSETTINGS_USB_VCPPORT_USBTELEMETRY=0, HWSETTINGS_USB_VCPPORT_COM
 /* Enumeration options for field OptionalModules */
 typedef enum { HWSETTINGS_OPTIONALMODULES_DISABLED=0, HWSETTINGS_OPTIONALMODULES_ENABLED=1 } HwSettingsOptionalModulesOptions;
 /* Array element names for field OptionalModules */
-typedef enum { HWSETTINGS_OPTIONALMODULES_CAMERASTAB=0, HWSETTINGS_OPTIONALMODULES_GPS=1, HWSETTINGS_OPTIONALMODULES_COMUSBBRIDGE=2, HWSETTINGS_OPTIONALMODULES_FAULT=3, HWSETTINGS_OPTIONALMODULES_ALTITUDE=4 } HwSettingsOptionalModulesElem;
+typedef enum { HWSETTINGS_OPTIONALMODULES_CAMERASTAB=0, HWSETTINGS_OPTIONALMODULES_GPS=1, HWSETTINGS_OPTIONALMODULES_COMUSBBRIDGE=2, HWSETTINGS_OPTIONALMODULES_FAULT=3, HWSETTINGS_OPTIONALMODULES_ALTITUDE=4, HWSETTINGS_OPTIONALMODULES_TXPID=5 } HwSettingsOptionalModulesElem;
 /* Number of elements for field OptionalModules */
-#define HWSETTINGS_OPTIONALMODULES_NUMELEM 5
+#define HWSETTINGS_OPTIONALMODULES_NUMELEM 6
 // Field DSMxBind information
 
 
@@ -147,12 +159,18 @@ extern void HwSettingsCC_MainPortSet( uint8_t *NewCC_MainPort );
 extern void HwSettingsCC_MainPortGet( uint8_t *NewCC_MainPort );
 extern void HwSettingsCC_FlexiPortSet( uint8_t *NewCC_FlexiPort );
 extern void HwSettingsCC_FlexiPortGet( uint8_t *NewCC_FlexiPort );
-extern void HwSettingsOP_RcvrPortSet( uint8_t *NewOP_RcvrPort );
-extern void HwSettingsOP_RcvrPortGet( uint8_t *NewOP_RcvrPort );
-extern void HwSettingsOP_MainPortSet( uint8_t *NewOP_MainPort );
-extern void HwSettingsOP_MainPortGet( uint8_t *NewOP_MainPort );
-extern void HwSettingsOP_FlexiPortSet( uint8_t *NewOP_FlexiPort );
-extern void HwSettingsOP_FlexiPortGet( uint8_t *NewOP_FlexiPort );
+extern void HwSettingsRV_RcvrPortSet( uint8_t *NewRV_RcvrPort );
+extern void HwSettingsRV_RcvrPortGet( uint8_t *NewRV_RcvrPort );
+extern void HwSettingsRV_AuxPortSet( uint8_t *NewRV_AuxPort );
+extern void HwSettingsRV_AuxPortGet( uint8_t *NewRV_AuxPort );
+extern void HwSettingsRV_AuxSBusPortSet( uint8_t *NewRV_AuxSBusPort );
+extern void HwSettingsRV_AuxSBusPortGet( uint8_t *NewRV_AuxSBusPort );
+extern void HwSettingsRV_FlexiPortSet( uint8_t *NewRV_FlexiPort );
+extern void HwSettingsRV_FlexiPortGet( uint8_t *NewRV_FlexiPort );
+extern void HwSettingsRV_TelemetryPortSet( uint8_t *NewRV_TelemetryPort );
+extern void HwSettingsRV_TelemetryPortGet( uint8_t *NewRV_TelemetryPort );
+extern void HwSettingsRV_GPSPortSet( uint8_t *NewRV_GPSPort );
+extern void HwSettingsRV_GPSPortGet( uint8_t *NewRV_GPSPort );
 extern void HwSettingsTelemetrySpeedSet( uint8_t *NewTelemetrySpeed );
 extern void HwSettingsTelemetrySpeedGet( uint8_t *NewTelemetrySpeed );
 extern void HwSettingsGPSSpeedSet( uint8_t *NewGPSSpeed );

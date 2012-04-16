@@ -87,18 +87,18 @@ void RevoCalibrationSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.accel_scale[0] = 1;
 	data.accel_scale[1] = 1;
 	data.accel_scale[2] = 1;
-	data.accel_var[0] = 1;
-	data.accel_var[1] = 1;
-	data.accel_var[2] = 1;
+	data.accel_var[0] = 0.01;
+	data.accel_var[1] = 0.01;
+	data.accel_var[2] = 0.01;
 	data.gyro_bias[0] = 0;
 	data.gyro_bias[1] = 0;
 	data.gyro_bias[2] = 0;
 	data.gyro_scale[0] = 1;
 	data.gyro_scale[1] = 1;
 	data.gyro_scale[2] = 1;
-	data.gyro_var[0] = 1;
-	data.gyro_var[1] = 1;
-	data.gyro_var[2] = 1;
+	data.gyro_var[0] = 0.01;
+	data.gyro_var[1] = 0.01;
+	data.gyro_var[2] = 0.01;
 	data.gyro_tempcoeff[0] = 1;
 	data.gyro_tempcoeff[1] = 1;
 	data.gyro_tempcoeff[2] = 1;
@@ -108,9 +108,12 @@ void RevoCalibrationSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.mag_scale[0] = 1;
 	data.mag_scale[1] = 1;
 	data.mag_scale[2] = 1;
-	data.mag_var[0] = 50;
-	data.mag_var[1] = 50;
-	data.mag_var[2] = 50;
+	data.mag_var[0] = 0.01;
+	data.mag_var[1] = 0.01;
+	data.mag_var[2] = 10;
+	data.gps_var[0] = 1;
+	data.gps_var[1] = 1;
+	data.baro_var = 1;
 	data.BiasCorrectedRaw = 0;
 
 	UAVObjSetInstanceData(obj, instId, &data);
@@ -219,6 +222,22 @@ void RevoCalibrationmag_varSet( float *Newmag_var )
 void RevoCalibrationmag_varGet( float *Newmag_var )
 {
 	UAVObjGetDataField(RevoCalibrationHandle(), (void*)Newmag_var, offsetof( RevoCalibrationData, mag_var), 3*sizeof(float));
+}
+void RevoCalibrationgps_varSet( float *Newgps_var )
+{
+	UAVObjSetDataField(RevoCalibrationHandle(), (void*)Newgps_var, offsetof( RevoCalibrationData, gps_var), 2*sizeof(float));
+}
+void RevoCalibrationgps_varGet( float *Newgps_var )
+{
+	UAVObjGetDataField(RevoCalibrationHandle(), (void*)Newgps_var, offsetof( RevoCalibrationData, gps_var), 2*sizeof(float));
+}
+void RevoCalibrationbaro_varSet( float *Newbaro_var )
+{
+	UAVObjSetDataField(RevoCalibrationHandle(), (void*)Newbaro_var, offsetof( RevoCalibrationData, baro_var), sizeof(float));
+}
+void RevoCalibrationbaro_varGet( float *Newbaro_var )
+{
+	UAVObjGetDataField(RevoCalibrationHandle(), (void*)Newbaro_var, offsetof( RevoCalibrationData, baro_var), sizeof(float));
 }
 void RevoCalibrationBiasCorrectedRawSet( uint8_t *NewBiasCorrectedRaw )
 {

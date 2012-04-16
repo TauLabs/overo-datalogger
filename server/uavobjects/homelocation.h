@@ -41,7 +41,7 @@
 #define HOMELOCATION_H
 
 // Object constants
-#define HOMELOCATION_OBJID 0x5BB3AEFC
+#define HOMELOCATION_OBJID 0x6185DC6E
 #define HOMELOCATION_NAME "HomeLocation"
 #define HOMELOCATION_METANAME "HomeLocationMeta"
 #define HOMELOCATION_ISSINGLEINST 1
@@ -74,8 +74,6 @@ typedef struct {
     int32_t Latitude;
     int32_t Longitude;
     float Altitude;
-    int32_t ECEF[3];
-    float RNE[9];
     float Be[3];
     float g_e;
     uint8_t Set;
@@ -86,12 +84,6 @@ typedef struct {
 // Field Latitude information
 // Field Longitude information
 // Field Altitude information
-// Field ECEF information
-/* Number of elements for field ECEF */
-#define HOMELOCATION_ECEF_NUMELEM 3
-// Field RNE information
-/* Number of elements for field RNE */
-#define HOMELOCATION_RNE_NUMELEM 9
 // Field Be information
 /* Number of elements for field Be */
 #define HOMELOCATION_BE_NUMELEM 3
@@ -113,10 +105,6 @@ extern void HomeLocationLongitudeSet( int32_t *NewLongitude );
 extern void HomeLocationLongitudeGet( int32_t *NewLongitude );
 extern void HomeLocationAltitudeSet( float *NewAltitude );
 extern void HomeLocationAltitudeGet( float *NewAltitude );
-extern void HomeLocationECEFSet( int32_t *NewECEF );
-extern void HomeLocationECEFGet( int32_t *NewECEF );
-extern void HomeLocationRNESet( float *NewRNE );
-extern void HomeLocationRNEGet( float *NewRNE );
 extern void HomeLocationBeSet( float *NewBe );
 extern void HomeLocationBeGet( float *NewBe );
 extern void HomeLocationg_eSet( float *Newg_e );

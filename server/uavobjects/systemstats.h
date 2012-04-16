@@ -41,7 +41,7 @@
 #define SYSTEMSTATS_H
 
 // Object constants
-#define SYSTEMSTATS_OBJID 0xD610A0F0
+#define SYSTEMSTATS_OBJID 0x364D1406
 #define SYSTEMSTATS_NAME "SystemStats"
 #define SYSTEMSTATS_METANAME "SystemStatsMeta"
 #define SYSTEMSTATS_ISSINGLEINST 1
@@ -72,6 +72,9 @@
 // Object data
 typedef struct {
     uint32_t FlightTime;
+    uint32_t EventSystemWarningID;
+    uint32_t ObjectManagerCallbackID;
+    uint32_t ObjectManagerQueueID;
     uint16_t HeapRemaining;
     uint16_t IRQStackRemaining;
     uint8_t CPULoad;
@@ -81,6 +84,9 @@ typedef struct {
 
 // Field information
 // Field FlightTime information
+// Field EventSystemWarningID information
+// Field ObjectManagerCallbackID information
+// Field ObjectManagerQueueID information
 // Field HeapRemaining information
 // Field IRQStackRemaining information
 // Field CPULoad information
@@ -95,6 +101,12 @@ void SystemStatsSetDefaults(UAVObjHandle obj, uint16_t instId);
 // set/Get functions
 extern void SystemStatsFlightTimeSet( uint32_t *NewFlightTime );
 extern void SystemStatsFlightTimeGet( uint32_t *NewFlightTime );
+extern void SystemStatsEventSystemWarningIDSet( uint32_t *NewEventSystemWarningID );
+extern void SystemStatsEventSystemWarningIDGet( uint32_t *NewEventSystemWarningID );
+extern void SystemStatsObjectManagerCallbackIDSet( uint32_t *NewObjectManagerCallbackID );
+extern void SystemStatsObjectManagerCallbackIDGet( uint32_t *NewObjectManagerCallbackID );
+extern void SystemStatsObjectManagerQueueIDSet( uint32_t *NewObjectManagerQueueID );
+extern void SystemStatsObjectManagerQueueIDGet( uint32_t *NewObjectManagerQueueID );
 extern void SystemStatsHeapRemainingSet( uint16_t *NewHeapRemaining );
 extern void SystemStatsHeapRemainingGet( uint16_t *NewHeapRemaining );
 extern void SystemStatsIRQStackRemainingSet( uint16_t *NewIRQStackRemaining );

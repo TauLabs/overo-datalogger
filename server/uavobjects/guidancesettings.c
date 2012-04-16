@@ -81,13 +81,13 @@ void GuidanceSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	// Initialize object fields to their default values
 	UAVObjGetInstanceData(obj, instId, &data);
 	memset(&data, 0, sizeof(GuidanceSettingsData));
-	data.HorizontalPosPI[0] = 0.1;
-	data.HorizontalPosPI[1] = 0.001;
-	data.HorizontalPosPI[2] = 300;
-	data.HorizontalVelPID[0] = 0.05;
-	data.HorizontalVelPID[1] = 0.002;
-	data.HorizontalVelPID[2] = 0;
-	data.HorizontalVelPID[3] = 1000;
+	data.HorizontalPosPI[0] = 1;
+	data.HorizontalPosPI[1] = 0;
+	data.HorizontalPosPI[2] = 0;
+	data.HorizontalVelPID[0] = 5;
+	data.HorizontalVelPID[1] = 0;
+	data.HorizontalVelPID[2] = 1;
+	data.HorizontalVelPID[3] = 0;
 	data.VerticalPosPI[0] = 0.1;
 	data.VerticalPosPI[1] = 0.001;
 	data.VerticalPosPI[2] = 200;
@@ -95,12 +95,16 @@ void GuidanceSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.VerticalVelPID[1] = 0;
 	data.VerticalVelPID[2] = 0;
 	data.VerticalVelPID[3] = 0;
-	data.MaxRollPitch = 10;
+	data.VelocityFeedforward = 0;
+	data.MaxRollPitch = 20;
 	data.UpdatePeriod = 100;
-	data.HorizontalVelMax = 300;
-	data.VerticalVelMax = 150;
+	data.HorizontalVelMax = 10;
+	data.VerticalVelMax = 1;
 	data.GuidanceMode = 0;
+	data.PathMode = 0;
 	data.ThrottleControl = 0;
+	data.VelocitySource = 0;
+	data.PositionSource = 0;
 
 	UAVObjSetInstanceData(obj, instId, &data);
 
@@ -161,6 +165,14 @@ void GuidanceSettingsVerticalVelPIDGet( float *NewVerticalVelPID )
 {
 	UAVObjGetDataField(GuidanceSettingsHandle(), (void*)NewVerticalVelPID, offsetof( GuidanceSettingsData, VerticalVelPID), 4*sizeof(float));
 }
+void GuidanceSettingsVelocityFeedforwardSet( float *NewVelocityFeedforward )
+{
+	UAVObjSetDataField(GuidanceSettingsHandle(), (void*)NewVelocityFeedforward, offsetof( GuidanceSettingsData, VelocityFeedforward), sizeof(float));
+}
+void GuidanceSettingsVelocityFeedforwardGet( float *NewVelocityFeedforward )
+{
+	UAVObjGetDataField(GuidanceSettingsHandle(), (void*)NewVelocityFeedforward, offsetof( GuidanceSettingsData, VelocityFeedforward), sizeof(float));
+}
 void GuidanceSettingsMaxRollPitchSet( float *NewMaxRollPitch )
 {
 	UAVObjSetDataField(GuidanceSettingsHandle(), (void*)NewMaxRollPitch, offsetof( GuidanceSettingsData, MaxRollPitch), sizeof(float));
@@ -201,6 +213,14 @@ void GuidanceSettingsGuidanceModeGet( uint8_t *NewGuidanceMode )
 {
 	UAVObjGetDataField(GuidanceSettingsHandle(), (void*)NewGuidanceMode, offsetof( GuidanceSettingsData, GuidanceMode), sizeof(uint8_t));
 }
+void GuidanceSettingsPathModeSet( uint8_t *NewPathMode )
+{
+	UAVObjSetDataField(GuidanceSettingsHandle(), (void*)NewPathMode, offsetof( GuidanceSettingsData, PathMode), sizeof(uint8_t));
+}
+void GuidanceSettingsPathModeGet( uint8_t *NewPathMode )
+{
+	UAVObjGetDataField(GuidanceSettingsHandle(), (void*)NewPathMode, offsetof( GuidanceSettingsData, PathMode), sizeof(uint8_t));
+}
 void GuidanceSettingsThrottleControlSet( uint8_t *NewThrottleControl )
 {
 	UAVObjSetDataField(GuidanceSettingsHandle(), (void*)NewThrottleControl, offsetof( GuidanceSettingsData, ThrottleControl), sizeof(uint8_t));
@@ -208,6 +228,22 @@ void GuidanceSettingsThrottleControlSet( uint8_t *NewThrottleControl )
 void GuidanceSettingsThrottleControlGet( uint8_t *NewThrottleControl )
 {
 	UAVObjGetDataField(GuidanceSettingsHandle(), (void*)NewThrottleControl, offsetof( GuidanceSettingsData, ThrottleControl), sizeof(uint8_t));
+}
+void GuidanceSettingsVelocitySourceSet( uint8_t *NewVelocitySource )
+{
+	UAVObjSetDataField(GuidanceSettingsHandle(), (void*)NewVelocitySource, offsetof( GuidanceSettingsData, VelocitySource), sizeof(uint8_t));
+}
+void GuidanceSettingsVelocitySourceGet( uint8_t *NewVelocitySource )
+{
+	UAVObjGetDataField(GuidanceSettingsHandle(), (void*)NewVelocitySource, offsetof( GuidanceSettingsData, VelocitySource), sizeof(uint8_t));
+}
+void GuidanceSettingsPositionSourceSet( uint8_t *NewPositionSource )
+{
+	UAVObjSetDataField(GuidanceSettingsHandle(), (void*)NewPositionSource, offsetof( GuidanceSettingsData, PositionSource), sizeof(uint8_t));
+}
+void GuidanceSettingsPositionSourceGet( uint8_t *NewPositionSource )
+{
+	UAVObjGetDataField(GuidanceSettingsHandle(), (void*)NewPositionSource, offsetof( GuidanceSettingsData, PositionSource), sizeof(uint8_t));
 }
 
 

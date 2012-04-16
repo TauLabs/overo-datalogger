@@ -84,18 +84,6 @@ void HomeLocationSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.Latitude = 0;
 	data.Longitude = 0;
 	data.Altitude = 0;
-	data.ECEF[0] = 0;
-	data.ECEF[1] = 0;
-	data.ECEF[2] = 0;
-	data.RNE[0] = 0;
-	data.RNE[1] = 0;
-	data.RNE[2] = 0;
-	data.RNE[3] = 0;
-	data.RNE[4] = 0;
-	data.RNE[5] = 0;
-	data.RNE[6] = 0;
-	data.RNE[7] = 0;
-	data.RNE[8] = 0;
 	data.Be[0] = 0;
 	data.Be[1] = 0;
 	data.Be[2] = 0;
@@ -152,22 +140,6 @@ void HomeLocationAltitudeSet( float *NewAltitude )
 void HomeLocationAltitudeGet( float *NewAltitude )
 {
 	UAVObjGetDataField(HomeLocationHandle(), (void*)NewAltitude, offsetof( HomeLocationData, Altitude), sizeof(float));
-}
-void HomeLocationECEFSet( int32_t *NewECEF )
-{
-	UAVObjSetDataField(HomeLocationHandle(), (void*)NewECEF, offsetof( HomeLocationData, ECEF), 3*sizeof(int32_t));
-}
-void HomeLocationECEFGet( int32_t *NewECEF )
-{
-	UAVObjGetDataField(HomeLocationHandle(), (void*)NewECEF, offsetof( HomeLocationData, ECEF), 3*sizeof(int32_t));
-}
-void HomeLocationRNESet( float *NewRNE )
-{
-	UAVObjSetDataField(HomeLocationHandle(), (void*)NewRNE, offsetof( HomeLocationData, RNE), 9*sizeof(float));
-}
-void HomeLocationRNEGet( float *NewRNE )
-{
-	UAVObjGetDataField(HomeLocationHandle(), (void*)NewRNE, offsetof( HomeLocationData, RNE), 9*sizeof(float));
 }
 void HomeLocationBeSet( float *NewBe )
 {

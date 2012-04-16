@@ -41,7 +41,7 @@
 #define MIXERSTATUS_H
 
 // Object constants
-#define MIXERSTATUS_OBJID 0x11CFB4E6
+#define MIXERSTATUS_OBJID 0x124E28A
 #define MIXERSTATUS_NAME "MixerStatus"
 #define MIXERSTATUS_METANAME "MixerStatusMeta"
 #define MIXERSTATUS_ISSINGLEINST 1
@@ -79,6 +79,8 @@ typedef struct {
     float Mixer6;
     float Mixer7;
     float Mixer8;
+    float Mixer9;
+    float Mixer10;
 
 } __attribute__((packed)) MixerStatusData;
 
@@ -91,6 +93,8 @@ typedef struct {
 // Field Mixer6 information
 // Field Mixer7 information
 // Field Mixer8 information
+// Field Mixer9 information
+// Field Mixer10 information
 
 
 // Generic interface functions
@@ -115,6 +119,10 @@ extern void MixerStatusMixer7Set( float *NewMixer7 );
 extern void MixerStatusMixer7Get( float *NewMixer7 );
 extern void MixerStatusMixer8Set( float *NewMixer8 );
 extern void MixerStatusMixer8Get( float *NewMixer8 );
+extern void MixerStatusMixer9Set( float *NewMixer9 );
+extern void MixerStatusMixer9Get( float *NewMixer9 );
+extern void MixerStatusMixer10Set( float *NewMixer10 );
+extern void MixerStatusMixer10Get( float *NewMixer10 );
 
 
 #endif // MIXERSTATUS_H

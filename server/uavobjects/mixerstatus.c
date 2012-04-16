@@ -173,6 +173,22 @@ void MixerStatusMixer8Get( float *NewMixer8 )
 {
 	UAVObjGetDataField(MixerStatusHandle(), (void*)NewMixer8, offsetof( MixerStatusData, Mixer8), sizeof(float));
 }
+void MixerStatusMixer9Set( float *NewMixer9 )
+{
+	UAVObjSetDataField(MixerStatusHandle(), (void*)NewMixer9, offsetof( MixerStatusData, Mixer9), sizeof(float));
+}
+void MixerStatusMixer9Get( float *NewMixer9 )
+{
+	UAVObjGetDataField(MixerStatusHandle(), (void*)NewMixer9, offsetof( MixerStatusData, Mixer9), sizeof(float));
+}
+void MixerStatusMixer10Set( float *NewMixer10 )
+{
+	UAVObjSetDataField(MixerStatusHandle(), (void*)NewMixer10, offsetof( MixerStatusData, Mixer10), sizeof(float));
+}
+void MixerStatusMixer10Get( float *NewMixer10 )
+{
+	UAVObjGetDataField(MixerStatusHandle(), (void*)NewMixer10, offsetof( MixerStatusData, Mixer10), sizeof(float));
+}
 
 
 /**
