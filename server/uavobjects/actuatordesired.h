@@ -42,8 +42,6 @@
 
 // Object constants
 #define ACTUATORDESIRED_OBJID 0xCA4BC4A4
-#define ACTUATORDESIRED_NAME "ActuatorDesired"
-#define ACTUATORDESIRED_METANAME "ActuatorDesiredMeta"
 #define ACTUATORDESIRED_ISSINGLEINST 1
 #define ACTUATORDESIRED_ISSETTINGS 0
 #define ACTUATORDESIRED_NUMBYTES sizeof(ActuatorDesiredData)

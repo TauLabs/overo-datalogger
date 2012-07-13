@@ -42,8 +42,6 @@
 
 // Object constants
 #define WAYPOINTACTIVE_OBJID 0x1EA5B192
-#define WAYPOINTACTIVE_NAME "WaypointActive"
-#define WAYPOINTACTIVE_METANAME "WaypointActiveMeta"
 #define WAYPOINTACTIVE_ISSINGLEINST 1
 #define WAYPOINTACTIVE_ISSETTINGS 0
 #define WAYPOINTACTIVE_NUMBYTES sizeof(WaypointActiveData)

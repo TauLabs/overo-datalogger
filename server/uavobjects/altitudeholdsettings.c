@@ -54,7 +54,7 @@ int32_t AltitudeHoldSettingsInitialize(void)
 		return -2;
 	
 	// Register object with the object manager
-	handle = UAVObjRegister(ALTITUDEHOLDSETTINGS_OBJID, ALTITUDEHOLDSETTINGS_NAME, ALTITUDEHOLDSETTINGS_METANAME, 0,
+	handle = UAVObjRegister(ALTITUDEHOLDSETTINGS_OBJID,
 			ALTITUDEHOLDSETTINGS_ISSINGLEINST, ALTITUDEHOLDSETTINGS_ISSETTINGS, ALTITUDEHOLDSETTINGS_NUMBYTES, &AltitudeHoldSettingsSetDefaults);
 
 	// Done
@@ -81,26 +81,26 @@ void AltitudeHoldSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	// Initialize object fields to their default values
 	UAVObjGetInstanceData(obj, instId, &data);
 	memset(&data, 0, sizeof(AltitudeHoldSettingsData));
-	data.Kp = 0.025;
-	data.Ki = 0.025;
-	data.Kd = 0.25;
-	data.Ka = 0;
-	data.PressureNoise = 0.01;
-	data.AccelNoise = 10;
+	data.Kp = 0.03;
+	data.Ki = 0;
+	data.Kd = 0.03;
+	data.Ka = 0.005;
+	data.PressureNoise = 0.4;
+	data.AccelNoise = 5;
 	data.AccelDrift = 0.001;
 
 	UAVObjSetInstanceData(obj, instId, &data);
 
 	// Initialize object metadata to their default values
-	metadata.access = ACCESS_READWRITE;
-	metadata.gcsAccess = ACCESS_READWRITE;
-	metadata.telemetryAcked = 1;
-	metadata.telemetryUpdateMode = UPDATEMODE_ONCHANGE;
+	metadata.flags =
+		ACCESS_READWRITE << UAVOBJ_ACCESS_SHIFT |
+		ACCESS_READWRITE << UAVOBJ_GCS_ACCESS_SHIFT |
+		1 << UAVOBJ_TELEMETRY_ACKED_SHIFT |
+		1 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
+		UPDATEMODE_ONCHANGE << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+		UPDATEMODE_ONCHANGE << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
 	metadata.telemetryUpdatePeriod = 0;
-	metadata.gcsTelemetryAcked = 1;
-	metadata.gcsTelemetryUpdateMode = UPDATEMODE_ONCHANGE;
 	metadata.gcsTelemetryUpdatePeriod = 0;
-	metadata.loggingUpdateMode = UPDATEMODE_NEVER;
 	metadata.loggingUpdatePeriod = 0;
 	UAVObjSetMetadata(obj, &metadata);
 }

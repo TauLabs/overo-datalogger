@@ -42,8 +42,6 @@
 
 // Object constants
 #define HOMELOCATION_OBJID 0x6185DC6E
-#define HOMELOCATION_NAME "HomeLocation"
-#define HOMELOCATION_METANAME "HomeLocationMeta"
 #define HOMELOCATION_ISSINGLEINST 1
 #define HOMELOCATION_ISSETTINGS 1
 #define HOMELOCATION_NUMBYTES sizeof(HomeLocationData)

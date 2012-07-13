@@ -42,8 +42,6 @@
 
 // Object constants
 #define I2CSTATS_OBJID 0xB714823E
-#define I2CSTATS_NAME "I2CStats"
-#define I2CSTATS_METANAME "I2CStatsMeta"
 #define I2CSTATS_ISSINGLEINST 1
 #define I2CSTATS_ISSETTINGS 0
 #define I2CSTATS_NUMBYTES sizeof(I2CStatsData)

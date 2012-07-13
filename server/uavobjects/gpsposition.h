@@ -42,8 +42,6 @@
 
 // Object constants
 #define GPSPOSITION_OBJID 0xE2A323B6
-#define GPSPOSITION_NAME "GPSPosition"
-#define GPSPOSITION_METANAME "GPSPositionMeta"
 #define GPSPOSITION_ISSINGLEINST 1
 #define GPSPOSITION_ISSETTINGS 0
 #define GPSPOSITION_NUMBYTES sizeof(GPSPositionData)

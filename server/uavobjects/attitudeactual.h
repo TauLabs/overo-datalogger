@@ -42,8 +42,6 @@
 
 // Object constants
 #define ATTITUDEACTUAL_OBJID 0x33DAD5E6
-#define ATTITUDEACTUAL_NAME "AttitudeActual"
-#define ATTITUDEACTUAL_METANAME "AttitudeActualMeta"
 #define ATTITUDEACTUAL_ISSINGLEINST 1
 #define ATTITUDEACTUAL_ISSETTINGS 0
 #define ATTITUDEACTUAL_NUMBYTES sizeof(AttitudeActualData)

@@ -42,8 +42,6 @@
 
 // Object constants
 #define REVOCALIBRATION_OBJID 0x257B15D4
-#define REVOCALIBRATION_NAME "RevoCalibration"
-#define REVOCALIBRATION_METANAME "RevoCalibrationMeta"
 #define REVOCALIBRATION_ISSINGLEINST 1
 #define REVOCALIBRATION_ISSETTINGS 1
 #define REVOCALIBRATION_NUMBYTES sizeof(RevoCalibrationData)

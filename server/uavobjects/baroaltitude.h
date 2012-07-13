@@ -42,8 +42,6 @@
 
 // Object constants
 #define BAROALTITUDE_OBJID 0x99622E6A
-#define BAROALTITUDE_NAME "BaroAltitude"
-#define BAROALTITUDE_METANAME "BaroAltitudeMeta"
 #define BAROALTITUDE_ISSINGLEINST 1
 #define BAROALTITUDE_ISSETTINGS 0
 #define BAROALTITUDE_NUMBYTES sizeof(BaroAltitudeData)

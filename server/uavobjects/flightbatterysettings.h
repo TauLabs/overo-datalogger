@@ -41,9 +41,7 @@
 #define FLIGHTBATTERYSETTINGS_H
 
 // Object constants
-#define FLIGHTBATTERYSETTINGS_OBJID 0xF172BB18
-#define FLIGHTBATTERYSETTINGS_NAME "FlightBatterySettings"
-#define FLIGHTBATTERYSETTINGS_METANAME "FlightBatterySettingsMeta"
+#define FLIGHTBATTERYSETTINGS_OBJID 0x94AC6AD2
 #define FLIGHTBATTERYSETTINGS_ISSINGLEINST 1
 #define FLIGHTBATTERYSETTINGS_ISSETTINGS 1
 #define FLIGHTBATTERYSETTINGS_NUMBYTES sizeof(FlightBatterySettingsData)
@@ -76,7 +74,7 @@ typedef struct {
     float SensorCalibrations[2];
     uint8_t Type;
     uint8_t NbCells;
-    uint8_t SensorType;
+    uint8_t SensorType[3];
 
 } __attribute__((packed)) FlightBatterySettingsData;
 
@@ -98,7 +96,11 @@ typedef enum { FLIGHTBATTERYSETTINGS_TYPE_LIPO=0, FLIGHTBATTERYSETTINGS_TYPE_A12
 // Field NbCells information
 // Field SensorType information
 /* Enumeration options for field SensorType */
-typedef enum { FLIGHTBATTERYSETTINGS_SENSORTYPE_NONE=0 } FlightBatterySettingsSensorTypeOptions;
+typedef enum { FLIGHTBATTERYSETTINGS_SENSORTYPE_DISABLED=0, FLIGHTBATTERYSETTINGS_SENSORTYPE_ENABLED=1 } FlightBatterySettingsSensorTypeOptions;
+/* Array element names for field SensorType */
+typedef enum { FLIGHTBATTERYSETTINGS_SENSORTYPE_BATTERYCURRENT=0, FLIGHTBATTERYSETTINGS_SENSORTYPE_BATTERYVOLTAGE=1, FLIGHTBATTERYSETTINGS_SENSORTYPE_BOARDVOLTAGE=2 } FlightBatterySettingsSensorTypeElem;
+/* Number of elements for field SensorType */
+#define FLIGHTBATTERYSETTINGS_SENSORTYPE_NUMELEM 3
 
 
 // Generic interface functions

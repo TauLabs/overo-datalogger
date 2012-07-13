@@ -42,8 +42,6 @@
 
 // Object constants
 #define SYSTEMSTATS_OBJID 0x364D1406
-#define SYSTEMSTATS_NAME "SystemStats"
-#define SYSTEMSTATS_METANAME "SystemStatsMeta"
 #define SYSTEMSTATS_ISSINGLEINST 1
 #define SYSTEMSTATS_ISSETTINGS 0
 #define SYSTEMSTATS_NUMBYTES sizeof(SystemStatsData)

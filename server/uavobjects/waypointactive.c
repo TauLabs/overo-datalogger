@@ -54,7 +54,7 @@ int32_t WaypointActiveInitialize(void)
 		return -2;
 	
 	// Register object with the object manager
-	handle = UAVObjRegister(WAYPOINTACTIVE_OBJID, WAYPOINTACTIVE_NAME, WAYPOINTACTIVE_METANAME, 0,
+	handle = UAVObjRegister(WAYPOINTACTIVE_OBJID,
 			WAYPOINTACTIVE_ISSINGLEINST, WAYPOINTACTIVE_ISSETTINGS, WAYPOINTACTIVE_NUMBYTES, &WaypointActiveSetDefaults);
 
 	// Done
@@ -85,15 +85,15 @@ void WaypointActiveSetDefaults(UAVObjHandle obj, uint16_t instId)
 	UAVObjSetInstanceData(obj, instId, &data);
 
 	// Initialize object metadata to their default values
-	metadata.access = ACCESS_READWRITE;
-	metadata.gcsAccess = ACCESS_READWRITE;
-	metadata.telemetryAcked = 0;
-	metadata.telemetryUpdateMode = UPDATEMODE_ONCHANGE;
+	metadata.flags =
+		ACCESS_READWRITE << UAVOBJ_ACCESS_SHIFT |
+		ACCESS_READWRITE << UAVOBJ_GCS_ACCESS_SHIFT |
+		0 << UAVOBJ_TELEMETRY_ACKED_SHIFT |
+		0 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
+		UPDATEMODE_ONCHANGE << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+		UPDATEMODE_MANUAL << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
 	metadata.telemetryUpdatePeriod = 0;
-	metadata.gcsTelemetryAcked = 0;
-	metadata.gcsTelemetryUpdateMode = UPDATEMODE_MANUAL;
 	metadata.gcsTelemetryUpdatePeriod = 0;
-	metadata.loggingUpdateMode = UPDATEMODE_PERIODIC;
 	metadata.loggingUpdatePeriod = 1000;
 	UAVObjSetMetadata(obj, &metadata);
 }

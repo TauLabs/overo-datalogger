@@ -42,8 +42,6 @@
 
 // Object constants
 #define NEDPOSITION_OBJID 0x1FB15A00
-#define NEDPOSITION_NAME "NEDPosition"
-#define NEDPOSITION_METANAME "NEDPositionMeta"
 #define NEDPOSITION_ISSINGLEINST 1
 #define NEDPOSITION_ISSETTINGS 0
 #define NEDPOSITION_NUMBYTES sizeof(NEDPositionData)

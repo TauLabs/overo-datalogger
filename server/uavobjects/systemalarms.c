@@ -54,7 +54,7 @@ int32_t SystemAlarmsInitialize(void)
 		return -2;
 	
 	// Register object with the object manager
-	handle = UAVObjRegister(SYSTEMALARMS_OBJID, SYSTEMALARMS_NAME, SYSTEMALARMS_METANAME, 0,
+	handle = UAVObjRegister(SYSTEMALARMS_OBJID,
 			SYSTEMALARMS_ISSINGLEINST, SYSTEMALARMS_ISSETTINGS, SYSTEMALARMS_NUMBYTES, &SystemAlarmsSetDefaults);
 
 	// Done
@@ -98,20 +98,19 @@ void SystemAlarmsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.Alarm[14] = 0;
 	data.Alarm[15] = 0;
 	data.Alarm[16] = 0;
-	data.Alarm[17] = 0;
 
 	UAVObjSetInstanceData(obj, instId, &data);
 
 	// Initialize object metadata to their default values
-	metadata.access = ACCESS_READWRITE;
-	metadata.gcsAccess = ACCESS_READWRITE;
-	metadata.telemetryAcked = 1;
-	metadata.telemetryUpdateMode = UPDATEMODE_ONCHANGE;
+	metadata.flags =
+		ACCESS_READWRITE << UAVOBJ_ACCESS_SHIFT |
+		ACCESS_READWRITE << UAVOBJ_GCS_ACCESS_SHIFT |
+		1 << UAVOBJ_TELEMETRY_ACKED_SHIFT |
+		1 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
+		UPDATEMODE_ONCHANGE << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+		UPDATEMODE_ONCHANGE << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
 	metadata.telemetryUpdatePeriod = 0;
-	metadata.gcsTelemetryAcked = 1;
-	metadata.gcsTelemetryUpdateMode = UPDATEMODE_ONCHANGE;
 	metadata.gcsTelemetryUpdatePeriod = 0;
-	metadata.loggingUpdateMode = UPDATEMODE_PERIODIC;
 	metadata.loggingUpdatePeriod = 1000;
 	UAVObjSetMetadata(obj, &metadata);
 }
@@ -129,11 +128,11 @@ UAVObjHandle SystemAlarmsHandle()
  */
 void SystemAlarmsAlarmSet( uint8_t *NewAlarm )
 {
-	UAVObjSetDataField(SystemAlarmsHandle(), (void*)NewAlarm, offsetof( SystemAlarmsData, Alarm), 18*sizeof(uint8_t));
+	UAVObjSetDataField(SystemAlarmsHandle(), (void*)NewAlarm, offsetof( SystemAlarmsData, Alarm), 17*sizeof(uint8_t));
 }
 void SystemAlarmsAlarmGet( uint8_t *NewAlarm )
 {
-	UAVObjGetDataField(SystemAlarmsHandle(), (void*)NewAlarm, offsetof( SystemAlarmsData, Alarm), 18*sizeof(uint8_t));
+	UAVObjGetDataField(SystemAlarmsHandle(), (void*)NewAlarm, offsetof( SystemAlarmsData, Alarm), 17*sizeof(uint8_t));
 }
 
 

@@ -42,8 +42,6 @@
 
 // Object constants
 #define CAMERADESIRED_OBJID 0x531F544E
-#define CAMERADESIRED_NAME "CameraDesired"
-#define CAMERADESIRED_METANAME "CameraDesiredMeta"
 #define CAMERADESIRED_ISSINGLEINST 1
 #define CAMERADESIRED_ISSETTINGS 0
 #define CAMERADESIRED_NUMBYTES sizeof(CameraDesiredData)

@@ -54,7 +54,7 @@ int32_t ManualControlSettingsInitialize(void)
 		return -2;
 	
 	// Register object with the object manager
-	handle = UAVObjRegister(MANUALCONTROLSETTINGS_OBJID, MANUALCONTROLSETTINGS_NAME, MANUALCONTROLSETTINGS_METANAME, 0,
+	handle = UAVObjRegister(MANUALCONTROLSETTINGS_OBJID,
 			MANUALCONTROLSETTINGS_ISSINGLEINST, MANUALCONTROLSETTINGS_ISSETTINGS, MANUALCONTROLSETTINGS_NUMBYTES, &ManualControlSettingsSetDefaults);
 
 	// Done
@@ -81,6 +81,7 @@ void ManualControlSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	// Initialize object fields to their default values
 	UAVObjGetInstanceData(obj, instId, &data);
 	memset(&data, 0, sizeof(ManualControlSettingsData));
+	data.Deadband = 0;
 	data.ChannelMin[0] = 1000;
 	data.ChannelMin[1] = 1000;
 	data.ChannelMin[2] = 1000;
@@ -140,19 +141,21 @@ void ManualControlSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.FlightModePosition[0] = 0;
 	data.FlightModePosition[1] = 1;
 	data.FlightModePosition[2] = 2;
+	data.FlightModeNumber = 3;
+	data.FailsafeBehavior = 0;
 
 	UAVObjSetInstanceData(obj, instId, &data);
 
 	// Initialize object metadata to their default values
-	metadata.access = ACCESS_READWRITE;
-	metadata.gcsAccess = ACCESS_READWRITE;
-	metadata.telemetryAcked = 1;
-	metadata.telemetryUpdateMode = UPDATEMODE_ONCHANGE;
+	metadata.flags =
+		ACCESS_READWRITE << UAVOBJ_ACCESS_SHIFT |
+		ACCESS_READWRITE << UAVOBJ_GCS_ACCESS_SHIFT |
+		1 << UAVOBJ_TELEMETRY_ACKED_SHIFT |
+		1 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
+		UPDATEMODE_ONCHANGE << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+		UPDATEMODE_ONCHANGE << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
 	metadata.telemetryUpdatePeriod = 0;
-	metadata.gcsTelemetryAcked = 1;
-	metadata.gcsTelemetryUpdateMode = UPDATEMODE_ONCHANGE;
 	metadata.gcsTelemetryUpdatePeriod = 0;
-	metadata.loggingUpdateMode = UPDATEMODE_NEVER;
 	metadata.loggingUpdatePeriod = 0;
 	UAVObjSetMetadata(obj, &metadata);
 }
@@ -168,6 +171,14 @@ UAVObjHandle ManualControlSettingsHandle()
 /**
  * Get/Set object Functions
  */
+void ManualControlSettingsDeadbandSet( float *NewDeadband )
+{
+	UAVObjSetDataField(ManualControlSettingsHandle(), (void*)NewDeadband, offsetof( ManualControlSettingsData, Deadband), sizeof(float));
+}
+void ManualControlSettingsDeadbandGet( float *NewDeadband )
+{
+	UAVObjGetDataField(ManualControlSettingsHandle(), (void*)NewDeadband, offsetof( ManualControlSettingsData, Deadband), sizeof(float));
+}
 void ManualControlSettingsChannelMinSet( int16_t *NewChannelMin )
 {
 	UAVObjSetDataField(ManualControlSettingsHandle(), (void*)NewChannelMin, offsetof( ManualControlSettingsData, ChannelMin), 9*sizeof(int16_t));
@@ -255,6 +266,22 @@ void ManualControlSettingsFlightModePositionSet( uint8_t *NewFlightModePosition 
 void ManualControlSettingsFlightModePositionGet( uint8_t *NewFlightModePosition )
 {
 	UAVObjGetDataField(ManualControlSettingsHandle(), (void*)NewFlightModePosition, offsetof( ManualControlSettingsData, FlightModePosition), 3*sizeof(uint8_t));
+}
+void ManualControlSettingsFlightModeNumberSet( uint8_t *NewFlightModeNumber )
+{
+	UAVObjSetDataField(ManualControlSettingsHandle(), (void*)NewFlightModeNumber, offsetof( ManualControlSettingsData, FlightModeNumber), sizeof(uint8_t));
+}
+void ManualControlSettingsFlightModeNumberGet( uint8_t *NewFlightModeNumber )
+{
+	UAVObjGetDataField(ManualControlSettingsHandle(), (void*)NewFlightModeNumber, offsetof( ManualControlSettingsData, FlightModeNumber), sizeof(uint8_t));
+}
+void ManualControlSettingsFailsafeBehaviorSet( uint8_t *NewFailsafeBehavior )
+{
+	UAVObjSetDataField(ManualControlSettingsHandle(), (void*)NewFailsafeBehavior, offsetof( ManualControlSettingsData, FailsafeBehavior), sizeof(uint8_t));
+}
+void ManualControlSettingsFailsafeBehaviorGet( uint8_t *NewFailsafeBehavior )
+{
+	UAVObjGetDataField(ManualControlSettingsHandle(), (void*)NewFailsafeBehavior, offsetof( ManualControlSettingsData, FailsafeBehavior), sizeof(uint8_t));
 }
 
 

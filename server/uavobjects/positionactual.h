@@ -42,8 +42,6 @@
 
 // Object constants
 #define POSITIONACTUAL_OBJID 0xFA9E2D42
-#define POSITIONACTUAL_NAME "PositionActual"
-#define POSITIONACTUAL_METANAME "PositionActualMeta"
 #define POSITIONACTUAL_ISSINGLEINST 1
 #define POSITIONACTUAL_ISSETTINGS 0
 #define POSITIONACTUAL_NUMBYTES sizeof(PositionActualData)

@@ -54,7 +54,7 @@ int32_t ReceiverActivityInitialize(void)
 		return -2;
 	
 	// Register object with the object manager
-	handle = UAVObjRegister(RECEIVERACTIVITY_OBJID, RECEIVERACTIVITY_NAME, RECEIVERACTIVITY_METANAME, 0,
+	handle = UAVObjRegister(RECEIVERACTIVITY_OBJID,
 			RECEIVERACTIVITY_ISSINGLEINST, RECEIVERACTIVITY_ISSETTINGS, RECEIVERACTIVITY_NUMBYTES, &ReceiverActivitySetDefaults);
 
 	// Done
@@ -87,15 +87,15 @@ void ReceiverActivitySetDefaults(UAVObjHandle obj, uint16_t instId)
 	UAVObjSetInstanceData(obj, instId, &data);
 
 	// Initialize object metadata to their default values
-	metadata.access = ACCESS_READWRITE;
-	metadata.gcsAccess = ACCESS_READONLY;
-	metadata.telemetryAcked = 0;
-	metadata.telemetryUpdateMode = UPDATEMODE_ONCHANGE;
+	metadata.flags =
+		ACCESS_READWRITE << UAVOBJ_ACCESS_SHIFT |
+		ACCESS_READONLY << UAVOBJ_GCS_ACCESS_SHIFT |
+		0 << UAVOBJ_TELEMETRY_ACKED_SHIFT |
+		0 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
+		UPDATEMODE_ONCHANGE << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+		UPDATEMODE_MANUAL << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
 	metadata.telemetryUpdatePeriod = 0;
-	metadata.gcsTelemetryAcked = 0;
-	metadata.gcsTelemetryUpdateMode = UPDATEMODE_MANUAL;
 	metadata.gcsTelemetryUpdatePeriod = 0;
-	metadata.loggingUpdateMode = UPDATEMODE_NEVER;
 	metadata.loggingUpdatePeriod = 0;
 	UAVObjSetMetadata(obj, &metadata);
 }

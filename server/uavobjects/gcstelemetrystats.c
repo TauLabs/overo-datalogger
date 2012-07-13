@@ -54,7 +54,7 @@ int32_t GCSTelemetryStatsInitialize(void)
 		return -2;
 	
 	// Register object with the object manager
-	handle = UAVObjRegister(GCSTELEMETRYSTATS_OBJID, GCSTELEMETRYSTATS_NAME, GCSTELEMETRYSTATS_METANAME, 0,
+	handle = UAVObjRegister(GCSTELEMETRYSTATS_OBJID,
 			GCSTELEMETRYSTATS_ISSINGLEINST, GCSTELEMETRYSTATS_ISSETTINGS, GCSTELEMETRYSTATS_NUMBYTES, &GCSTelemetryStatsSetDefaults);
 
 	// Done
@@ -85,15 +85,15 @@ void GCSTelemetryStatsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	UAVObjSetInstanceData(obj, instId, &data);
 
 	// Initialize object metadata to their default values
-	metadata.access = ACCESS_READWRITE;
-	metadata.gcsAccess = ACCESS_READWRITE;
-	metadata.telemetryAcked = 1;
-	metadata.telemetryUpdateMode = UPDATEMODE_MANUAL;
+	metadata.flags =
+		ACCESS_READWRITE << UAVOBJ_ACCESS_SHIFT |
+		ACCESS_READWRITE << UAVOBJ_GCS_ACCESS_SHIFT |
+		1 << UAVOBJ_TELEMETRY_ACKED_SHIFT |
+		1 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
+		UPDATEMODE_MANUAL << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+		UPDATEMODE_PERIODIC << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
 	metadata.telemetryUpdatePeriod = 0;
-	metadata.gcsTelemetryAcked = 1;
-	metadata.gcsTelemetryUpdateMode = UPDATEMODE_PERIODIC;
 	metadata.gcsTelemetryUpdatePeriod = 5000;
-	metadata.loggingUpdateMode = UPDATEMODE_NEVER;
 	metadata.loggingUpdatePeriod = 0;
 	UAVObjSetMetadata(obj, &metadata);
 }

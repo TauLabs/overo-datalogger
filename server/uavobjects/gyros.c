@@ -54,7 +54,7 @@ int32_t GyrosInitialize(void)
 		return -2;
 	
 	// Register object with the object manager
-	handle = UAVObjRegister(GYROS_OBJID, GYROS_NAME, GYROS_METANAME, 0,
+	handle = UAVObjRegister(GYROS_OBJID,
 			GYROS_ISSINGLEINST, GYROS_ISSETTINGS, GYROS_NUMBYTES, &GyrosSetDefaults);
 
 	// Done
@@ -85,15 +85,15 @@ void GyrosSetDefaults(UAVObjHandle obj, uint16_t instId)
 	UAVObjSetInstanceData(obj, instId, &data);
 
 	// Initialize object metadata to their default values
-	metadata.access = ACCESS_READWRITE;
-	metadata.gcsAccess = ACCESS_READWRITE;
-	metadata.telemetryAcked = 0;
-	metadata.telemetryUpdateMode = UPDATEMODE_PERIODIC;
+	metadata.flags =
+		ACCESS_READWRITE << UAVOBJ_ACCESS_SHIFT |
+		ACCESS_READWRITE << UAVOBJ_GCS_ACCESS_SHIFT |
+		0 << UAVOBJ_TELEMETRY_ACKED_SHIFT |
+		0 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
+		UPDATEMODE_PERIODIC << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+		UPDATEMODE_MANUAL << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
 	metadata.telemetryUpdatePeriod = 1000;
-	metadata.gcsTelemetryAcked = 0;
-	metadata.gcsTelemetryUpdateMode = UPDATEMODE_MANUAL;
 	metadata.gcsTelemetryUpdatePeriod = 0;
-	metadata.loggingUpdateMode = UPDATEMODE_NEVER;
 	metadata.loggingUpdatePeriod = 0;
 	UAVObjSetMetadata(obj, &metadata);
 }

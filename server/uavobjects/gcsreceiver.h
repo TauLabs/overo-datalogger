@@ -41,9 +41,7 @@
 #define GCSRECEIVER_H
 
 // Object constants
-#define GCSRECEIVER_OBJID 0xCC7E2BBC
-#define GCSRECEIVER_NAME "GCSReceiver"
-#define GCSRECEIVER_METANAME "GCSReceiverMeta"
+#define GCSRECEIVER_OBJID 0xCC7E1470
 #define GCSRECEIVER_ISSINGLEINST 1
 #define GCSRECEIVER_ISSETTINGS 0
 #define GCSRECEIVER_NUMBYTES sizeof(GCSReceiverData)
@@ -71,14 +69,14 @@
 
 // Object data
 typedef struct {
-    uint16_t Channel[6];
+    uint16_t Channel[8];
 
 } __attribute__((packed)) GCSReceiverData;
 
 // Field information
 // Field Channel information
 /* Number of elements for field Channel */
-#define GCSRECEIVER_CHANNEL_NUMELEM 6
+#define GCSRECEIVER_CHANNEL_NUMELEM 8
 
 
 // Generic interface functions

@@ -41,9 +41,7 @@
 #define STABILIZATIONSETTINGS_H
 
 // Object constants
-#define STABILIZATIONSETTINGS_OBJID 0x5F78C51E
-#define STABILIZATIONSETTINGS_NAME "StabilizationSettings"
-#define STABILIZATIONSETTINGS_METANAME "StabilizationSettingsMeta"
+#define STABILIZATIONSETTINGS_OBJID 0xBBC337D4
 #define STABILIZATIONSETTINGS_ISSINGLEINST 1
 #define STABILIZATIONSETTINGS_ISSETTINGS 1
 #define STABILIZATIONSETTINGS_NUMBYTES sizeof(StabilizationSettingsData)
@@ -79,11 +77,19 @@ typedef struct {
     float RollPI[3];
     float PitchPI[3];
     float YawPI[3];
+    float VbarSensitivity[3];
+    float VbarRollPI[2];
+    float VbarPitchPI[2];
+    float VbarYawPI[2];
+    float VbarTau;
     float GyroTau;
     float WeakLevelingKp;
     uint8_t RollMax;
     uint8_t PitchMax;
     uint8_t YawMax;
+    int8_t VbarGyroSuppress;
+    uint8_t VbarPiroComp;
+    uint8_t VbarMaxAngle;
     uint8_t MaxAxisLock;
     uint8_t MaxAxisLockRate;
     uint8_t MaxWeakLevelingRate;
@@ -132,11 +138,37 @@ typedef enum { STABILIZATIONSETTINGS_PITCHPI_KP=0, STABILIZATIONSETTINGS_PITCHPI
 typedef enum { STABILIZATIONSETTINGS_YAWPI_KP=0, STABILIZATIONSETTINGS_YAWPI_KI=1, STABILIZATIONSETTINGS_YAWPI_ILIMIT=2 } StabilizationSettingsYawPIElem;
 /* Number of elements for field YawPI */
 #define STABILIZATIONSETTINGS_YAWPI_NUMELEM 3
+// Field VbarSensitivity information
+/* Array element names for field VbarSensitivity */
+typedef enum { STABILIZATIONSETTINGS_VBARSENSITIVITY_ROLL=0, STABILIZATIONSETTINGS_VBARSENSITIVITY_PITCH=1, STABILIZATIONSETTINGS_VBARSENSITIVITY_YAW=2 } StabilizationSettingsVbarSensitivityElem;
+/* Number of elements for field VbarSensitivity */
+#define STABILIZATIONSETTINGS_VBARSENSITIVITY_NUMELEM 3
+// Field VbarRollPI information
+/* Array element names for field VbarRollPI */
+typedef enum { STABILIZATIONSETTINGS_VBARROLLPI_KP=0, STABILIZATIONSETTINGS_VBARROLLPI_KI=1 } StabilizationSettingsVbarRollPIElem;
+/* Number of elements for field VbarRollPI */
+#define STABILIZATIONSETTINGS_VBARROLLPI_NUMELEM 2
+// Field VbarPitchPI information
+/* Array element names for field VbarPitchPI */
+typedef enum { STABILIZATIONSETTINGS_VBARPITCHPI_KP=0, STABILIZATIONSETTINGS_VBARPITCHPI_KI=1 } StabilizationSettingsVbarPitchPIElem;
+/* Number of elements for field VbarPitchPI */
+#define STABILIZATIONSETTINGS_VBARPITCHPI_NUMELEM 2
+// Field VbarYawPI information
+/* Array element names for field VbarYawPI */
+typedef enum { STABILIZATIONSETTINGS_VBARYAWPI_KP=0, STABILIZATIONSETTINGS_VBARYAWPI_KI=1 } StabilizationSettingsVbarYawPIElem;
+/* Number of elements for field VbarYawPI */
+#define STABILIZATIONSETTINGS_VBARYAWPI_NUMELEM 2
+// Field VbarTau information
 // Field GyroTau information
 // Field WeakLevelingKp information
 // Field RollMax information
 // Field PitchMax information
 // Field YawMax information
+// Field VbarGyroSuppress information
+// Field VbarPiroComp information
+/* Enumeration options for field VbarPiroComp */
+typedef enum { STABILIZATIONSETTINGS_VBARPIROCOMP_FALSE=0, STABILIZATIONSETTINGS_VBARPIROCOMP_TRUE=1 } StabilizationSettingsVbarPiroCompOptions;
+// Field VbarMaxAngle information
 // Field MaxAxisLock information
 // Field MaxAxisLockRate information
 // Field MaxWeakLevelingRate information
@@ -167,6 +199,16 @@ extern void StabilizationSettingsPitchPISet( float *NewPitchPI );
 extern void StabilizationSettingsPitchPIGet( float *NewPitchPI );
 extern void StabilizationSettingsYawPISet( float *NewYawPI );
 extern void StabilizationSettingsYawPIGet( float *NewYawPI );
+extern void StabilizationSettingsVbarSensitivitySet( float *NewVbarSensitivity );
+extern void StabilizationSettingsVbarSensitivityGet( float *NewVbarSensitivity );
+extern void StabilizationSettingsVbarRollPISet( float *NewVbarRollPI );
+extern void StabilizationSettingsVbarRollPIGet( float *NewVbarRollPI );
+extern void StabilizationSettingsVbarPitchPISet( float *NewVbarPitchPI );
+extern void StabilizationSettingsVbarPitchPIGet( float *NewVbarPitchPI );
+extern void StabilizationSettingsVbarYawPISet( float *NewVbarYawPI );
+extern void StabilizationSettingsVbarYawPIGet( float *NewVbarYawPI );
+extern void StabilizationSettingsVbarTauSet( float *NewVbarTau );
+extern void StabilizationSettingsVbarTauGet( float *NewVbarTau );
 extern void StabilizationSettingsGyroTauSet( float *NewGyroTau );
 extern void StabilizationSettingsGyroTauGet( float *NewGyroTau );
 extern void StabilizationSettingsWeakLevelingKpSet( float *NewWeakLevelingKp );
@@ -177,6 +219,12 @@ extern void StabilizationSettingsPitchMaxSet( uint8_t *NewPitchMax );
 extern void StabilizationSettingsPitchMaxGet( uint8_t *NewPitchMax );
 extern void StabilizationSettingsYawMaxSet( uint8_t *NewYawMax );
 extern void StabilizationSettingsYawMaxGet( uint8_t *NewYawMax );
+extern void StabilizationSettingsVbarGyroSuppressSet( int8_t *NewVbarGyroSuppress );
+extern void StabilizationSettingsVbarGyroSuppressGet( int8_t *NewVbarGyroSuppress );
+extern void StabilizationSettingsVbarPiroCompSet( uint8_t *NewVbarPiroComp );
+extern void StabilizationSettingsVbarPiroCompGet( uint8_t *NewVbarPiroComp );
+extern void StabilizationSettingsVbarMaxAngleSet( uint8_t *NewVbarMaxAngle );
+extern void StabilizationSettingsVbarMaxAngleGet( uint8_t *NewVbarMaxAngle );
 extern void StabilizationSettingsMaxAxisLockSet( uint8_t *NewMaxAxisLock );
 extern void StabilizationSettingsMaxAxisLockGet( uint8_t *NewMaxAxisLock );
 extern void StabilizationSettingsMaxAxisLockRateSet( uint8_t *NewMaxAxisLockRate );

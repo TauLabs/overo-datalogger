@@ -29,6 +29,6 @@
 
 void UAVObjectsInitializeAll();
 
-#define UAVOBJECTS_LARGEST 161
+#define UAVOBJECTS_LARGEST 166
 
 #endif // UAVOBJECTSINIT_H

@@ -41,9 +41,7 @@
 #define HWSETTINGS_H
 
 // Object constants
-#define HWSETTINGS_OBJID 0x4730375C
-#define HWSETTINGS_NAME "HwSettings"
-#define HWSETTINGS_METANAME "HwSettingsMeta"
+#define HWSETTINGS_OBJID 0xFDD8F0D2
 #define HWSETTINGS_ISSINGLEINST 1
 #define HWSETTINGS_ISSETTINGS 1
 #define HWSETTINGS_NUMBYTES sizeof(HwSettingsData)
@@ -83,10 +81,9 @@ typedef struct {
     uint8_t TelemetrySpeed;
     uint8_t GPSSpeed;
     uint8_t ComUsbBridgeSpeed;
-    uint8_t USB_DeviceType;
     uint8_t USB_HIDPort;
     uint8_t USB_VCPPort;
-    uint8_t OptionalModules[6];
+    uint8_t OptionalModules[10];
     uint8_t DSMxBind;
 
 } __attribute__((packed)) HwSettingsData;
@@ -128,9 +125,6 @@ typedef enum { HWSETTINGS_GPSSPEED_2400=0, HWSETTINGS_GPSSPEED_4800=1, HWSETTING
 // Field ComUsbBridgeSpeed information
 /* Enumeration options for field ComUsbBridgeSpeed */
 typedef enum { HWSETTINGS_COMUSBBRIDGESPEED_2400=0, HWSETTINGS_COMUSBBRIDGESPEED_4800=1, HWSETTINGS_COMUSBBRIDGESPEED_9600=2, HWSETTINGS_COMUSBBRIDGESPEED_19200=3, HWSETTINGS_COMUSBBRIDGESPEED_38400=4, HWSETTINGS_COMUSBBRIDGESPEED_57600=5, HWSETTINGS_COMUSBBRIDGESPEED_115200=6 } HwSettingsComUsbBridgeSpeedOptions;
-// Field USB_DeviceType information
-/* Enumeration options for field USB_DeviceType */
-typedef enum { HWSETTINGS_USB_DEVICETYPE_HIDONLY=0, HWSETTINGS_USB_DEVICETYPE_HIDVCP=1, HWSETTINGS_USB_DEVICETYPE_VCPONLY=2 } HwSettingsUSB_DeviceTypeOptions;
 // Field USB_HIDPort information
 /* Enumeration options for field USB_HIDPort */
 typedef enum { HWSETTINGS_USB_HIDPORT_USBTELEMETRY=0, HWSETTINGS_USB_HIDPORT_DISABLED=1 } HwSettingsUSB_HIDPortOptions;
@@ -141,9 +135,9 @@ typedef enum { HWSETTINGS_USB_VCPPORT_USBTELEMETRY=0, HWSETTINGS_USB_VCPPORT_COM
 /* Enumeration options for field OptionalModules */
 typedef enum { HWSETTINGS_OPTIONALMODULES_DISABLED=0, HWSETTINGS_OPTIONALMODULES_ENABLED=1 } HwSettingsOptionalModulesOptions;
 /* Array element names for field OptionalModules */
-typedef enum { HWSETTINGS_OPTIONALMODULES_CAMERASTAB=0, HWSETTINGS_OPTIONALMODULES_GPS=1, HWSETTINGS_OPTIONALMODULES_COMUSBBRIDGE=2, HWSETTINGS_OPTIONALMODULES_FAULT=3, HWSETTINGS_OPTIONALMODULES_ALTITUDE=4, HWSETTINGS_OPTIONALMODULES_TXPID=5 } HwSettingsOptionalModulesElem;
+typedef enum { HWSETTINGS_OPTIONALMODULES_CAMERASTAB=0, HWSETTINGS_OPTIONALMODULES_GPS=1, HWSETTINGS_OPTIONALMODULES_COMUSBBRIDGE=2, HWSETTINGS_OPTIONALMODULES_FAULT=3, HWSETTINGS_OPTIONALMODULES_ALTITUDE=4, HWSETTINGS_OPTIONALMODULES_AIRSPEED=5, HWSETTINGS_OPTIONALMODULES_TXPID=6, HWSETTINGS_OPTIONALMODULES_BATTERY=7, HWSETTINGS_OPTIONALMODULES_VTOLPATHFOLLOWER=8, HWSETTINGS_OPTIONALMODULES_FIXEDWINGPATHFOLLOWER=9 } HwSettingsOptionalModulesElem;
 /* Number of elements for field OptionalModules */
-#define HWSETTINGS_OPTIONALMODULES_NUMELEM 6
+#define HWSETTINGS_OPTIONALMODULES_NUMELEM 10
 // Field DSMxBind information
 
 
@@ -177,8 +171,6 @@ extern void HwSettingsGPSSpeedSet( uint8_t *NewGPSSpeed );
 extern void HwSettingsGPSSpeedGet( uint8_t *NewGPSSpeed );
 extern void HwSettingsComUsbBridgeSpeedSet( uint8_t *NewComUsbBridgeSpeed );
 extern void HwSettingsComUsbBridgeSpeedGet( uint8_t *NewComUsbBridgeSpeed );
-extern void HwSettingsUSB_DeviceTypeSet( uint8_t *NewUSB_DeviceType );
-extern void HwSettingsUSB_DeviceTypeGet( uint8_t *NewUSB_DeviceType );
 extern void HwSettingsUSB_HIDPortSet( uint8_t *NewUSB_HIDPort );
 extern void HwSettingsUSB_HIDPortGet( uint8_t *NewUSB_HIDPort );
 extern void HwSettingsUSB_VCPPortSet( uint8_t *NewUSB_VCPPort );

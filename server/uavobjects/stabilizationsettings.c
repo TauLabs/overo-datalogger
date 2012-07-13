@@ -54,7 +54,7 @@ int32_t StabilizationSettingsInitialize(void)
 		return -2;
 	
 	// Register object with the object manager
-	handle = UAVObjRegister(STABILIZATIONSETTINGS_OBJID, STABILIZATIONSETTINGS_NAME, STABILIZATIONSETTINGS_METANAME, 0,
+	handle = UAVObjRegister(STABILIZATIONSETTINGS_OBJID,
 			STABILIZATIONSETTINGS_ISSINGLEINST, STABILIZATIONSETTINGS_ISSETTINGS, STABILIZATIONSETTINGS_NUMBYTES, &StabilizationSettingsSetDefaults);
 
 	// Done
@@ -108,11 +108,24 @@ void StabilizationSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.YawPI[0] = 2;
 	data.YawPI[1] = 0;
 	data.YawPI[2] = 50;
+	data.VbarSensitivity[0] = 0.5;
+	data.VbarSensitivity[1] = 0.5;
+	data.VbarSensitivity[2] = 0.5;
+	data.VbarRollPI[0] = 0.005;
+	data.VbarRollPI[1] = 0.002;
+	data.VbarPitchPI[0] = 0.005;
+	data.VbarPitchPI[1] = 0.002;
+	data.VbarYawPI[0] = 0.005;
+	data.VbarYawPI[1] = 0.002;
+	data.VbarTau = 0.5;
 	data.GyroTau = 0.005;
 	data.WeakLevelingKp = 0.1;
 	data.RollMax = 55;
 	data.PitchMax = 55;
 	data.YawMax = 35;
+	data.VbarGyroSuppress = 30;
+	data.VbarPiroComp = 0;
+	data.VbarMaxAngle = 10;
 	data.MaxAxisLock = 15;
 	data.MaxAxisLockRate = 2;
 	data.MaxWeakLevelingRate = 5;
@@ -121,15 +134,15 @@ void StabilizationSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	UAVObjSetInstanceData(obj, instId, &data);
 
 	// Initialize object metadata to their default values
-	metadata.access = ACCESS_READWRITE;
-	metadata.gcsAccess = ACCESS_READWRITE;
-	metadata.telemetryAcked = 1;
-	metadata.telemetryUpdateMode = UPDATEMODE_ONCHANGE;
+	metadata.flags =
+		ACCESS_READWRITE << UAVOBJ_ACCESS_SHIFT |
+		ACCESS_READWRITE << UAVOBJ_GCS_ACCESS_SHIFT |
+		1 << UAVOBJ_TELEMETRY_ACKED_SHIFT |
+		1 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
+		UPDATEMODE_ONCHANGE << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+		UPDATEMODE_ONCHANGE << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
 	metadata.telemetryUpdatePeriod = 0;
-	metadata.gcsTelemetryAcked = 1;
-	metadata.gcsTelemetryUpdateMode = UPDATEMODE_ONCHANGE;
 	metadata.gcsTelemetryUpdatePeriod = 0;
-	metadata.loggingUpdateMode = UPDATEMODE_NEVER;
 	metadata.loggingUpdatePeriod = 0;
 	UAVObjSetMetadata(obj, &metadata);
 }
@@ -209,6 +222,46 @@ void StabilizationSettingsYawPIGet( float *NewYawPI )
 {
 	UAVObjGetDataField(StabilizationSettingsHandle(), (void*)NewYawPI, offsetof( StabilizationSettingsData, YawPI), 3*sizeof(float));
 }
+void StabilizationSettingsVbarSensitivitySet( float *NewVbarSensitivity )
+{
+	UAVObjSetDataField(StabilizationSettingsHandle(), (void*)NewVbarSensitivity, offsetof( StabilizationSettingsData, VbarSensitivity), 3*sizeof(float));
+}
+void StabilizationSettingsVbarSensitivityGet( float *NewVbarSensitivity )
+{
+	UAVObjGetDataField(StabilizationSettingsHandle(), (void*)NewVbarSensitivity, offsetof( StabilizationSettingsData, VbarSensitivity), 3*sizeof(float));
+}
+void StabilizationSettingsVbarRollPISet( float *NewVbarRollPI )
+{
+	UAVObjSetDataField(StabilizationSettingsHandle(), (void*)NewVbarRollPI, offsetof( StabilizationSettingsData, VbarRollPI), 2*sizeof(float));
+}
+void StabilizationSettingsVbarRollPIGet( float *NewVbarRollPI )
+{
+	UAVObjGetDataField(StabilizationSettingsHandle(), (void*)NewVbarRollPI, offsetof( StabilizationSettingsData, VbarRollPI), 2*sizeof(float));
+}
+void StabilizationSettingsVbarPitchPISet( float *NewVbarPitchPI )
+{
+	UAVObjSetDataField(StabilizationSettingsHandle(), (void*)NewVbarPitchPI, offsetof( StabilizationSettingsData, VbarPitchPI), 2*sizeof(float));
+}
+void StabilizationSettingsVbarPitchPIGet( float *NewVbarPitchPI )
+{
+	UAVObjGetDataField(StabilizationSettingsHandle(), (void*)NewVbarPitchPI, offsetof( StabilizationSettingsData, VbarPitchPI), 2*sizeof(float));
+}
+void StabilizationSettingsVbarYawPISet( float *NewVbarYawPI )
+{
+	UAVObjSetDataField(StabilizationSettingsHandle(), (void*)NewVbarYawPI, offsetof( StabilizationSettingsData, VbarYawPI), 2*sizeof(float));
+}
+void StabilizationSettingsVbarYawPIGet( float *NewVbarYawPI )
+{
+	UAVObjGetDataField(StabilizationSettingsHandle(), (void*)NewVbarYawPI, offsetof( StabilizationSettingsData, VbarYawPI), 2*sizeof(float));
+}
+void StabilizationSettingsVbarTauSet( float *NewVbarTau )
+{
+	UAVObjSetDataField(StabilizationSettingsHandle(), (void*)NewVbarTau, offsetof( StabilizationSettingsData, VbarTau), sizeof(float));
+}
+void StabilizationSettingsVbarTauGet( float *NewVbarTau )
+{
+	UAVObjGetDataField(StabilizationSettingsHandle(), (void*)NewVbarTau, offsetof( StabilizationSettingsData, VbarTau), sizeof(float));
+}
 void StabilizationSettingsGyroTauSet( float *NewGyroTau )
 {
 	UAVObjSetDataField(StabilizationSettingsHandle(), (void*)NewGyroTau, offsetof( StabilizationSettingsData, GyroTau), sizeof(float));
@@ -248,6 +301,30 @@ void StabilizationSettingsYawMaxSet( uint8_t *NewYawMax )
 void StabilizationSettingsYawMaxGet( uint8_t *NewYawMax )
 {
 	UAVObjGetDataField(StabilizationSettingsHandle(), (void*)NewYawMax, offsetof( StabilizationSettingsData, YawMax), sizeof(uint8_t));
+}
+void StabilizationSettingsVbarGyroSuppressSet( int8_t *NewVbarGyroSuppress )
+{
+	UAVObjSetDataField(StabilizationSettingsHandle(), (void*)NewVbarGyroSuppress, offsetof( StabilizationSettingsData, VbarGyroSuppress), sizeof(int8_t));
+}
+void StabilizationSettingsVbarGyroSuppressGet( int8_t *NewVbarGyroSuppress )
+{
+	UAVObjGetDataField(StabilizationSettingsHandle(), (void*)NewVbarGyroSuppress, offsetof( StabilizationSettingsData, VbarGyroSuppress), sizeof(int8_t));
+}
+void StabilizationSettingsVbarPiroCompSet( uint8_t *NewVbarPiroComp )
+{
+	UAVObjSetDataField(StabilizationSettingsHandle(), (void*)NewVbarPiroComp, offsetof( StabilizationSettingsData, VbarPiroComp), sizeof(uint8_t));
+}
+void StabilizationSettingsVbarPiroCompGet( uint8_t *NewVbarPiroComp )
+{
+	UAVObjGetDataField(StabilizationSettingsHandle(), (void*)NewVbarPiroComp, offsetof( StabilizationSettingsData, VbarPiroComp), sizeof(uint8_t));
+}
+void StabilizationSettingsVbarMaxAngleSet( uint8_t *NewVbarMaxAngle )
+{
+	UAVObjSetDataField(StabilizationSettingsHandle(), (void*)NewVbarMaxAngle, offsetof( StabilizationSettingsData, VbarMaxAngle), sizeof(uint8_t));
+}
+void StabilizationSettingsVbarMaxAngleGet( uint8_t *NewVbarMaxAngle )
+{
+	UAVObjGetDataField(StabilizationSettingsHandle(), (void*)NewVbarMaxAngle, offsetof( StabilizationSettingsData, VbarMaxAngle), sizeof(uint8_t));
 }
 void StabilizationSettingsMaxAxisLockSet( uint8_t *NewMaxAxisLock )
 {

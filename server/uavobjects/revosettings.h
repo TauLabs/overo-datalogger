@@ -42,8 +42,6 @@
 
 // Object constants
 #define REVOSETTINGS_OBJID 0xE2DA70EA
-#define REVOSETTINGS_NAME "RevoSettings"
-#define REVOSETTINGS_METANAME "RevoSettingsMeta"
 #define REVOSETTINGS_ISSINGLEINST 1
 #define REVOSETTINGS_ISSETTINGS 1
 #define REVOSETTINGS_NUMBYTES sizeof(RevoSettingsData)

@@ -34,13 +34,19 @@
 #include "actuatordesired.h"
 #include "actuatorsettings.h"
 #include "altholdsmoothed.h"
+#include "altitudeholddesired.h"
+#include "altitudeholdsettings.h"
 #include "attitudeactual.h"
 #include "attitudesettings.h"
+#include "attitudesimulated.h"
+#include "baroairspeed.h"
 #include "baroaltitude.h"
 #include "cameradesired.h"
 #include "camerastabsettings.h"
 #include "faultsettings.h"
 #include "firmwareiapobj.h"
+#include "fixedwingpathfollowersettings.h"
+#include "fixedwingpathfollowerstatus.h"
 #include "flightbatterysettings.h"
 #include "flightbatterystate.h"
 #include "flightplancontrol.h"
@@ -54,7 +60,6 @@
 #include "gpssatellites.h"
 #include "gpstime.h"
 #include "gpsvelocity.h"
-#include "guidancesettings.h"
 #include "gyros.h"
 #include "gyrosbias.h"
 #include "homelocation.h"
@@ -69,11 +74,15 @@
 #include "nedposition.h"
 #include "objectpersistence.h"
 #include "overosyncstats.h"
+#include "pathdesired.h"
+#include "pathplannersettings.h"
+#include "pipxsettings.h"
+#include "pipxstatus.h"
 #include "positionactual.h"
-#include "positiondesired.h"
 #include "ratedesired.h"
 #include "receiveractivity.h"
 #include "revocalibration.h"
+#include "revosettings.h"
 #include "sonaraltitude.h"
 #include "stabilizationdesired.h"
 #include "stabilizationsettings.h"
@@ -81,9 +90,13 @@
 #include "systemsettings.h"
 #include "systemstats.h"
 #include "taskinfo.h"
+#include "txpidsettings.h"
 #include "velocityactual.h"
 #include "velocitydesired.h"
+#include "vtolpathfollowersettings.h"
 #include "watchdogstatus.h"
+#include "waypoint.h"
+#include "waypointactive.h"
 
 
 /**
@@ -98,16 +111,21 @@ void UAVObjectsInitializeAll()
     ActuatorDesiredInitialize();
     ActuatorSettingsInitialize();
     
+    AltHoldSmoothedInitialize();
     AltitudeHoldDesiredInitialize();
     AltitudeHoldSettingsInitialize();
     AltHoldSmoothedInitialize();
     AttitudeActualInitialize();
     AttitudeSettingsInitialize();
+    AttitudeSimulatedInitialize();
+    BaroAirspeedInitialize();
     BaroAltitudeInitialize();
     CameraDesiredInitialize();
     CameraStabSettingsInitialize();
     FaultSettingsInitialize();
     FirmwareIAPObjInitialize();
+    FixedWingPathFollowerSettingsInitialize();
+    FixedWingPathFollowerStatusInitialize();
     FlightBatterySettingsInitialize();
     FlightBatteryStateInitialize();
     FlightPlanControlInitialize();
@@ -136,11 +154,16 @@ void UAVObjectsInitializeAll()
     NEDPositionInitialize();
     ObjectPersistenceInitialize();
     OveroSyncStatsInitialize();
+    PathDesiredInitialize();
+    PathPlannerSettingsInitialize();
+    PipXSettingsInitialize();
+    PipXStatusInitialize();
     PositionActualInitialize();
     PositionDesiredInitialize();
     RateDesiredInitialize();
     ReceiverActivityInitialize();
     RevoCalibrationInitialize();
+    RevoSettingsInitialize();
     SonarAltitudeInitialize();
     StabilizationDesiredInitialize();
     StabilizationSettingsInitialize();
@@ -148,7 +171,11 @@ void UAVObjectsInitializeAll()
     SystemSettingsInitialize();
     SystemStatsInitialize();
     TaskInfoInitialize();
+    TxPIDSettingsInitialize();
     VelocityActualInitialize();
     VelocityDesiredInitialize();
+    VtolPathFollowerSettingsInitialize();
     WatchdogStatusInitialize();
+    WaypointInitialize();
+    WaypointActiveInitialize();
 }

@@ -54,7 +54,7 @@ int32_t FlightBatterySettingsInitialize(void)
 		return -2;
 	
 	// Register object with the object manager
-	handle = UAVObjRegister(FLIGHTBATTERYSETTINGS_OBJID, FLIGHTBATTERYSETTINGS_NAME, FLIGHTBATTERYSETTINGS_METANAME, 0,
+	handle = UAVObjRegister(FLIGHTBATTERYSETTINGS_OBJID,
 			FLIGHTBATTERYSETTINGS_ISSINGLEINST, FLIGHTBATTERYSETTINGS_ISSETTINGS, FLIGHTBATTERYSETTINGS_NUMBYTES, &FlightBatterySettingsSetDefaults);
 
 	// Done
@@ -88,20 +88,22 @@ void FlightBatterySettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.SensorCalibrations[1] = 1;
 	data.Type = 0;
 	data.NbCells = 3;
-	data.SensorType = 0;
+	data.SensorType[0] = 0;
+	data.SensorType[1] = 0;
+	data.SensorType[2] = 0;
 
 	UAVObjSetInstanceData(obj, instId, &data);
 
 	// Initialize object metadata to their default values
-	metadata.access = ACCESS_READWRITE;
-	metadata.gcsAccess = ACCESS_READWRITE;
-	metadata.telemetryAcked = 1;
-	metadata.telemetryUpdateMode = UPDATEMODE_ONCHANGE;
+	metadata.flags =
+		ACCESS_READWRITE << UAVOBJ_ACCESS_SHIFT |
+		ACCESS_READWRITE << UAVOBJ_GCS_ACCESS_SHIFT |
+		1 << UAVOBJ_TELEMETRY_ACKED_SHIFT |
+		1 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
+		UPDATEMODE_ONCHANGE << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+		UPDATEMODE_ONCHANGE << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
 	metadata.telemetryUpdatePeriod = 0;
-	metadata.gcsTelemetryAcked = 1;
-	metadata.gcsTelemetryUpdateMode = UPDATEMODE_ONCHANGE;
 	metadata.gcsTelemetryUpdatePeriod = 0;
-	metadata.loggingUpdateMode = UPDATEMODE_NEVER;
 	metadata.loggingUpdatePeriod = 0;
 	UAVObjSetMetadata(obj, &metadata);
 }
@@ -159,11 +161,11 @@ void FlightBatterySettingsNbCellsGet( uint8_t *NewNbCells )
 }
 void FlightBatterySettingsSensorTypeSet( uint8_t *NewSensorType )
 {
-	UAVObjSetDataField(FlightBatterySettingsHandle(), (void*)NewSensorType, offsetof( FlightBatterySettingsData, SensorType), sizeof(uint8_t));
+	UAVObjSetDataField(FlightBatterySettingsHandle(), (void*)NewSensorType, offsetof( FlightBatterySettingsData, SensorType), 3*sizeof(uint8_t));
 }
 void FlightBatterySettingsSensorTypeGet( uint8_t *NewSensorType )
 {
-	UAVObjGetDataField(FlightBatterySettingsHandle(), (void*)NewSensorType, offsetof( FlightBatterySettingsData, SensorType), sizeof(uint8_t));
+	UAVObjGetDataField(FlightBatterySettingsHandle(), (void*)NewSensorType, offsetof( FlightBatterySettingsData, SensorType), 3*sizeof(uint8_t));
 }
 
 

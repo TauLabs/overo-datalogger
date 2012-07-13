@@ -42,8 +42,6 @@
 
 // Object constants
 #define MAGNETOMETER_OBJID 0x813B55DE
-#define MAGNETOMETER_NAME "Magnetometer"
-#define MAGNETOMETER_METANAME "MagnetometerMeta"
 #define MAGNETOMETER_ISSINGLEINST 1
 #define MAGNETOMETER_ISSETTINGS 0
 #define MAGNETOMETER_NUMBYTES sizeof(MagnetometerData)

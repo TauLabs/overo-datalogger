@@ -54,7 +54,7 @@ int32_t SystemSettingsInitialize(void)
 		return -2;
 	
 	// Register object with the object manager
-	handle = UAVObjRegister(SYSTEMSETTINGS_OBJID, SYSTEMSETTINGS_NAME, SYSTEMSETTINGS_METANAME, 0,
+	handle = UAVObjRegister(SYSTEMSETTINGS_OBJID,
 			SYSTEMSETTINGS_ISSINGLEINST, SYSTEMSETTINGS_ISSETTINGS, SYSTEMSETTINGS_NUMBYTES, &SystemSettingsSetDefaults);
 
 	// Done
@@ -83,20 +83,22 @@ void SystemSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	memset(&data, 0, sizeof(SystemSettingsData));
 	data.GUIConfigData[0] = 0;
 	data.GUIConfigData[1] = 0;
-	data.AirframeType = 0;
+	data.GUIConfigData[2] = 0;
+	data.GUIConfigData[3] = 0;
+	data.AirframeType = 5;
 
 	UAVObjSetInstanceData(obj, instId, &data);
 
 	// Initialize object metadata to their default values
-	metadata.access = ACCESS_READWRITE;
-	metadata.gcsAccess = ACCESS_READWRITE;
-	metadata.telemetryAcked = 1;
-	metadata.telemetryUpdateMode = UPDATEMODE_ONCHANGE;
+	metadata.flags =
+		ACCESS_READWRITE << UAVOBJ_ACCESS_SHIFT |
+		ACCESS_READWRITE << UAVOBJ_GCS_ACCESS_SHIFT |
+		1 << UAVOBJ_TELEMETRY_ACKED_SHIFT |
+		1 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
+		UPDATEMODE_ONCHANGE << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+		UPDATEMODE_ONCHANGE << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
 	metadata.telemetryUpdatePeriod = 0;
-	metadata.gcsTelemetryAcked = 1;
-	metadata.gcsTelemetryUpdateMode = UPDATEMODE_ONCHANGE;
 	metadata.gcsTelemetryUpdatePeriod = 0;
-	metadata.loggingUpdateMode = UPDATEMODE_NEVER;
 	metadata.loggingUpdatePeriod = 0;
 	UAVObjSetMetadata(obj, &metadata);
 }
@@ -114,11 +116,11 @@ UAVObjHandle SystemSettingsHandle()
  */
 void SystemSettingsGUIConfigDataSet( uint32_t *NewGUIConfigData )
 {
-	UAVObjSetDataField(SystemSettingsHandle(), (void*)NewGUIConfigData, offsetof( SystemSettingsData, GUIConfigData), 2*sizeof(uint32_t));
+	UAVObjSetDataField(SystemSettingsHandle(), (void*)NewGUIConfigData, offsetof( SystemSettingsData, GUIConfigData), 4*sizeof(uint32_t));
 }
 void SystemSettingsGUIConfigDataGet( uint32_t *NewGUIConfigData )
 {
-	UAVObjGetDataField(SystemSettingsHandle(), (void*)NewGUIConfigData, offsetof( SystemSettingsData, GUIConfigData), 2*sizeof(uint32_t));
+	UAVObjGetDataField(SystemSettingsHandle(), (void*)NewGUIConfigData, offsetof( SystemSettingsData, GUIConfigData), 4*sizeof(uint32_t));
 }
 void SystemSettingsAirframeTypeSet( uint8_t *NewAirframeType )
 {

@@ -42,8 +42,6 @@
 
 // Object constants
 #define SONARALTITUDE_OBJID 0x6C5A0CBC
-#define SONARALTITUDE_NAME "SonarAltitude"
-#define SONARALTITUDE_METANAME "SonarAltitudeMeta"
 #define SONARALTITUDE_ISSINGLEINST 1
 #define SONARALTITUDE_ISSETTINGS 0
 #define SONARALTITUDE_NUMBYTES sizeof(SonarAltitudeData)

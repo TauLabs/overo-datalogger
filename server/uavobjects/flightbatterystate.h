@@ -41,9 +41,7 @@
 #define FLIGHTBATTERYSTATE_H
 
 // Object constants
-#define FLIGHTBATTERYSTATE_OBJID 0x8C0D756
-#define FLIGHTBATTERYSTATE_NAME "FlightBatteryState"
-#define FLIGHTBATTERYSTATE_METANAME "FlightBatteryStateMeta"
+#define FLIGHTBATTERYSTATE_OBJID 0xD2083596
 #define FLIGHTBATTERYSTATE_ISSINGLEINST 1
 #define FLIGHTBATTERYSTATE_ISSETTINGS 0
 #define FLIGHTBATTERYSTATE_NUMBYTES sizeof(FlightBatteryStateData)
@@ -73,6 +71,7 @@
 typedef struct {
     float Voltage;
     float Current;
+    float BoardSupplyVoltage;
     float PeakCurrent;
     float AvgCurrent;
     float ConsumedEnergy;
@@ -83,6 +82,7 @@ typedef struct {
 // Field information
 // Field Voltage information
 // Field Current information
+// Field BoardSupplyVoltage information
 // Field PeakCurrent information
 // Field AvgCurrent information
 // Field ConsumedEnergy information
@@ -99,6 +99,8 @@ extern void FlightBatteryStateVoltageSet( float *NewVoltage );
 extern void FlightBatteryStateVoltageGet( float *NewVoltage );
 extern void FlightBatteryStateCurrentSet( float *NewCurrent );
 extern void FlightBatteryStateCurrentGet( float *NewCurrent );
+extern void FlightBatteryStateBoardSupplyVoltageSet( float *NewBoardSupplyVoltage );
+extern void FlightBatteryStateBoardSupplyVoltageGet( float *NewBoardSupplyVoltage );
 extern void FlightBatteryStatePeakCurrentSet( float *NewPeakCurrent );
 extern void FlightBatteryStatePeakCurrentGet( float *NewPeakCurrent );
 extern void FlightBatteryStateAvgCurrentSet( float *NewAvgCurrent );

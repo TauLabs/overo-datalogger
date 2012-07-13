@@ -42,8 +42,6 @@
 
 // Object constants
 #define VELOCITYDESIRED_OBJID 0x9E946992
-#define VELOCITYDESIRED_NAME "VelocityDesired"
-#define VELOCITYDESIRED_METANAME "VelocityDesiredMeta"
 #define VELOCITYDESIRED_ISSINGLEINST 1
 #define VELOCITYDESIRED_ISSETTINGS 0
 #define VELOCITYDESIRED_NUMBYTES sizeof(VelocityDesiredData)

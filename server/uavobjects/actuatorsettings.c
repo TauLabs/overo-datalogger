@@ -54,7 +54,7 @@ int32_t ActuatorSettingsInitialize(void)
 		return -2;
 	
 	// Register object with the object manager
-	handle = UAVObjRegister(ACTUATORSETTINGS_OBJID, ACTUATORSETTINGS_NAME, ACTUATORSETTINGS_METANAME, 0,
+	handle = UAVObjRegister(ACTUATORSETTINGS_OBJID,
 			ACTUATORSETTINGS_ISSINGLEINST, ACTUATORSETTINGS_ISSETTINGS, ACTUATORSETTINGS_NUMBYTES, &ActuatorSettingsSetDefaults);
 
 	// Done
@@ -115,21 +115,6 @@ void ActuatorSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.ChannelMin[7] = 1000;
 	data.ChannelMin[8] = 1000;
 	data.ChannelMin[9] = 1000;
-	data.FixedWingRoll1 = 10;
-	data.FixedWingRoll2 = 10;
-	data.FixedWingPitch1 = 10;
-	data.FixedWingPitch2 = 10;
-	data.FixedWingYaw1 = 10;
-	data.FixedWingYaw2 = 10;
-	data.FixedWingThrottle = 10;
-	data.VTOLMotorN = 10;
-	data.VTOLMotorNE = 10;
-	data.VTOLMotorE = 10;
-	data.VTOLMotorSE = 10;
-	data.VTOLMotorS = 10;
-	data.VTOLMotorSW = 10;
-	data.VTOLMotorW = 10;
-	data.VTOLMotorNW = 10;
 	data.ChannelType[0] = 0;
 	data.ChannelType[1] = 0;
 	data.ChannelType[2] = 0;
@@ -155,15 +140,15 @@ void ActuatorSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	UAVObjSetInstanceData(obj, instId, &data);
 
 	// Initialize object metadata to their default values
-	metadata.access = ACCESS_READWRITE;
-	metadata.gcsAccess = ACCESS_READWRITE;
-	metadata.telemetryAcked = 1;
-	metadata.telemetryUpdateMode = UPDATEMODE_ONCHANGE;
+	metadata.flags =
+		ACCESS_READWRITE << UAVOBJ_ACCESS_SHIFT |
+		ACCESS_READWRITE << UAVOBJ_GCS_ACCESS_SHIFT |
+		1 << UAVOBJ_TELEMETRY_ACKED_SHIFT |
+		1 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
+		UPDATEMODE_ONCHANGE << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+		UPDATEMODE_ONCHANGE << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
 	metadata.telemetryUpdatePeriod = 0;
-	metadata.gcsTelemetryAcked = 1;
-	metadata.gcsTelemetryUpdateMode = UPDATEMODE_ONCHANGE;
 	metadata.gcsTelemetryUpdatePeriod = 0;
-	metadata.loggingUpdateMode = UPDATEMODE_NEVER;
 	metadata.loggingUpdatePeriod = 0;
 	UAVObjSetMetadata(obj, &metadata);
 }
@@ -210,126 +195,6 @@ void ActuatorSettingsChannelMinSet( int16_t *NewChannelMin )
 void ActuatorSettingsChannelMinGet( int16_t *NewChannelMin )
 {
 	UAVObjGetDataField(ActuatorSettingsHandle(), (void*)NewChannelMin, offsetof( ActuatorSettingsData, ChannelMin), 10*sizeof(int16_t));
-}
-void ActuatorSettingsFixedWingRoll1Set( uint8_t *NewFixedWingRoll1 )
-{
-	UAVObjSetDataField(ActuatorSettingsHandle(), (void*)NewFixedWingRoll1, offsetof( ActuatorSettingsData, FixedWingRoll1), sizeof(uint8_t));
-}
-void ActuatorSettingsFixedWingRoll1Get( uint8_t *NewFixedWingRoll1 )
-{
-	UAVObjGetDataField(ActuatorSettingsHandle(), (void*)NewFixedWingRoll1, offsetof( ActuatorSettingsData, FixedWingRoll1), sizeof(uint8_t));
-}
-void ActuatorSettingsFixedWingRoll2Set( uint8_t *NewFixedWingRoll2 )
-{
-	UAVObjSetDataField(ActuatorSettingsHandle(), (void*)NewFixedWingRoll2, offsetof( ActuatorSettingsData, FixedWingRoll2), sizeof(uint8_t));
-}
-void ActuatorSettingsFixedWingRoll2Get( uint8_t *NewFixedWingRoll2 )
-{
-	UAVObjGetDataField(ActuatorSettingsHandle(), (void*)NewFixedWingRoll2, offsetof( ActuatorSettingsData, FixedWingRoll2), sizeof(uint8_t));
-}
-void ActuatorSettingsFixedWingPitch1Set( uint8_t *NewFixedWingPitch1 )
-{
-	UAVObjSetDataField(ActuatorSettingsHandle(), (void*)NewFixedWingPitch1, offsetof( ActuatorSettingsData, FixedWingPitch1), sizeof(uint8_t));
-}
-void ActuatorSettingsFixedWingPitch1Get( uint8_t *NewFixedWingPitch1 )
-{
-	UAVObjGetDataField(ActuatorSettingsHandle(), (void*)NewFixedWingPitch1, offsetof( ActuatorSettingsData, FixedWingPitch1), sizeof(uint8_t));
-}
-void ActuatorSettingsFixedWingPitch2Set( uint8_t *NewFixedWingPitch2 )
-{
-	UAVObjSetDataField(ActuatorSettingsHandle(), (void*)NewFixedWingPitch2, offsetof( ActuatorSettingsData, FixedWingPitch2), sizeof(uint8_t));
-}
-void ActuatorSettingsFixedWingPitch2Get( uint8_t *NewFixedWingPitch2 )
-{
-	UAVObjGetDataField(ActuatorSettingsHandle(), (void*)NewFixedWingPitch2, offsetof( ActuatorSettingsData, FixedWingPitch2), sizeof(uint8_t));
-}
-void ActuatorSettingsFixedWingYaw1Set( uint8_t *NewFixedWingYaw1 )
-{
-	UAVObjSetDataField(ActuatorSettingsHandle(), (void*)NewFixedWingYaw1, offsetof( ActuatorSettingsData, FixedWingYaw1), sizeof(uint8_t));
-}
-void ActuatorSettingsFixedWingYaw1Get( uint8_t *NewFixedWingYaw1 )
-{
-	UAVObjGetDataField(ActuatorSettingsHandle(), (void*)NewFixedWingYaw1, offsetof( ActuatorSettingsData, FixedWingYaw1), sizeof(uint8_t));
-}
-void ActuatorSettingsFixedWingYaw2Set( uint8_t *NewFixedWingYaw2 )
-{
-	UAVObjSetDataField(ActuatorSettingsHandle(), (void*)NewFixedWingYaw2, offsetof( ActuatorSettingsData, FixedWingYaw2), sizeof(uint8_t));
-}
-void ActuatorSettingsFixedWingYaw2Get( uint8_t *NewFixedWingYaw2 )
-{
-	UAVObjGetDataField(ActuatorSettingsHandle(), (void*)NewFixedWingYaw2, offsetof( ActuatorSettingsData, FixedWingYaw2), sizeof(uint8_t));
-}
-void ActuatorSettingsFixedWingThrottleSet( uint8_t *NewFixedWingThrottle )
-{
-	UAVObjSetDataField(ActuatorSettingsHandle(), (void*)NewFixedWingThrottle, offsetof( ActuatorSettingsData, FixedWingThrottle), sizeof(uint8_t));
-}
-void ActuatorSettingsFixedWingThrottleGet( uint8_t *NewFixedWingThrottle )
-{
-	UAVObjGetDataField(ActuatorSettingsHandle(), (void*)NewFixedWingThrottle, offsetof( ActuatorSettingsData, FixedWingThrottle), sizeof(uint8_t));
-}
-void ActuatorSettingsVTOLMotorNSet( uint8_t *NewVTOLMotorN )
-{
-	UAVObjSetDataField(ActuatorSettingsHandle(), (void*)NewVTOLMotorN, offsetof( ActuatorSettingsData, VTOLMotorN), sizeof(uint8_t));
-}
-void ActuatorSettingsVTOLMotorNGet( uint8_t *NewVTOLMotorN )
-{
-	UAVObjGetDataField(ActuatorSettingsHandle(), (void*)NewVTOLMotorN, offsetof( ActuatorSettingsData, VTOLMotorN), sizeof(uint8_t));
-}
-void ActuatorSettingsVTOLMotorNESet( uint8_t *NewVTOLMotorNE )
-{
-	UAVObjSetDataField(ActuatorSettingsHandle(), (void*)NewVTOLMotorNE, offsetof( ActuatorSettingsData, VTOLMotorNE), sizeof(uint8_t));
-}
-void ActuatorSettingsVTOLMotorNEGet( uint8_t *NewVTOLMotorNE )
-{
-	UAVObjGetDataField(ActuatorSettingsHandle(), (void*)NewVTOLMotorNE, offsetof( ActuatorSettingsData, VTOLMotorNE), sizeof(uint8_t));
-}
-void ActuatorSettingsVTOLMotorESet( uint8_t *NewVTOLMotorE )
-{
-	UAVObjSetDataField(ActuatorSettingsHandle(), (void*)NewVTOLMotorE, offsetof( ActuatorSettingsData, VTOLMotorE), sizeof(uint8_t));
-}
-void ActuatorSettingsVTOLMotorEGet( uint8_t *NewVTOLMotorE )
-{
-	UAVObjGetDataField(ActuatorSettingsHandle(), (void*)NewVTOLMotorE, offsetof( ActuatorSettingsData, VTOLMotorE), sizeof(uint8_t));
-}
-void ActuatorSettingsVTOLMotorSESet( uint8_t *NewVTOLMotorSE )
-{
-	UAVObjSetDataField(ActuatorSettingsHandle(), (void*)NewVTOLMotorSE, offsetof( ActuatorSettingsData, VTOLMotorSE), sizeof(uint8_t));
-}
-void ActuatorSettingsVTOLMotorSEGet( uint8_t *NewVTOLMotorSE )
-{
-	UAVObjGetDataField(ActuatorSettingsHandle(), (void*)NewVTOLMotorSE, offsetof( ActuatorSettingsData, VTOLMotorSE), sizeof(uint8_t));
-}
-void ActuatorSettingsVTOLMotorSSet( uint8_t *NewVTOLMotorS )
-{
-	UAVObjSetDataField(ActuatorSettingsHandle(), (void*)NewVTOLMotorS, offsetof( ActuatorSettingsData, VTOLMotorS), sizeof(uint8_t));
-}
-void ActuatorSettingsVTOLMotorSGet( uint8_t *NewVTOLMotorS )
-{
-	UAVObjGetDataField(ActuatorSettingsHandle(), (void*)NewVTOLMotorS, offsetof( ActuatorSettingsData, VTOLMotorS), sizeof(uint8_t));
-}
-void ActuatorSettingsVTOLMotorSWSet( uint8_t *NewVTOLMotorSW )
-{
-	UAVObjSetDataField(ActuatorSettingsHandle(), (void*)NewVTOLMotorSW, offsetof( ActuatorSettingsData, VTOLMotorSW), sizeof(uint8_t));
-}
-void ActuatorSettingsVTOLMotorSWGet( uint8_t *NewVTOLMotorSW )
-{
-	UAVObjGetDataField(ActuatorSettingsHandle(), (void*)NewVTOLMotorSW, offsetof( ActuatorSettingsData, VTOLMotorSW), sizeof(uint8_t));
-}
-void ActuatorSettingsVTOLMotorWSet( uint8_t *NewVTOLMotorW )
-{
-	UAVObjSetDataField(ActuatorSettingsHandle(), (void*)NewVTOLMotorW, offsetof( ActuatorSettingsData, VTOLMotorW), sizeof(uint8_t));
-}
-void ActuatorSettingsVTOLMotorWGet( uint8_t *NewVTOLMotorW )
-{
-	UAVObjGetDataField(ActuatorSettingsHandle(), (void*)NewVTOLMotorW, offsetof( ActuatorSettingsData, VTOLMotorW), sizeof(uint8_t));
-}
-void ActuatorSettingsVTOLMotorNWSet( uint8_t *NewVTOLMotorNW )
-{
-	UAVObjSetDataField(ActuatorSettingsHandle(), (void*)NewVTOLMotorNW, offsetof( ActuatorSettingsData, VTOLMotorNW), sizeof(uint8_t));
-}
-void ActuatorSettingsVTOLMotorNWGet( uint8_t *NewVTOLMotorNW )
-{
-	UAVObjGetDataField(ActuatorSettingsHandle(), (void*)NewVTOLMotorNW, offsetof( ActuatorSettingsData, VTOLMotorNW), sizeof(uint8_t));
 }
 void ActuatorSettingsChannelTypeSet( uint8_t *NewChannelType )
 {

@@ -54,7 +54,7 @@ int32_t GCSReceiverInitialize(void)
 		return -2;
 	
 	// Register object with the object manager
-	handle = UAVObjRegister(GCSRECEIVER_OBJID, GCSRECEIVER_NAME, GCSRECEIVER_METANAME, 0,
+	handle = UAVObjRegister(GCSRECEIVER_OBJID,
 			GCSRECEIVER_ISSINGLEINST, GCSRECEIVER_ISSETTINGS, GCSRECEIVER_NUMBYTES, &GCSReceiverSetDefaults);
 
 	// Done
@@ -85,15 +85,15 @@ void GCSReceiverSetDefaults(UAVObjHandle obj, uint16_t instId)
 	UAVObjSetInstanceData(obj, instId, &data);
 
 	// Initialize object metadata to their default values
-	metadata.access = ACCESS_READONLY;
-	metadata.gcsAccess = ACCESS_READWRITE;
-	metadata.telemetryAcked = 0;
-	metadata.telemetryUpdateMode = UPDATEMODE_NEVER;
+	metadata.flags =
+		ACCESS_READWRITE << UAVOBJ_ACCESS_SHIFT |
+		ACCESS_READWRITE << UAVOBJ_GCS_ACCESS_SHIFT |
+		0 << UAVOBJ_TELEMETRY_ACKED_SHIFT |
+		0 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
+		UPDATEMODE_ONCHANGE << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+		UPDATEMODE_ONCHANGE << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
 	metadata.telemetryUpdatePeriod = 0;
-	metadata.gcsTelemetryAcked = 0;
-	metadata.gcsTelemetryUpdateMode = UPDATEMODE_ONCHANGE;
 	metadata.gcsTelemetryUpdatePeriod = 0;
-	metadata.loggingUpdateMode = UPDATEMODE_NEVER;
 	metadata.loggingUpdatePeriod = 0;
 	UAVObjSetMetadata(obj, &metadata);
 }
@@ -111,11 +111,11 @@ UAVObjHandle GCSReceiverHandle()
  */
 void GCSReceiverChannelSet( uint16_t *NewChannel )
 {
-	UAVObjSetDataField(GCSReceiverHandle(), (void*)NewChannel, offsetof( GCSReceiverData, Channel), 6*sizeof(uint16_t));
+	UAVObjSetDataField(GCSReceiverHandle(), (void*)NewChannel, offsetof( GCSReceiverData, Channel), 8*sizeof(uint16_t));
 }
 void GCSReceiverChannelGet( uint16_t *NewChannel )
 {
-	UAVObjGetDataField(GCSReceiverHandle(), (void*)NewChannel, offsetof( GCSReceiverData, Channel), 6*sizeof(uint16_t));
+	UAVObjGetDataField(GCSReceiverHandle(), (void*)NewChannel, offsetof( GCSReceiverData, Channel), 8*sizeof(uint16_t));
 }
 
 

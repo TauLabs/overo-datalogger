@@ -42,8 +42,6 @@
 
 // Object constants
 #define NEDACCEL_OBJID 0x7C7F5BC0
-#define NEDACCEL_NAME "NedAccel"
-#define NEDACCEL_METANAME "NedAccelMeta"
 #define NEDACCEL_ISSINGLEINST 1
 #define NEDACCEL_ISSETTINGS 0
 #define NEDACCEL_NUMBYTES sizeof(NedAccelData)

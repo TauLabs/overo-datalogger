@@ -42,8 +42,6 @@
 
 // Object constants
 #define GPSTIME_OBJID 0xD4478084
-#define GPSTIME_NAME "GPSTime"
-#define GPSTIME_METANAME "GPSTimeMeta"
 #define GPSTIME_ISSINGLEINST 1
 #define GPSTIME_ISSETTINGS 0
 #define GPSTIME_NUMBYTES sizeof(GPSTimeData)

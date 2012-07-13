@@ -42,8 +42,6 @@
 
 // Object constants
 #define FAULTSETTINGS_OBJID 0x2778BA3C
-#define FAULTSETTINGS_NAME "FaultSettings"
-#define FAULTSETTINGS_METANAME "FaultSettingsMeta"
 #define FAULTSETTINGS_ISSINGLEINST 1
 #define FAULTSETTINGS_ISSETTINGS 1
 #define FAULTSETTINGS_NUMBYTES sizeof(FaultSettingsData)

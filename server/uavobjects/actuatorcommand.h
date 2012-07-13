@@ -42,8 +42,6 @@
 
 // Object constants
 #define ACTUATORCOMMAND_OBJID 0x5324CB8
-#define ACTUATORCOMMAND_NAME "ActuatorCommand"
-#define ACTUATORCOMMAND_METANAME "ActuatorCommandMeta"
 #define ACTUATORCOMMAND_ISSINGLEINST 1
 #define ACTUATORCOMMAND_ISSETTINGS 0
 #define ACTUATORCOMMAND_NUMBYTES sizeof(ActuatorCommandData)

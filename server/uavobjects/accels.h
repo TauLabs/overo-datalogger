@@ -42,8 +42,6 @@
 
 // Object constants
 #define ACCELS_OBJID 0xDD9D5FC0
-#define ACCELS_NAME "Accels"
-#define ACCELS_METANAME "AccelsMeta"
 #define ACCELS_ISSINGLEINST 1
 #define ACCELS_ISSETTINGS 0
 #define ACCELS_NUMBYTES sizeof(AccelsData)

@@ -54,7 +54,7 @@ int32_t FlightBatteryStateInitialize(void)
 		return -2;
 	
 	// Register object with the object manager
-	handle = UAVObjRegister(FLIGHTBATTERYSTATE_OBJID, FLIGHTBATTERYSTATE_NAME, FLIGHTBATTERYSTATE_METANAME, 0,
+	handle = UAVObjRegister(FLIGHTBATTERYSTATE_OBJID,
 			FLIGHTBATTERYSTATE_ISSINGLEINST, FLIGHTBATTERYSTATE_ISSETTINGS, FLIGHTBATTERYSTATE_NUMBYTES, &FlightBatteryStateSetDefaults);
 
 	// Done
@@ -83,6 +83,7 @@ void FlightBatteryStateSetDefaults(UAVObjHandle obj, uint16_t instId)
 	memset(&data, 0, sizeof(FlightBatteryStateData));
 	data.Voltage = 0;
 	data.Current = 0;
+	data.BoardSupplyVoltage = 0;
 	data.PeakCurrent = 0;
 	data.AvgCurrent = 0;
 	data.ConsumedEnergy = 0;
@@ -91,15 +92,15 @@ void FlightBatteryStateSetDefaults(UAVObjHandle obj, uint16_t instId)
 	UAVObjSetInstanceData(obj, instId, &data);
 
 	// Initialize object metadata to their default values
-	metadata.access = ACCESS_READWRITE;
-	metadata.gcsAccess = ACCESS_READONLY;
-	metadata.telemetryAcked = 0;
-	metadata.telemetryUpdateMode = UPDATEMODE_PERIODIC;
+	metadata.flags =
+		ACCESS_READWRITE << UAVOBJ_ACCESS_SHIFT |
+		ACCESS_READONLY << UAVOBJ_GCS_ACCESS_SHIFT |
+		0 << UAVOBJ_TELEMETRY_ACKED_SHIFT |
+		0 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
+		UPDATEMODE_PERIODIC << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+		UPDATEMODE_MANUAL << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
 	metadata.telemetryUpdatePeriod = 1000;
-	metadata.gcsTelemetryAcked = 0;
-	metadata.gcsTelemetryUpdateMode = UPDATEMODE_MANUAL;
 	metadata.gcsTelemetryUpdatePeriod = 0;
-	metadata.loggingUpdateMode = UPDATEMODE_NEVER;
 	metadata.loggingUpdatePeriod = 0;
 	UAVObjSetMetadata(obj, &metadata);
 }
@@ -130,6 +131,14 @@ void FlightBatteryStateCurrentSet( float *NewCurrent )
 void FlightBatteryStateCurrentGet( float *NewCurrent )
 {
 	UAVObjGetDataField(FlightBatteryStateHandle(), (void*)NewCurrent, offsetof( FlightBatteryStateData, Current), sizeof(float));
+}
+void FlightBatteryStateBoardSupplyVoltageSet( float *NewBoardSupplyVoltage )
+{
+	UAVObjSetDataField(FlightBatteryStateHandle(), (void*)NewBoardSupplyVoltage, offsetof( FlightBatteryStateData, BoardSupplyVoltage), sizeof(float));
+}
+void FlightBatteryStateBoardSupplyVoltageGet( float *NewBoardSupplyVoltage )
+{
+	UAVObjGetDataField(FlightBatteryStateHandle(), (void*)NewBoardSupplyVoltage, offsetof( FlightBatteryStateData, BoardSupplyVoltage), sizeof(float));
 }
 void FlightBatteryStatePeakCurrentSet( float *NewPeakCurrent )
 {

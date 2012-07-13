@@ -42,8 +42,6 @@
 
 // Object constants
 #define RATEDESIRED_OBJID 0xCE8C826
-#define RATEDESIRED_NAME "RateDesired"
-#define RATEDESIRED_METANAME "RateDesiredMeta"
 #define RATEDESIRED_ISSINGLEINST 1
 #define RATEDESIRED_ISSETTINGS 0
 #define RATEDESIRED_NUMBYTES sizeof(RateDesiredData)

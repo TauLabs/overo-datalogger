@@ -42,8 +42,6 @@
 
 // Object constants
 #define MIXERSTATUS_OBJID 0x124E28A
-#define MIXERSTATUS_NAME "MixerStatus"
-#define MIXERSTATUS_METANAME "MixerStatusMeta"
 #define MIXERSTATUS_ISSINGLEINST 1
 #define MIXERSTATUS_ISSETTINGS 0
 #define MIXERSTATUS_NUMBYTES sizeof(MixerStatusData)

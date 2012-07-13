@@ -42,8 +42,6 @@
 
 // Object constants
 #define WATCHDOGSTATUS_OBJID 0xA207FA7C
-#define WATCHDOGSTATUS_NAME "WatchdogStatus"
-#define WATCHDOGSTATUS_METANAME "WatchdogStatusMeta"
 #define WATCHDOGSTATUS_ISSINGLEINST 1
 #define WATCHDOGSTATUS_ISSETTINGS 0
 #define WATCHDOGSTATUS_NUMBYTES sizeof(WatchdogStatusData)

@@ -41,9 +41,7 @@
 #define WAYPOINT_H
 
 // Object constants
-#define WAYPOINT_OBJID 0x174289F0
-#define WAYPOINT_NAME "Waypoint"
-#define WAYPOINT_METANAME "WaypointMeta"
+#define WAYPOINT_OBJID 0x338C5F90
 #define WAYPOINT_ISSINGLEINST 0
 #define WAYPOINT_ISSETTINGS 0
 #define WAYPOINT_NUMBYTES sizeof(WaypointData)
@@ -92,7 +90,7 @@ typedef enum { WAYPOINT_VELOCITY_NORTH=0, WAYPOINT_VELOCITY_EAST=1, WAYPOINT_VEL
 // Field YawDesired information
 // Field Action information
 /* Enumeration options for field Action */
-typedef enum { WAYPOINT_ACTION_NEXT=0, WAYPOINT_ACTION_RTH=1, WAYPOINT_ACTION_LOITER10S=2, WAYPOINT_ACTION_LAND=3 } WaypointActionOptions;
+typedef enum { WAYPOINT_ACTION_PATHTONEXT=0, WAYPOINT_ACTION_ENDPOINTTONEXT=1, WAYPOINT_ACTION_LAND=2, WAYPOINT_ACTION_STOP=3 } WaypointActionOptions;
 
 
 // Generic interface functions

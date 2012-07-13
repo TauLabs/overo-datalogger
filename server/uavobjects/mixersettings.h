@@ -42,8 +42,6 @@
 
 // Object constants
 #define MIXERSETTINGS_OBJID 0x5D16D6C4
-#define MIXERSETTINGS_NAME "MixerSettings"
-#define MIXERSETTINGS_METANAME "MixerSettingsMeta"
 #define MIXERSETTINGS_ISSINGLEINST 1
 #define MIXERSETTINGS_ISSETTINGS 1
 #define MIXERSETTINGS_NUMBYTES sizeof(MixerSettingsData)

@@ -42,8 +42,6 @@
 
 // Object constants
 #define GPSVELOCITY_OBJID 0x8245DC80
-#define GPSVELOCITY_NAME "GPSVelocity"
-#define GPSVELOCITY_METANAME "GPSVelocityMeta"
 #define GPSVELOCITY_ISSINGLEINST 1
 #define GPSVELOCITY_ISSETTINGS 0
 #define GPSVELOCITY_NUMBYTES sizeof(GPSVelocityData)

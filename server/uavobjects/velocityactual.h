@@ -42,8 +42,6 @@
 
 // Object constants
 #define VELOCITYACTUAL_OBJID 0x5A08F61A
-#define VELOCITYACTUAL_NAME "VelocityActual"
-#define VELOCITYACTUAL_METANAME "VelocityActualMeta"
 #define VELOCITYACTUAL_ISSINGLEINST 1
 #define VELOCITYACTUAL_ISSETTINGS 0
 #define VELOCITYACTUAL_NUMBYTES sizeof(VelocityActualData)

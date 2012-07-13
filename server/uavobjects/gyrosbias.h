@@ -42,8 +42,6 @@
 
 // Object constants
 #define GYROSBIAS_OBJID 0xE4B6F980
-#define GYROSBIAS_NAME "GyrosBias"
-#define GYROSBIAS_METANAME "GyrosBiasMeta"
 #define GYROSBIAS_ISSINGLEINST 1
 #define GYROSBIAS_ISSETTINGS 0
 #define GYROSBIAS_NUMBYTES sizeof(GyrosBiasData)

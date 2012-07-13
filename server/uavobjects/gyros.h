@@ -42,8 +42,6 @@
 
 // Object constants
 #define GYROS_OBJID 0x4228AF6
-#define GYROS_NAME "Gyros"
-#define GYROS_METANAME "GyrosMeta"
 #define GYROS_ISSINGLEINST 1
 #define GYROS_ISSETTINGS 0
 #define GYROS_NUMBYTES sizeof(GyrosData)

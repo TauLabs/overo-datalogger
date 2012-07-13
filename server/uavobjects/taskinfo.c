@@ -54,7 +54,7 @@ int32_t TaskInfoInitialize(void)
 		return -2;
 	
 	// Register object with the object manager
-	handle = UAVObjRegister(TASKINFO_OBJID, TASKINFO_NAME, TASKINFO_METANAME, 0,
+	handle = UAVObjRegister(TASKINFO_OBJID,
 			TASKINFO_ISSINGLEINST, TASKINFO_ISSETTINGS, TASKINFO_NUMBYTES, &TaskInfoSetDefaults);
 
 	// Done
@@ -85,15 +85,15 @@ void TaskInfoSetDefaults(UAVObjHandle obj, uint16_t instId)
 	UAVObjSetInstanceData(obj, instId, &data);
 
 	// Initialize object metadata to their default values
-	metadata.access = ACCESS_READWRITE;
-	metadata.gcsAccess = ACCESS_READWRITE;
-	metadata.telemetryAcked = 1;
-	metadata.telemetryUpdateMode = UPDATEMODE_PERIODIC;
+	metadata.flags =
+		ACCESS_READWRITE << UAVOBJ_ACCESS_SHIFT |
+		ACCESS_READWRITE << UAVOBJ_GCS_ACCESS_SHIFT |
+		1 << UAVOBJ_TELEMETRY_ACKED_SHIFT |
+		1 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
+		UPDATEMODE_PERIODIC << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+		UPDATEMODE_ONCHANGE << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
 	metadata.telemetryUpdatePeriod = 10000;
-	metadata.gcsTelemetryAcked = 1;
-	metadata.gcsTelemetryUpdateMode = UPDATEMODE_ONCHANGE;
 	metadata.gcsTelemetryUpdatePeriod = 0;
-	metadata.loggingUpdateMode = UPDATEMODE_PERIODIC;
 	metadata.loggingUpdatePeriod = 1000;
 	UAVObjSetMetadata(obj, &metadata);
 }
@@ -111,27 +111,27 @@ UAVObjHandle TaskInfoHandle()
  */
 void TaskInfoStackRemainingSet( uint16_t *NewStackRemaining )
 {
-	UAVObjSetDataField(TaskInfoHandle(), (void*)NewStackRemaining, offsetof( TaskInfoData, StackRemaining), 18*sizeof(uint16_t));
+	UAVObjSetDataField(TaskInfoHandle(), (void*)NewStackRemaining, offsetof( TaskInfoData, StackRemaining), 19*sizeof(uint16_t));
 }
 void TaskInfoStackRemainingGet( uint16_t *NewStackRemaining )
 {
-	UAVObjGetDataField(TaskInfoHandle(), (void*)NewStackRemaining, offsetof( TaskInfoData, StackRemaining), 18*sizeof(uint16_t));
+	UAVObjGetDataField(TaskInfoHandle(), (void*)NewStackRemaining, offsetof( TaskInfoData, StackRemaining), 19*sizeof(uint16_t));
 }
 void TaskInfoRunningSet( uint8_t *NewRunning )
 {
-	UAVObjSetDataField(TaskInfoHandle(), (void*)NewRunning, offsetof( TaskInfoData, Running), 18*sizeof(uint8_t));
+	UAVObjSetDataField(TaskInfoHandle(), (void*)NewRunning, offsetof( TaskInfoData, Running), 19*sizeof(uint8_t));
 }
 void TaskInfoRunningGet( uint8_t *NewRunning )
 {
-	UAVObjGetDataField(TaskInfoHandle(), (void*)NewRunning, offsetof( TaskInfoData, Running), 18*sizeof(uint8_t));
+	UAVObjGetDataField(TaskInfoHandle(), (void*)NewRunning, offsetof( TaskInfoData, Running), 19*sizeof(uint8_t));
 }
 void TaskInfoRunningTimeSet( uint8_t *NewRunningTime )
 {
-	UAVObjSetDataField(TaskInfoHandle(), (void*)NewRunningTime, offsetof( TaskInfoData, RunningTime), 18*sizeof(uint8_t));
+	UAVObjSetDataField(TaskInfoHandle(), (void*)NewRunningTime, offsetof( TaskInfoData, RunningTime), 19*sizeof(uint8_t));
 }
 void TaskInfoRunningTimeGet( uint8_t *NewRunningTime )
 {
-	UAVObjGetDataField(TaskInfoHandle(), (void*)NewRunningTime, offsetof( TaskInfoData, RunningTime), 18*sizeof(uint8_t));
+	UAVObjGetDataField(TaskInfoHandle(), (void*)NewRunningTime, offsetof( TaskInfoData, RunningTime), 19*sizeof(uint8_t));
 }
 
 
