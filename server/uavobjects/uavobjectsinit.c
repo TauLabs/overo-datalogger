@@ -137,7 +137,6 @@ void UAVObjectsInitializeAll()
     GPSSatellitesInitialize();
     GPSTimeInitialize();
     GPSVelocityInitialize();
-    GuidanceSettingsInitialize();
     GyrosInitialize();
     GyrosBiasInitialize();
     HomeLocationInitialize();
