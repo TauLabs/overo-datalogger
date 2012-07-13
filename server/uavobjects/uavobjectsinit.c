@@ -157,7 +157,6 @@ void UAVObjectsInitializeAll()
     PipXSettingsInitialize();
     PipXStatusInitialize();
     PositionActualInitialize();
-    PositionDesiredInitialize();
     RateDesiredInitialize();
     ReceiverActivityInitialize();
     RevoCalibrationInitialize();
