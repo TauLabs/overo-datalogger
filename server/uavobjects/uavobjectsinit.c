@@ -38,7 +38,6 @@
 #include "altitudeholdsettings.h"
 #include "attitudeactual.h"
 #include "attitudesettings.h"
-#include "attitudesimulated.h"
 #include "baroairspeed.h"
 #include "baroaltitude.h"
 #include "cameradesired.h"
@@ -117,7 +116,6 @@ void UAVObjectsInitializeAll()
     AltHoldSmoothedInitialize();
     AttitudeActualInitialize();
     AttitudeSettingsInitialize();
-    AttitudeSimulatedInitialize();
     BaroAirspeedInitialize();
     BaroAltitudeInitialize();
     CameraDesiredInitialize();
