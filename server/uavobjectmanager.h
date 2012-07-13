@@ -32,6 +32,9 @@
 #ifndef UAVOBJECTMANAGER_H
 #define UAVOBJECTMANAGER_H
 
+#include "stdint.h"
+#include "stdbool.h"
+
 #define UAVOBJ_ALL_INSTANCES 0xFFFF
 #define UAVOBJ_MAX_INSTANCES 1000
 
