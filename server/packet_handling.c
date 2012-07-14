@@ -28,6 +28,10 @@
 
 #include "packet_handling.h"
 
+#include <sys/ioctl.h>
+#include <linux/spi/spidev.h>
+#include <linux/types.h>
+
 //! The global uavTalk handle which talks to the uavobject manager
 extern UAVTalkConnection uavTalk;
 

@@ -26,7 +26,7 @@
 static void packet_to_disk(unsigned char *buf, int len, __u32 timestamp);
 
 //! Parse a packet into the UAVTalk parts
-static void parse_packet(unsigned char *buf, int len, bool logging);
+static int parse_packet(unsigned char *buf, int len, bool logging);
 
 //! Get a packet from the SPI port and passes it to the UAVObjectManager
 static void process_packet(int dev_fd, bool logging);
