@@ -34,6 +34,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <string.h>
+#include <time.h>
 
 #include <sys/ioctl.h>
 #include <sys/types.h>
@@ -195,13 +196,13 @@ usage:
 		if (!logging && new_logging) {
 			// Open a new log file
 			time_t t;
-			struct tm *tm;
+			struct tm tm;
 			char file_name[50];
 
 			time(&t);
-			tm = gmtime_r(&t, tm);
+			gmtime_r(&t, &tm);
 			strftime(file_name, sizeof(file_name), "/home/root/log_%Y%m%d_%H%M%S.dat", &tm);
-			file_fd = fopen("/home/root/log.dat", "w");
+			file_fd = fopen(file_name, "w");
 			logging = new_logging;
 		} elseif (logging && !new_logging) {
 			// Close the log file
