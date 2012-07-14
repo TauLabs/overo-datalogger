@@ -203,7 +203,9 @@ usage:
 			gmtime_r(&t, &tm);
 			strftime(file_name, sizeof(file_name), "/home/root/log_%Y%m%d_%H%M%S.dat", &tm);
 			file_fd = fopen(file_name, "w");
+
 			logging = new_logging;
+
 		} elseif (logging && !new_logging) {
 			// Close the log file
 			fclose(file_fd);
