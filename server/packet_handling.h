@@ -29,7 +29,7 @@ static void packet_to_disk(unsigned char *buf, int len, __u32 timestamp);
 static void parse_packet(unsigned char *buf, int len, bool logging);
 
 //! Get a packet from the SPI port and passes it to the UAVObjectManager
-static void process_packet(int dev_fd, FILE  *file_fd, bool logging);
+static void process_packet(int dev_fd, bool logging);
 
 
 static void do_read(int fd, int len);

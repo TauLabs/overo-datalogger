@@ -32,6 +32,7 @@
 extern UAVTalkConnection uavTalk;
 
 extern FILE *file_fd_err;
+extern FILE *file_fd;
 
 /**
  * Write a UAVTalk log entry (one UAVTalk message) with a timestamp and CRC
@@ -110,7 +111,7 @@ static int parse_packet(unsigned char *buf, int len, bool logging)
  * @param [in] file_fd The file to write to
  * @param [in] logging Whether to log to file
  */
-static void process_packet(int dev_fd, FILE  *file_fd, bool logging)
+static void process_packet(int dev_fd, bool logging)
 {
 	const int len = PACKET_SIZE;
 	unsigned char	buf[len], tx_buf[len], *bp;

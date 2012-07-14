@@ -175,7 +175,7 @@ usage:
 	UAVTalkStats stats;
 
 	while (1) {
-		received_bytes += process_packet(fd, file_fd, logging);
+		received_bytes += process_packet(fd, logging);
 
 		OveroSyncSettingsData settings;
 		OveroSyncSettingsGet(&settings);
