@@ -31,6 +31,7 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
+#include <assert.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -40,6 +41,7 @@
 #include "pios_struct_helper.h"
 
 // Constants
+#define PIOS_Assert(x) assert(x)
 
 // Private types
 
