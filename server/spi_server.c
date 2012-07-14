@@ -206,7 +206,7 @@ usage:
 
 			logging = new_logging;
 
-		} elseif (logging && !new_logging) {
+		} else if (logging && !new_logging) {
 			// Close the log file
 			fclose(file_fd);
 			logging = new_logging;
