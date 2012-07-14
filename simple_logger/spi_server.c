@@ -12,19 +12,12 @@
 #include <linux/types.h>
 #include <linux/spi/spidev.h>
 
-#include "openpilot.h"
-#include "uavtalk.h"
-#include "uavobjectmanager.h"
-
-#include "systemstats.h"
-
 #define PACKET_SIZE 1024
 
 static int verbose;
 int received_bytes;
 FILE *file_fd;
 FILE *file_fd_err;
-UAVTalkConnection uavTalk;
 
 static void packet_to_disk(unsigned char *buf, int len, __u32 timestamp)
 {
@@ -293,13 +286,6 @@ usage:
 		received_bytes = 0;
 		file_fd = fopen("/home/root/log.dat", "w");
 		file_fd_err = fopen("/home/root/raw_err.dat", "w");
-
-		// Initialize the uavTalk object
-		UAVObjInitialize();
-		UAVObjectsInitializeAll();
-		uavTalk = UAVTalkInitialize(NULL);
-
-		UAVTalkStats stats;
 
 		for (i = 0; i < logcount; i++) {
 			if ((i % 500) == 0)
