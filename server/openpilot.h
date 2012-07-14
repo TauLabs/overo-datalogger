@@ -1,4 +1,5 @@
 
+#define xQueueHandle (void *)
 
 #include <stdint.h>
 #include <stdio.h>

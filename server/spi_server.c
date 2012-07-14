@@ -1,3 +1,32 @@
+/**
+ ******************************************************************************
+ *
+ * @brief      A server that connects to Revo and passes updates to the
+ *             UAVObjectManager.  Based on the @ref OveroSyncSettings it
+ *             will also log to a file.
+ *
+ * @file       spi_server.c
+ * @author     The OpenPilot Team, http://www.openpilot.org Copyright (C) 2012.
+ * @brief      Include files of the uavobjectlist library
+ * @see        The GNU Public License (GPL) Version 3
+ *
+ *****************************************************************************/
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -12,184 +41,24 @@
 #include <linux/types.h>
 #include <linux/spi/spidev.h>
 
+#include "packet_handling.h"
+
 #include "openpilot.h"
 #include "uavtalk.h"
 #include "uavobjectmanager.h"
 
 #include "systemstats.h"
+#include "overosyncsettings.h"
+#include "flightstatus.h"
 
-#define PACKET_SIZE 1024
+//! Private methods
+void sig_handler(int signum);
 
-static int verbose;
-int received_bytes;
-FILE *file_fd;
-FILE *file_fd_err;
+//! Private variables
+int fd;                // The spidev device
+FILE *file_fd;         // The log file
+FILE *file_fd_err;     // The error log file
 UAVTalkConnection uavTalk;
-
-static void packet_to_disk(unsigned char *buf, int len, __u32 timestamp)
-{
-	struct timeval now;
-	__u64 packet_size;
-
-	packet_size = len;
-	fwrite(&timestamp, 1, sizeof(timestamp), file_fd);
-	fwrite(&packet_size, 1, sizeof(packet_size), file_fd);
-	// Must add 1 because CRC not included in this number
-	fwrite(buf, 1, len + 1, file_fd);
-}
-
-static void parse_packet(unsigned char *buf, int len)
-{
-	unsigned char *cp = buf;
-	unsigned int i = 0, j;
-	__u32 timestamp;
-	int packet_size;
-	int object_id;
-
-	// Make sure there is at least room for the timestamp and uavtalk
-	// header (timestamp = 4 sync = 1 type = 1 packet size = 2 object id = 4)
-	while(i < (len - 11)) {
-		timestamp = cp[i] + (cp[i+1] << 8) + (cp[i+2] << 16) + (cp[i+3] << 24);
-		if(cp[i+4] == 0x3c) {
-			// Get the packet size and object id
-			packet_size = cp[i+6] + (cp[i+7] << 8);
-			object_id = cp[i+8] + (cp[i+9] << 8) + (cp[i+10] << 16) + (cp[i+11] << 24);
-
-			// Add 4 for timestamp and 1 for crc
-			if ((i + packet_size + 5) >= len) {
-				fprintf(stderr,"Nonsense packet size\n");
-				fwrite(buf, 1, len, file_fd_err);
-				return;
-			}
-			//fprintf(stdout, "Got object %x %u\n", object_id, packet_size);
-			received_bytes += packet_size + 1;
-			packet_to_disk(&cp[i+4], packet_size, timestamp);
-
-			// Send packets after removing the timestamp to the
-			// event system.  Plus one for the crc.
-			for(j = i+4; j < i+4+packet_size+1; j++)
-				UAVTalkProcessInputStream(uavTalk, buf[j]);
-
-			if(packet_size == 0) 
-				i++;
-			i += packet_size + 1;
-		} else {
-			i++;
-		}	
-	}	
-}
-
-static void grab_log_packet(int dev_fd, FILE  *file_fd)
-{
-	const int len = PACKET_SIZE;
-	unsigned char	buf[len], tx_buf[len], *bp;
-	int		status;
-
-	struct spi_ioc_transfer	xfer[1];
-	memset(buf, 0, sizeof buf);
-	memset(&xfer[0], 0, sizeof(xfer[0]));
-	
-	xfer[0].rx_buf = (unsigned long) buf;
-	xfer[0].len = len;
-	xfer[0].tx_buf = (unsigned long) tx_buf;
-	xfer[0].len = len;
-
-	status = ioctl(dev_fd, SPI_IOC_MESSAGE(1), xfer);
-
-	if (status < 0) {
-		perror("read");
-		return;
-	}
-
-	parse_packet(buf, len);
-}
-
-static void to_disk(int dev_fd, FILE  *file_fd)
-{
-	const int len = PACKET_SIZE;
-	unsigned char	buf[len], tx_buf[len], *bp;
-	int		status;
-
-	struct spi_ioc_transfer	xfer[1];
-	memset(buf, 0, sizeof buf);
-	memset(&xfer[0], 0, sizeof(xfer[0]));
-	
-	xfer[0].rx_buf = (unsigned long) buf;
-	xfer[0].len = len;
-	xfer[0].tx_buf = (unsigned long) tx_buf;
-	xfer[0].len = len;
-
-	status = ioctl(dev_fd, SPI_IOC_MESSAGE(1), xfer);
-
-	if (status < 0) {
-		perror("read");
-		return;
-	}
-
-	fwrite(buf, 1, len, file_fd);
-}
-
-static void do_read(int fd, int len)
-{
-	unsigned char	buf[256], *bp;
-	int		status;
-
-	/* read at least 2 bytes, no more than 32 */
-	if (len < 2)
-		len = 2;
-	else if (len > sizeof(buf))
-		len = sizeof(buf);
-	memset(buf, 0, sizeof buf);
-
-	status = read(fd, buf, len);
-	if (status < 0) {
-		perror("read");
-		return;
-	}
-	if (status != len) {
-		fprintf(stderr, "short read\n");
-		return;
-	}
-
-	printf("read(%2d, %2d): %02x %02x,", len, status,
-		buf[0], buf[1]);
-	status -= 2;
-	bp = buf + 2;
-	while (status-- > 0)
-		printf(" %02x", *bp++);
-	printf("\n");
-}
-
-static void do_msg(int fd, int len)
-{
-	struct spi_ioc_transfer	xfer[2];
-	unsigned char		buf[256], *bp;
-	int			status;
-
-	memset(xfer, 0, sizeof xfer);
-	memset(buf, 0, sizeof buf);
-
-	if (len > sizeof buf)
-		len = sizeof buf;
-
-	buf[0] = 0xaa;
-	xfer[0].tx_buf = (unsigned long)buf;
-	xfer[0].len = 1;
-
-	xfer[1].rx_buf = (unsigned long) buf;
-	xfer[1].len = len;
-
-	status = ioctl(fd, SPI_IOC_MESSAGE(2), xfer);
-	if (status < 0) {
-		perror("SPI_IOC_MESSAGE");
-		return;
-	}
-
-	printf("response(%2d, %2d): ", len, status);
-	for (bp = buf; len; len--)
-		printf(" %02x", *bp++);
-	printf("\n");
-}
 
 static void dumpstat(const char *name, int fd)
 {
@@ -224,7 +93,7 @@ int main(int argc, char **argv)
 	int		msglen = 0;
 	int		dumpcount = 0;
 	int		logcount = 0;
-	int		fd;
+
 	int             i;
 	const char	*name;
 
@@ -263,6 +132,9 @@ usage:
 		}
 	}
 
+	// Install the signal handler
+	signal(SIGINT, sig_handler);
+
 	fprintf(stdout, "Starting the OpenPilot SPI server\n");
 
 	if ((optind + 1) != argc)
@@ -288,49 +160,92 @@ usage:
 	}
 	dumpstat(name, fd);
 
-	if (msglen)
-		do_msg(fd, msglen);
+	received_bytes = 0;
+	file_fd = fopen("/home/root/log.dat", "w");
+	file_fd_err = fopen("/home/root/raw_err.dat", "w");
+	bool logging = false;
+	int received_bytes;
+	unsigned int i;
 
-	if (readcount)
-		do_read(fd, readcount);
+	// Initialize the uavTalk object
+	UAVObjInitialize();
+	UAVObjectsInitializeAll();
+	uavTalk = UAVTalkInitialize(NULL);
 
-	if (logcount) {
-		received_bytes = 0;
-		file_fd = fopen("/home/root/log.dat", "w");
-		file_fd_err = fopen("/home/root/raw_err.dat", "w");
+	UAVTalkStats stats;
 
-		// Initialize the uavTalk object
-		UAVObjInitialize();
-		UAVObjectsInitializeAll();
-		uavTalk = UAVTalkInitialize(NULL);
+	while (1) {
+		received_bytes += process_packet(fd, file_fd, logging);
 
-		UAVTalkStats stats;
+		OveroSyncSettingsData settings;
+		OveroSyncSettingsGet(&settings);
+		FlightStatusData flightStatus;
+		FlightStatusGet(&flightStatus);
 
-		for (i = 0; i < logcount; i++) {
-			if ((i % 500) == 0) {
-				UAVTalkGetStats(uavTalk, &stats);
-				fprintf(stdout, "Grabbing %d packet.  Received %d bytes.  Received %d objects.  Received %d errors.\n", i, received_bytes, stats.rxObjects, stats.rxErrors);
-				SystemStatsData sysStats;
-				SystemStatsGet(&sysStats);
-				fprintf(stdout, "Uptime: %d ms\n", sysStats.FlightTime);
-			}
-			grab_log_packet(fd, file_fd);	
-			usleep(500);
+		switch(settings.LogOn) {
+			case OVEROSYNCSETTINGS_LOGON_NEVER:
+				new_logging = false;
+				break;
+			case OVEROSYNCSETTINGS_LOGON_ALWAYS:
+				new_logging = true;
+				break;
+			case OVEROSYNCSETTINGS_LGOON_ARMED:
+				new_logging = flightStatus.Armed == FLIGHTSTATUS_ARMED_ARMED;
+				break;
 		}
-		fclose(file_fd);
-		fclose(file_fd_err);
-	}
-	if (dumpcount) {
-		received_bytes = 0;
-		file_fd = fopen("/home/root/raw.dat", "w");
-		for (i = 0; i < dumpcount; i++) {
-			if ((i % 500) == 0)
-				fprintf(stdout, "Grabbing %d packet.  Received %d bytes\n", i, received_bytes);
-			to_disk(fd, file_fd);	
-			usleep(500);
+		
+		if (!logging && new_logging) {
+			// Open a new log file
+			time_t t;
+			struct tm *tm;
+			char file_name[50];
+
+			time(&t);
+			tm = gmtime_r(&t, tm);
+			strftime(file_name, sizeof(file_name), "/home/root/log_%Y%m%d_%H%M%S.dat", &tm);
+			file_fd = fopen("/home/root/log.dat", "w");
+			logging = new_logging;
+		} elseif (logging && !new_logging) {
+			// Close the log file
+			fclose(file_fd);
+			logging = new_logging;
+		} else {
+			// No change
 		}
-		fclose(file_fd);
+
+	
+		i++;
+		if (i % 1000 == 0) {
+			UAVTalkGetStats(uavTalk, &stats);
+			SystemStatsData sysStats;
+			SystemStatsGet(&sysStats);
+
+			fprintf(stdout, "Grabbing %d packet.  Received %d bytes.  Received %d objects.  Received %d errors.\n", i, received_bytes, stats.rxObjects, stats.rxErrors);
+			fprintf(stdout, "Uptime: %d ms\n", sysStats.FlightTime);
+		}
+		
+		usleep(500);
 	}
-	close(fd);
+	
 	return 0;
+}
+
+/**
+ * Signal handler that closes out all the devices
+ * @param signum the signal that was received
+ */
+void sig_handler(int signum) 
+{
+	switch(signum) {
+		case SIGQUIT:
+		case SIGINT:
+			fprintf(stdout, "Shutting down.");
+			fclose(file_fd);
+			fclose(file_fd_err);
+			close(fd);
+			exit(0);
+			break;
+		default:
+			break;
+	}
 }
