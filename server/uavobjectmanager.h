@@ -35,6 +35,8 @@
 #include "stdint.h"
 #include "stdbool.h"
 
+typedef void * xQueueHandle;
+
 #define UAVOBJ_ALL_INSTANCES 0xFFFF
 #define UAVOBJ_MAX_INSTANCES 1000
 
