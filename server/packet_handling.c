@@ -115,7 +115,7 @@ static int parse_packet(unsigned char *buf, int len, bool logging)
  * @param [in] file_fd The file to write to
  * @param [in] logging Whether to log to file
  */
-static void process_packet(int dev_fd, bool logging)
+int process_packet(int dev_fd, bool logging)
 {
 	const int len = PACKET_SIZE;
 	unsigned char	buf[len], tx_buf[len], *bp;
@@ -137,5 +137,5 @@ static void process_packet(int dev_fd, bool logging)
 		return;
 	}
 
-	parse_packet(buf, len, logging);
+	return parse_packet(buf, len, logging);
 }

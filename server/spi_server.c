@@ -27,6 +27,8 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
+#include <signal.h>
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -157,12 +159,11 @@ usage:
 	}
 	dumpstat(name, fd);
 
-	received_bytes = 0;
 	file_fd = fopen("/home/root/log.dat", "w");
 	file_fd_err = fopen("/home/root/raw_err.dat", "w");
 	bool logging = false;
-	int received_bytes;
-	unsigned int i;
+	bool new_logging;
+	int received_bytes = 0;
 
 	// Initialize the uavTalk object
 	UAVObjInitialize();
@@ -186,7 +187,7 @@ usage:
 			case OVEROSYNCSETTINGS_LOGON_ALWAYS:
 				new_logging = true;
 				break;
-			case OVEROSYNCSETTINGS_LGOON_ARMED:
+			case OVEROSYNCSETTINGS_LOGON_ARMED:
 				new_logging = flightStatus.Armed == FLIGHTSTATUS_ARMED_ARMED;
 				break;
 		}
