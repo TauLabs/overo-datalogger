@@ -73,6 +73,7 @@
 #include "nedposition.h"
 #include "objectpersistence.h"
 #include "overosyncstats.h"
+#include "overosyncsettings.h"
 #include "pathdesired.h"
 #include "pathplannersettings.h"
 #include "pipxsettings.h"
@@ -151,6 +152,7 @@ void UAVObjectsInitializeAll()
     NEDPositionInitialize();
     ObjectPersistenceInitialize();
     OveroSyncStatsInitialize();
+    OveroSyncSettingsInitialize();
     PathDesiredInitialize();
     PathPlannerSettingsInitialize();
     PipXSettingsInitialize();
