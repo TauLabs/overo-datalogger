@@ -31,6 +31,8 @@
 //! The global uavTalk handle which talks to the uavobject manager
 extern UAVTalkConnection uavTalk;
 
+extern FILE *file_fd_err;
+
 /**
  * Write a UAVTalk log entry (one UAVTalk message) with a timestamp and CRC
  * @param [in] buf The buffer pointer

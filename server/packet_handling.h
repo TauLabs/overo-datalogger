@@ -17,6 +17,11 @@
 #include <sys/stat.h>
 #include <sys/time.h>
 
+#include <linux/types.h>
+
+#include "uavtalk.h"
+#include "uavobjectmanager.h"
+
 //! Write data to disk
 static void packet_to_disk(unsigned char *buf, int len, __u32 timestamp);
 
