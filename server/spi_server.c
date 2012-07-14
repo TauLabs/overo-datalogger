@@ -97,7 +97,7 @@ int main(int argc, char **argv)
 	int             i;
 	const char	*name;
 
-	while ((c = getopt(argc, argv, "hm:r:l:d:v")) != EOF) {
+	while ((c = getopt(argc, argv, "hm:r:l:d:")) != EOF) {
 		switch (c) {
 		case 'm':
 			msglen = atoi(optarg);
@@ -118,9 +118,6 @@ int main(int argc, char **argv)
 			dumpcount = atoi(optarg);
 			if (dumpcount < 0)
 				goto usage;
-			continue;
-		case 'v':
-			verbose++;
 			continue;
 		case 'h':
 		case '?':
