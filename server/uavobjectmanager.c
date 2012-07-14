@@ -1807,6 +1807,11 @@ void UAVObjIterate(void (*iterator) (UAVObjHandle obj))
 /**
  * Send a triggered event to all event queues registered on the object.
  */
+static int32_t sendEvent(struct UAVOBase * obj, uint16_t instId,
+			UAVObjEventType triggered_event)
+{
+}
+
 //static int32_t sendEvent(struct UAVOBase * obj, uint16_t instId,
 //			UAVObjEventType triggered_event)
 //{
