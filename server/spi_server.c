@@ -94,7 +94,7 @@ int main(int argc, char **argv)
 	int		c;
 	int		readcount = 0;
 	int		msglen = 0;
-	int		dumpcount = 0;
+	int		delay_time = 0;
 	int		logcount = 0;
 	int             verbose = 0;
 
@@ -119,8 +119,8 @@ int main(int argc, char **argv)
 				goto usage;
 			continue;
 		case 'd':
-			dumpcount = atoi(optarg);
-			if (dumpcount < 0)
+			delay_time = atoi(optarg);
+			if (delay_time < 0)
 				goto usage;
 			continue;
 		case 'v':
@@ -237,8 +237,9 @@ usage:
 				fprintf(stdout, "Uptime: %d ms\n", sysStats.FlightTime);
 			}
 		}
-		
-		usleep(2000);
+
+		if (delay_time)
+			usleep(delay_time);
 	}
 	
 	return 0;
