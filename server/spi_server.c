@@ -197,6 +197,8 @@ usage:
 				break;
 		}
 		
+		new_logging = true;
+
 		if (!logging && new_logging) {
 			// Open a new log file
 			time_t t;
