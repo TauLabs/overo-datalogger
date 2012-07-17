@@ -41,7 +41,7 @@
 #define OVEROSYNCSTATS_H
 
 // Object constants
-#define OVEROSYNCSTATS_OBJID 0x55762DAE
+#define OVEROSYNCSTATS_OBJID 0xD2085FAC
 #define OVEROSYNCSTATS_ISSINGLEINST 1
 #define OVEROSYNCSTATS_ISSETTINGS 0
 #define OVEROSYNCSTATS_NUMBYTES sizeof(OveroSyncStatsData)
@@ -72,7 +72,9 @@ typedef struct {
     uint32_t Send;
     uint32_t Received;
     uint32_t FramesyncErrors;
+    uint32_t UnderrunErrors;
     uint32_t DroppedUpdates;
+    uint32_t Packets;
     uint8_t Connected;
 
 } __attribute__((packed)) OveroSyncStatsData;
@@ -81,7 +83,9 @@ typedef struct {
 // Field Send information
 // Field Received information
 // Field FramesyncErrors information
+// Field UnderrunErrors information
 // Field DroppedUpdates information
+// Field Packets information
 // Field Connected information
 /* Enumeration options for field Connected */
 typedef enum { OVEROSYNCSTATS_CONNECTED_FALSE=0, OVEROSYNCSTATS_CONNECTED_TRUE=1 } OveroSyncStatsConnectedOptions;
@@ -99,8 +103,12 @@ extern void OveroSyncStatsReceivedSet( uint32_t *NewReceived );
 extern void OveroSyncStatsReceivedGet( uint32_t *NewReceived );
 extern void OveroSyncStatsFramesyncErrorsSet( uint32_t *NewFramesyncErrors );
 extern void OveroSyncStatsFramesyncErrorsGet( uint32_t *NewFramesyncErrors );
+extern void OveroSyncStatsUnderrunErrorsSet( uint32_t *NewUnderrunErrors );
+extern void OveroSyncStatsUnderrunErrorsGet( uint32_t *NewUnderrunErrors );
 extern void OveroSyncStatsDroppedUpdatesSet( uint32_t *NewDroppedUpdates );
 extern void OveroSyncStatsDroppedUpdatesGet( uint32_t *NewDroppedUpdates );
+extern void OveroSyncStatsPacketsSet( uint32_t *NewPackets );
+extern void OveroSyncStatsPacketsGet( uint32_t *NewPackets );
 extern void OveroSyncStatsConnectedSet( uint8_t *NewConnected );
 extern void OveroSyncStatsConnectedGet( uint8_t *NewConnected );
 

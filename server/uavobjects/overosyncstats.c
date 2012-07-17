@@ -133,6 +133,14 @@ void OveroSyncStatsFramesyncErrorsGet( uint32_t *NewFramesyncErrors )
 {
 	UAVObjGetDataField(OveroSyncStatsHandle(), (void*)NewFramesyncErrors, offsetof( OveroSyncStatsData, FramesyncErrors), sizeof(uint32_t));
 }
+void OveroSyncStatsUnderrunErrorsSet( uint32_t *NewUnderrunErrors )
+{
+	UAVObjSetDataField(OveroSyncStatsHandle(), (void*)NewUnderrunErrors, offsetof( OveroSyncStatsData, UnderrunErrors), sizeof(uint32_t));
+}
+void OveroSyncStatsUnderrunErrorsGet( uint32_t *NewUnderrunErrors )
+{
+	UAVObjGetDataField(OveroSyncStatsHandle(), (void*)NewUnderrunErrors, offsetof( OveroSyncStatsData, UnderrunErrors), sizeof(uint32_t));
+}
 void OveroSyncStatsDroppedUpdatesSet( uint32_t *NewDroppedUpdates )
 {
 	UAVObjSetDataField(OveroSyncStatsHandle(), (void*)NewDroppedUpdates, offsetof( OveroSyncStatsData, DroppedUpdates), sizeof(uint32_t));
@@ -140,6 +148,14 @@ void OveroSyncStatsDroppedUpdatesSet( uint32_t *NewDroppedUpdates )
 void OveroSyncStatsDroppedUpdatesGet( uint32_t *NewDroppedUpdates )
 {
 	UAVObjGetDataField(OveroSyncStatsHandle(), (void*)NewDroppedUpdates, offsetof( OveroSyncStatsData, DroppedUpdates), sizeof(uint32_t));
+}
+void OveroSyncStatsPacketsSet( uint32_t *NewPackets )
+{
+	UAVObjSetDataField(OveroSyncStatsHandle(), (void*)NewPackets, offsetof( OveroSyncStatsData, Packets), sizeof(uint32_t));
+}
+void OveroSyncStatsPacketsGet( uint32_t *NewPackets )
+{
+	UAVObjGetDataField(OveroSyncStatsHandle(), (void*)NewPackets, offsetof( OveroSyncStatsData, Packets), sizeof(uint32_t));
 }
 void OveroSyncStatsConnectedSet( uint8_t *NewConnected )
 {
