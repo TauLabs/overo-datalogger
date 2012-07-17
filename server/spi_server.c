@@ -141,9 +141,11 @@ usage:
 
 	fprintf(stdout, "Starting the OpenPilot SPI server\n");
 
-	if ((optind + 1) != argc)
-		goto usage;
-	name = argv[optind];
+	if ((optind + 1) != argc) {
+		name = "/dev/spidev1.1";
+	} else {
+		name = argv[optind];
+	}
 
 	fd = open(name, O_RDWR);
 	if (fd < 0) {
