@@ -182,8 +182,6 @@ usage:
 
 		OveroSyncSettingsData settings;
 		OveroSyncSettingsGet(&settings);
-		FlightStatusData flightStatus;
-		FlightStatusGet(&flightStatus);
 
 		switch(settings.LogOn) {
 			case OVEROSYNCSETTINGS_LOGON_NEVER:
@@ -193,11 +191,13 @@ usage:
 				new_logging = true;
 				break;
 			case OVEROSYNCSETTINGS_LOGON_ARMED:
+			{
+				FlightStatusData flightStatus;
+				FlightStatusGet(&flightStatus);
 				new_logging = flightStatus.Armed == FLIGHTSTATUS_ARMED_ARMED;
+			}
 				break;
 		}
-		
-		new_logging = true;
 
 		if (!logging && new_logging) {
 			// Open a new log file
