@@ -218,6 +218,7 @@ usage:
 		} else if (logging && !new_logging) {
 			// Close the log file
 			fclose(file_fd);
+			file_fd = NULL;
 			fprintf(stdout, "Stopping logging\n");
 			logging = new_logging;
 		} else {
@@ -253,7 +254,10 @@ void sig_handler(int signum)
 		case SIGQUIT:
 		case SIGINT:
 			fprintf(stdout, "Shutting down.");
-			fclose(file_fd);
+			if(file_fd) {
+				fclose(file_fd);
+				file_fd = NULL;
+			}
 			fclose(file_fd_err);
 			ph_print_statistics();
 			close(fd);
