@@ -22,11 +22,8 @@
 #include "uavtalk.h"
 #include "uavobjectmanager.h"
 
-//! Write data to disk
-static void packet_to_disk(unsigned char *buf, int len, __u32 timestamp);
-
-//! Parse a packet into the UAVTalk parts
-static int parse_packet(unsigned char *buf, int len, bool logging);
+//! Print the statistics from the packet handler
+void ph_print_statistics();
 
 //! Get a packet from the SPI port and passes it to the UAVObjectManager
 int process_packet(int dev_fd, bool logging);

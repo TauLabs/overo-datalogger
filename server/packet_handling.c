@@ -38,6 +38,29 @@ extern UAVTalkConnection uavTalk;
 extern FILE *file_fd_err;
 extern FILE *file_fd;
 
+#define MAX_UNKNOWN_IDS 100
+static struct statistics {
+	uint32_t unknown_ids[MAX_UNKNOWN_IDS];
+	uint32_t unknown_id_count[MAX_UNKNOWN_IDS];
+	uint32_t unknown_id_idx;
+	uint32_t badsize_count;
+} ph_statistics;
+
+//! Private methods
+//! Write data to disk
+static void packet_to_disk(unsigned char *buf, int len, __u32 timestamp);
+
+//! Parse a packet into the UAVTalk parts
+static int parse_packet(unsigned char *buf, int len, bool logging);
+
+/**
+ * Print a summary of the statistics from the packet handler
+ */
+void ph_print_statistics()
+{
+	fprintf(stdout, "Total nonsense packets: %d\n", ph_statistics.badsize_count);
+}
+
 /**
  * Write a UAVTalk log entry (one UAVTalk message) with a timestamp and CRC
  * @param [in] buf The buffer pointer
@@ -83,7 +106,7 @@ static int parse_packet(unsigned char *buf, int len, bool logging)
 
 			// Add 4 for timestamp and 1 for crc
 			if ((i + packet_size + 5) >= len) {
-				fprintf(stderr,"Nonsense packet size\n");
+				ph_statistics.badsize_count++;
 				fwrite(buf, 1, len, file_fd_err);
 				return;
 			}

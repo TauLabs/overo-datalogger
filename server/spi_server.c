@@ -251,6 +251,7 @@ void sig_handler(int signum)
 			fprintf(stdout, "Shutting down.");
 			fclose(file_fd);
 			fclose(file_fd_err);
+			ph_print_statistics();
 			close(fd);
 			exit(0);
 			break;
