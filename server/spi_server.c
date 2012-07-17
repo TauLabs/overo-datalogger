@@ -164,7 +164,7 @@ usage:
 	}
 	dumpstat(name, fd);
 
-	file_fd = fopen("/home/root/log.dat", "w");
+	file_fd = NULL;
 	file_fd_err = fopen("/home/root/raw_err.dat", "w");
 	bool logging = false;
 	bool new_logging;
@@ -210,13 +210,13 @@ usage:
 			strftime(file_name, sizeof(file_name), "/home/root/log_%Y%m%d_%H%M%S.dat", &tm);
 			file_fd = fopen(file_name, "w");
 
-			fprintf(stdout, "Starting logging: %s", file_name);
+			fprintf(stdout, "Starting logging to: %s\n", file_name);
 			logging = new_logging;
 
 		} else if (logging && !new_logging) {
 			// Close the log file
 			fclose(file_fd);
-			fprintf(stdout, "Stopping logging");
+			fprintf(stdout, "Stopping logging\n");
 			logging = new_logging;
 		} else {
 			// No change
