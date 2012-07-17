@@ -351,6 +351,7 @@ int32_t UAVTalkProcessInputStream(UAVTalkConnection connectionHandle, uint8_t rx
 				connection->stats.rxErrors++;
 				iproc->state = UAVTALK_STATE_SYNC;
 				fprintf(stdout, "Unknown object id %08x\n", iproc->objId);
+				return -1;
 				break;
 			}
 			

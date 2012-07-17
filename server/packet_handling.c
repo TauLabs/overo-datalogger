@@ -110,16 +110,23 @@ static int parse_packet(unsigned char *buf, int len, bool logging)
 				fwrite(buf, 1, len, file_fd_err);
 				return;
 			}
+			
 			//fprintf(stdout, "Got object %x %u\n", object_id, packet_size);
 			received_bytes += packet_size + 1;
 
+			// Send packets after removing the timestamp to the
+			// event system.  Plus one for the crc.
+			for(j = i+4; j < i+4+packet_size+1; j++) {
+				if( UAVTalkProcessInputStream(uavTalk, buf[j]) == -1) {
+					// Unknown object ID
+					fprintf(stdout, "Unknown ID at %d byte\n", i);
+					continue;
+				}
+			}
+			
 			if (logging)
 				packet_to_disk(&cp[i+4], packet_size, timestamp);
 
-			// Send packets after removing the timestamp to the
-			// event system.  Plus one for the crc.
-			for(j = i+4; j < i+4+packet_size+1; j++)
-				UAVTalkProcessInputStream(uavTalk, buf[j]);
 
 			if(packet_size == 0) 
 				i++;
