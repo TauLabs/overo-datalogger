@@ -41,7 +41,7 @@
 #define OVEROSYNCSTATS_H
 
 // Object constants
-#define OVEROSYNCSTATS_OBJID 0x388468B8
+#define OVEROSYNCSTATS_OBJID 0x55762DAE
 #define OVEROSYNCSTATS_ISSINGLEINST 1
 #define OVEROSYNCSTATS_ISSETTINGS 0
 #define OVEROSYNCSTATS_NUMBYTES sizeof(OveroSyncStatsData)
@@ -71,6 +71,7 @@
 typedef struct {
     uint32_t Send;
     uint32_t Received;
+    uint32_t FramesyncErrors;
     uint32_t DroppedUpdates;
     uint8_t Connected;
 
@@ -79,6 +80,7 @@ typedef struct {
 // Field information
 // Field Send information
 // Field Received information
+// Field FramesyncErrors information
 // Field DroppedUpdates information
 // Field Connected information
 /* Enumeration options for field Connected */
@@ -95,6 +97,8 @@ extern void OveroSyncStatsSendSet( uint32_t *NewSend );
 extern void OveroSyncStatsSendGet( uint32_t *NewSend );
 extern void OveroSyncStatsReceivedSet( uint32_t *NewReceived );
 extern void OveroSyncStatsReceivedGet( uint32_t *NewReceived );
+extern void OveroSyncStatsFramesyncErrorsSet( uint32_t *NewFramesyncErrors );
+extern void OveroSyncStatsFramesyncErrorsGet( uint32_t *NewFramesyncErrors );
 extern void OveroSyncStatsDroppedUpdatesSet( uint32_t *NewDroppedUpdates );
 extern void OveroSyncStatsDroppedUpdatesGet( uint32_t *NewDroppedUpdates );
 extern void OveroSyncStatsConnectedSet( uint8_t *NewConnected );
