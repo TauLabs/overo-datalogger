@@ -238,7 +238,7 @@ usage:
 			}
 		}
 		
-		usleep(2000);
+		usleep(200);
 	}
 	
 	return 0;
