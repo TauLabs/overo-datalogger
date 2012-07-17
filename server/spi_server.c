@@ -96,6 +96,7 @@ int main(int argc, char **argv)
 	int		msglen = 0;
 	int		dumpcount = 0;
 	int		logcount = 0;
+	int             verbose = 0;
 
 	int             i;
 	const char	*name;
@@ -207,11 +208,13 @@ usage:
 			strftime(file_name, sizeof(file_name), "/home/root/log_%Y%m%d_%H%M%S.dat", &tm);
 			file_fd = fopen(file_name, "w");
 
+			fprintf(stdout, "Starting logging: %s", file_name);
 			logging = new_logging;
 
 		} else if (logging && !new_logging) {
 			// Close the log file
 			fclose(file_fd);
+			fprintf(stdout, "Stopping logging");
 			logging = new_logging;
 		} else {
 			// No change
@@ -224,8 +227,10 @@ usage:
 			SystemStatsData sysStats;
 			SystemStatsGet(&sysStats);
 
-			fprintf(stdout, "Grabbing %d packet.  Received %d bytes.  Received %d objects.  Received %d errors.\n", i, received_bytes, stats.rxObjects, stats.rxErrors);
-			fprintf(stdout, "Uptime: %d ms\n", sysStats.FlightTime);
+			if (verbose) {
+				fprintf(stdout, "Grabbing %d packet.  Received %d bytes.  Received %d objects.  Received %d errors.\n", i, received_bytes, stats.rxObjects, stats.rxErrors);
+				fprintf(stdout, "Uptime: %d ms\n", sysStats.FlightTime);
+			}
 		}
 		
 		usleep(500);
