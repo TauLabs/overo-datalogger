@@ -179,6 +179,9 @@ usage:
 
 	UAVTalkStats stats;
 
+	clock_t this_time, last_time;
+	last_time = clock();
+
 	while (1) {
 		received_bytes += process_packet(fd, logging);
 
@@ -238,8 +241,16 @@ usage:
 			}
 		}
 
-		if (delay_time)
-			usleep(delay_time);
+		if (delay_time) {
+			unsigned int d = 0;
+			while(d < delay_time) {
+				this_time = clock();
+				d = this_time - last_time;
+			}
+			if (i % 200 == 0)
+				fprintf(stdout, "Time difference: %d. Raw: %d.\n", d, this_time);
+			last_time = this_time;
+		}
 	}
 	
 	return 0;
