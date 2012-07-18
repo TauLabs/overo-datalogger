@@ -179,8 +179,11 @@ usage:
 
 	UAVTalkStats stats;
 
-	clock_t this_time, last_time;
-	last_time = clock();
+	struct timeval this_time, last_time;
+	struct timezone tz;
+	tz.tz_minuteswest = 0;
+	tz.tz_dsttime = 0;
+	gettimeofday(&last_time, &tz);
 
 	while (1) {
 		received_bytes += process_packet(fd, logging);
@@ -244,11 +247,11 @@ usage:
 		if (delay_time) {
 			unsigned int d = 0;
 			while(d < delay_time) {
-				this_time = clock();
-				d = this_time - last_time;
+				gettimeofday(&this_time, &tz);
+				d = this_time.tv_usec - last_time.tv_usec;
 			}
 			if (i % 200 == 0)
-				fprintf(stdout, "Time difference: %d. Raw: %d.\n", d, this_time);
+				fprintf(stdout, "Time difference: %d. Raw: %d.\n", d, this_time.tv_usec);
 			last_time = this_time;
 		}
 	}
