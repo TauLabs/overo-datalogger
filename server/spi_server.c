@@ -94,7 +94,7 @@ int main(int argc, char **argv)
 	int		c;
 	int		readcount = 0;
 	int		msglen = 0;
-	int		delay_time = 0;
+	int		delay_time = 3000;
 	int		logcount = 0;
 	int             verbose = 0;
 
@@ -250,8 +250,6 @@ usage:
 				gettimeofday(&this_time, &tz);
 				d = this_time.tv_usec - last_time.tv_usec;
 			}
-			if (i % 200 == 0)
-				fprintf(stdout, "Time difference: %d. Raw: %d.\n", d, this_time.tv_usec);
 			last_time = this_time;
 		}
 	}
