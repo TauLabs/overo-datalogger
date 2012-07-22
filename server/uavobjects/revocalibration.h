@@ -41,7 +41,7 @@
 #define REVOCALIBRATION_H
 
 // Object constants
-#define REVOCALIBRATION_OBJID 0x257B15D4
+#define REVOCALIBRATION_OBJID 0xA5FF43F6
 #define REVOCALIBRATION_ISSINGLEINST 1
 #define REVOCALIBRATION_ISSETTINGS 1
 #define REVOCALIBRATION_NUMBYTES sizeof(RevoCalibrationData)
@@ -144,7 +144,7 @@ typedef enum { REVOCALIBRATION_GPS_VAR_POS=0, REVOCALIBRATION_GPS_VAR_VEL=1 } Re
 // Field baro_var information
 // Field BiasCorrectedRaw information
 /* Enumeration options for field BiasCorrectedRaw */
-typedef enum { REVOCALIBRATION_BIASCORRECTEDRAW_TRUE=0, REVOCALIBRATION_BIASCORRECTEDRAW_FALSE=1 } RevoCalibrationBiasCorrectedRawOptions;
+typedef enum { REVOCALIBRATION_BIASCORRECTEDRAW_FALSE=0, REVOCALIBRATION_BIASCORRECTEDRAW_TRUE=1 } RevoCalibrationBiasCorrectedRawOptions;
 
 
 // Generic interface functions

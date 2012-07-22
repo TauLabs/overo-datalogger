@@ -114,7 +114,7 @@ void RevoCalibrationSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.gps_var[0] = 1;
 	data.gps_var[1] = 1;
 	data.baro_var = 1;
-	data.BiasCorrectedRaw = 0;
+	data.BiasCorrectedRaw = 1;
 
 	UAVObjSetInstanceData(obj, instId, &data);
 

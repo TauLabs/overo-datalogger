@@ -57,6 +57,7 @@
 #include "gcstelemetrystats.h"
 #include "gpsposition.h"
 #include "gpssatellites.h"
+#include "gpssettings.h"
 #include "gpstime.h"
 #include "gpsvelocity.h"
 #include "gyros.h"
@@ -72,8 +73,8 @@
 #include "nedaccel.h"
 #include "nedposition.h"
 #include "objectpersistence.h"
-#include "overosyncstats.h"
 #include "overosyncsettings.h"
+#include "overosyncstats.h"
 #include "pathdesired.h"
 #include "pathplannersettings.h"
 #include "pipxsettings.h"
@@ -110,11 +111,9 @@ void UAVObjectsInitializeAll()
     ActuatorCommandInitialize();
     ActuatorDesiredInitialize();
     ActuatorSettingsInitialize();
-    
     AltHoldSmoothedInitialize();
     AltitudeHoldDesiredInitialize();
     AltitudeHoldSettingsInitialize();
-    AltHoldSmoothedInitialize();
     AttitudeActualInitialize();
     AttitudeSettingsInitialize();
     BaroAirspeedInitialize();
@@ -136,6 +135,7 @@ void UAVObjectsInitializeAll()
     GCSTelemetryStatsInitialize();
     GPSPositionInitialize();
     GPSSatellitesInitialize();
+    GPSSettingsInitialize();
     GPSTimeInitialize();
     GPSVelocityInitialize();
     GyrosInitialize();
@@ -151,8 +151,8 @@ void UAVObjectsInitializeAll()
     NedAccelInitialize();
     NEDPositionInitialize();
     ObjectPersistenceInitialize();
-    OveroSyncStatsInitialize();
     OveroSyncSettingsInitialize();
+    OveroSyncStatsInitialize();
     PathDesiredInitialize();
     PathPlannerSettingsInitialize();
     PipXSettingsInitialize();
@@ -176,4 +176,5 @@ void UAVObjectsInitializeAll()
     WatchdogStatusInitialize();
     WaypointInitialize();
     WaypointActiveInitialize();
+
 }

@@ -105,6 +105,7 @@ void HwSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.OptionalModules[7] = 0;
 	data.OptionalModules[8] = 0;
 	data.OptionalModules[9] = 0;
+	data.OptionalModules[10] = 0;
 	data.DSMxBind = 0;
 
 	UAVObjSetInstanceData(obj, instId, &data);
@@ -248,11 +249,11 @@ void HwSettingsUSB_VCPPortGet( uint8_t *NewUSB_VCPPort )
 }
 void HwSettingsOptionalModulesSet( uint8_t *NewOptionalModules )
 {
-	UAVObjSetDataField(HwSettingsHandle(), (void*)NewOptionalModules, offsetof( HwSettingsData, OptionalModules), 10*sizeof(uint8_t));
+	UAVObjSetDataField(HwSettingsHandle(), (void*)NewOptionalModules, offsetof( HwSettingsData, OptionalModules), 11*sizeof(uint8_t));
 }
 void HwSettingsOptionalModulesGet( uint8_t *NewOptionalModules )
 {
-	UAVObjGetDataField(HwSettingsHandle(), (void*)NewOptionalModules, offsetof( HwSettingsData, OptionalModules), 10*sizeof(uint8_t));
+	UAVObjGetDataField(HwSettingsHandle(), (void*)NewOptionalModules, offsetof( HwSettingsData, OptionalModules), 11*sizeof(uint8_t));
 }
 void HwSettingsDSMxBindSet( uint8_t *NewDSMxBind )
 {
