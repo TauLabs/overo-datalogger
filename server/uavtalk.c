@@ -281,6 +281,9 @@ UAVTalkRxState UAVTalkProcessInputStreamQuiet(UAVTalkConnection connectionHandle
 			iproc->rxPacketLength = 1;
 			
 			iproc->state = UAVTALK_STATE_TYPE;
+
+			connection->stats.syncs++;
+
 			break;
 			
 		case UAVTALK_STATE_TYPE:

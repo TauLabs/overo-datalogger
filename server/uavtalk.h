@@ -44,6 +44,7 @@ typedef struct {
     uint32_t txObjects;
     uint32_t txErrors;
     uint32_t rxErrors;
+	uint32_t syncs;
 } UAVTalkStats;
 
 typedef void* UAVTalkConnection;
