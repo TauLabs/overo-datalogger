@@ -231,13 +231,13 @@ static int32_t objectTransaction(UAVTalkConnectionData *connection, UAVObjHandle
 	int32_t respReceived;
 	
 	// Send object depending on if a response is needed
-	if (type == UAVTALK_TYPE_OBJ_ACK || type == UAVTALK_TYPE_OBJ_REQ)
+	if (type == UAVTALK_TYPE_OBJ_ACK || type == UAVTALK_TYPE_OBJ_ACK_TS || type == UAVTALK_TYPE_OBJ_REQ)
 	{
 		connection->respObj = obj;
 		connection->respInstId = instId;
 		sendObject(connection, obj, instId, type);
 	}
-	else if (type == UAVTALK_TYPE_OBJ)
+	else if (type == UAVTALK_TYPE_OBJ || type == UAVTALK_TYPE_OBJ_TS)
 	{
 		sendObject(connection, obj, instId, UAVTALK_TYPE_OBJ);
 	}
@@ -569,7 +569,7 @@ static int32_t receiveObject(UAVTalkConnectionData *connection, uint8_t type, ui
 	
 	// Process message type
 	switch (type) {
-		case UAVTALK_TYPE_OBJ:
+		case UAVTALK_TYPE_OBJ | UAVTALK_TYPE_OBJ_TS:
 			// All instances, not allowed for OBJ messages
 			if (obj && (instId != UAVOBJ_ALL_INSTANCES))
 			{
@@ -583,7 +583,7 @@ static int32_t receiveObject(UAVTalkConnectionData *connection, uint8_t type, ui
 				ret = -1;
 			}
 			break;
-		case UAVTALK_TYPE_OBJ_ACK:
+		case UAVTALK_TYPE_OBJ_ACK | UAVTALK_TYPE_OBJ_ACK_TS:
 			// All instances, not allowed for OBJ_ACK messages
 			if (obj && (instId != UAVOBJ_ALL_INSTANCES))
 			{
@@ -667,7 +667,7 @@ static int32_t sendObject(UAVTalkConnectionData *connection, UAVObjHandle obj, u
 	}
 	
 	// Process message type
-	if ( type == UAVTALK_TYPE_OBJ || type == UAVTALK_TYPE_OBJ_ACK )
+	if ( type == UAVTALK_TYPE_OBJ || type == UAVTALK_TYPE_OBJ_TS || type == UAVTALK_TYPE_OBJ_ACK || type == UAVTALK_TYPE_OBJ_ACK_TS )
 	{
 		if (instId == UAVOBJ_ALL_INSTANCES)
 		{
