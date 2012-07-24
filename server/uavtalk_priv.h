@@ -29,6 +29,9 @@
 #ifndef UAVTALK_PRIV_H
 #define UAVTALK_PRIV_H
 
+#include "uavtalk.h"
+#include "uavobjectmanager.h"
+
 #include "uavobjectsinit.h"
 
 // Private types and constants
@@ -74,9 +77,6 @@ typedef struct {
 typedef struct {
     uint8_t canari;
     UAVTalkOutputStream outStream;
-    xSemaphoreHandle lock;
-    xSemaphoreHandle transLock;
-    xSemaphoreHandle respSema;
     UAVObjHandle respObj;
     uint16_t respInstId;
     UAVTalkStats stats;
