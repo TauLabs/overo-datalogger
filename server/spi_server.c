@@ -239,7 +239,7 @@ usage:
 			SystemStatsGet(&sysStats);
 
 			if (verbose) {
-				fprintf(stdout, "Grabbing %d packet.  Received %d bytes.  Received %d object bytes.  Received %d objects.  Received %d syncs.  Received %d errors.  Other errors %d.\n", i, stats.rxBytes, stats.rxObjectBytes, stats.rxObjects, stats.syncs, stats.rxErrors, stats.otherError);
+				fprintf(stdout, "Grabbing %d packet.  Received %d bytes.  Received %d objects.  Received %d syncs.  Received %d errors.\n", i, received_bytes, stats.rxObjects, stats.syncs, stats.rxErrors);
 				fprintf(stdout, "Uptime: %d ms\n", sysStats.FlightTime);
 			}
 		}
