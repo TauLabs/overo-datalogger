@@ -570,7 +570,8 @@ static int32_t receiveObject(UAVTalkConnectionData *connection, uint8_t type, ui
 	
 	// Process message type
 	switch (type) {
-		case UAVTALK_TYPE_OBJ | UAVTALK_TYPE_OBJ_TS:
+		case UAVTALK_TYPE_OBJ:
+		case UAVTALK_TYPE_OBJ_TS:
 			// All instances, not allowed for OBJ messages
 			if (obj && (instId != UAVOBJ_ALL_INSTANCES))
 			{
@@ -584,7 +585,8 @@ static int32_t receiveObject(UAVTalkConnectionData *connection, uint8_t type, ui
 				ret = -1;
 			}
 			break;
-		case UAVTALK_TYPE_OBJ_ACK | UAVTALK_TYPE_OBJ_ACK_TS:
+		case UAVTALK_TYPE_OBJ_ACK:
+		case UAVTALK_TYPE_OBJ_ACK_TS:
 			// All instances, not allowed for OBJ_ACK messages
 			if (obj && (instId != UAVOBJ_ALL_INSTANCES))
 			{
