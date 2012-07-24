@@ -48,7 +48,7 @@ static struct statistics {
 
 //! Private methods
 //! Write data to disk
-static void packet_to_disk(unsigned char *buf, int len, __u32 timestamp);
+static void packet_to_disk(unsigned char *buf, int len);
 
 //! Parse a packet into the UAVTalk parts
 static int parse_packet(unsigned char *buf, int len, bool logging);
@@ -67,16 +67,9 @@ void ph_print_statistics()
  * @param [in] len The number of bytes in this packet
  * @param [in] timestamp The timestamp parsed for this packet
  */
-static void packet_to_disk(unsigned char *buf, int len, __u32 timestamp)
+static void packet_to_disk(unsigned char *buf, int len)
 {
-       struct timeval now;
-       __u64 packet_size;
-
-       packet_size = len;
-       fwrite(&timestamp, 1, sizeof(timestamp), file_fd);
-       fwrite(&packet_size, 1, sizeof(packet_size), file_fd);
-       // Must add 1 because CRC not included in this number
-       fwrite(buf, 1, len + 1, file_fd);
+       fwrite(buf, 1, len, file_fd);
 }
 
 /**
@@ -88,23 +81,16 @@ static void packet_to_disk(unsigned char *buf, int len, __u32 timestamp)
  */
 static int parse_packet(unsigned char *buf, int len, bool logging)
 {
-	unsigned char *cp = buf;
-	unsigned int i = 0, j;
-	__u32 timestamp;
-	int packet_size;
-	int object_id;
-	int received_bytes = 0;
+	unsigned int i = 0;
 
 	// Make sure there is at least room for the timestamp and uavtalk
 	// header (timestamp = 4 sync = 1 type = 1 packet size = 2 object id = 4)
-	while(i < len) {
-		UAVTalkProcessInputStream(uavTalk, buf[i]);
+	while(i < len)
+		UAVTalkProcessInputStream(uavTalk, buf[i++]);
 
-		//if (logging)
-		//	packet_to_disk(&cp[i+4], packet_size, timestamp);
+	if(logging)
+		packet_to_disk(buf, len);
 
-		i++;
-	}	
 	return i;
 }
 
