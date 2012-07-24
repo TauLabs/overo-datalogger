@@ -97,45 +97,15 @@ static int parse_packet(unsigned char *buf, int len, bool logging)
 
 	// Make sure there is at least room for the timestamp and uavtalk
 	// header (timestamp = 4 sync = 1 type = 1 packet size = 2 object id = 4)
-	while(i < (len - 11)) {
-		timestamp = cp[i] + (cp[i+1] << 8) + (cp[i+2] << 16) + (cp[i+3] << 24);
-		if(cp[i+4] == 0x3c) {
-			// Get the packet size and object id
-			packet_size = cp[i+6] + (cp[i+7] << 8);
-			object_id = cp[i+8] + (cp[i+9] << 8) + (cp[i+10] << 16) + (cp[i+11] << 24);
+	while(i < len) {
+		UAVTalkProcessInputStream(uavTalk, buf[i]);
 
-			// Add 4 for timestamp and 1 for crc
-			if ((i + packet_size + 5) >= len) {
-				ph_statistics.badsize_count++;
-				fwrite(buf, 1, len, file_fd_err);
-				return;
-			}
-			
-			//fprintf(stdout, "Got object %x %u\n", object_id, packet_size);
-			received_bytes += packet_size + 1;
+		//if (logging)
+		//	packet_to_disk(&cp[i+4], packet_size, timestamp);
 
-			// Send packets after removing the timestamp to the
-			// event system.  Plus one for the crc.
-			for(j = i+4; j < i+4+packet_size+1; j++) {
-				if( UAVTalkProcessInputStream(uavTalk, buf[j]) == -1) {
-					// Unknown object ID
-					fprintf(stdout, "Unknown ID at %d byte\n", i);
-					continue;
-				}
-			}
-			
-			if (logging)
-				packet_to_disk(&cp[i+4], packet_size, timestamp);
-
-
-			if(packet_size == 0) 
-				i++;
-			i += packet_size + 1;
-		} else {
-			i++;
-		}	
+		i++;
 	}	
-	return received_bytes;
+	return i;
 }
 
 /**
