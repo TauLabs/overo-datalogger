@@ -98,6 +98,9 @@ void SystemAlarmsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.Alarm[14] = 0;
 	data.Alarm[15] = 0;
 	data.Alarm[16] = 0;
+	data.Alarm[17] = 0;
+	data.ConfigError = 8;
+	data.ManualControl = 5;
 
 	UAVObjSetInstanceData(obj, instId, &data);
 
@@ -128,11 +131,27 @@ UAVObjHandle SystemAlarmsHandle()
  */
 void SystemAlarmsAlarmSet( uint8_t *NewAlarm )
 {
-	UAVObjSetDataField(SystemAlarmsHandle(), (void*)NewAlarm, offsetof( SystemAlarmsData, Alarm), 17*sizeof(uint8_t));
+	UAVObjSetDataField(SystemAlarmsHandle(), (void*)NewAlarm, offsetof( SystemAlarmsData, Alarm), 18*sizeof(uint8_t));
 }
 void SystemAlarmsAlarmGet( uint8_t *NewAlarm )
 {
-	UAVObjGetDataField(SystemAlarmsHandle(), (void*)NewAlarm, offsetof( SystemAlarmsData, Alarm), 17*sizeof(uint8_t));
+	UAVObjGetDataField(SystemAlarmsHandle(), (void*)NewAlarm, offsetof( SystemAlarmsData, Alarm), 18*sizeof(uint8_t));
+}
+void SystemAlarmsConfigErrorSet( uint8_t *NewConfigError )
+{
+	UAVObjSetDataField(SystemAlarmsHandle(), (void*)NewConfigError, offsetof( SystemAlarmsData, ConfigError), sizeof(uint8_t));
+}
+void SystemAlarmsConfigErrorGet( uint8_t *NewConfigError )
+{
+	UAVObjGetDataField(SystemAlarmsHandle(), (void*)NewConfigError, offsetof( SystemAlarmsData, ConfigError), sizeof(uint8_t));
+}
+void SystemAlarmsManualControlSet( uint8_t *NewManualControl )
+{
+	UAVObjSetDataField(SystemAlarmsHandle(), (void*)NewManualControl, offsetof( SystemAlarmsData, ManualControl), sizeof(uint8_t));
+}
+void SystemAlarmsManualControlGet( uint8_t *NewManualControl )
+{
+	UAVObjGetDataField(SystemAlarmsHandle(), (void*)NewManualControl, offsetof( SystemAlarmsData, ManualControl), sizeof(uint8_t));
 }
 
 

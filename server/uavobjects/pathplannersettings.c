@@ -81,7 +81,6 @@ void PathPlannerSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	// Initialize object fields to their default values
 	UAVObjGetInstanceData(obj, instId, &data);
 	memset(&data, 0, sizeof(PathPlannerSettingsData));
-	data.PathMode = 1;
 	data.PreprogrammedPath = 0;
 
 	UAVObjSetInstanceData(obj, instId, &data);
@@ -111,14 +110,6 @@ UAVObjHandle PathPlannerSettingsHandle()
 /**
  * Get/Set object Functions
  */
-void PathPlannerSettingsPathModeSet( uint8_t *NewPathMode )
-{
-	UAVObjSetDataField(PathPlannerSettingsHandle(), (void*)NewPathMode, offsetof( PathPlannerSettingsData, PathMode), sizeof(uint8_t));
-}
-void PathPlannerSettingsPathModeGet( uint8_t *NewPathMode )
-{
-	UAVObjGetDataField(PathPlannerSettingsHandle(), (void*)NewPathMode, offsetof( PathPlannerSettingsData, PathMode), sizeof(uint8_t));
-}
 void PathPlannerSettingsPreprogrammedPathSet( uint8_t *NewPreprogrammedPath )
 {
 	UAVObjSetDataField(PathPlannerSettingsHandle(), (void*)NewPreprogrammedPath, offsetof( PathPlannerSettingsData, PreprogrammedPath), sizeof(uint8_t));

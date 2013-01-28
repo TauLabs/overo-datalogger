@@ -109,13 +109,13 @@ UAVObjHandle WaypointActiveHandle()
 /**
  * Get/Set object Functions
  */
-void WaypointActiveIndexSet( uint8_t *NewIndex )
+void WaypointActiveIndexSet( int16_t *NewIndex )
 {
-	UAVObjSetDataField(WaypointActiveHandle(), (void*)NewIndex, offsetof( WaypointActiveData, Index), sizeof(uint8_t));
+	UAVObjSetDataField(WaypointActiveHandle(), (void*)NewIndex, offsetof( WaypointActiveData, Index), sizeof(int16_t));
 }
-void WaypointActiveIndexGet( uint8_t *NewIndex )
+void WaypointActiveIndexGet( int16_t *NewIndex )
 {
-	UAVObjGetDataField(WaypointActiveHandle(), (void*)NewIndex, offsetof( WaypointActiveData, Index), sizeof(uint8_t));
+	UAVObjGetDataField(WaypointActiveHandle(), (void*)NewIndex, offsetof( WaypointActiveData, Index), sizeof(int16_t));
 }
 
 

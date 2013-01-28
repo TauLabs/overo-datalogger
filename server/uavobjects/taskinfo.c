@@ -111,27 +111,27 @@ UAVObjHandle TaskInfoHandle()
  */
 void TaskInfoStackRemainingSet( uint16_t *NewStackRemaining )
 {
-	UAVObjSetDataField(TaskInfoHandle(), (void*)NewStackRemaining, offsetof( TaskInfoData, StackRemaining), 19*sizeof(uint16_t));
+	UAVObjSetDataField(TaskInfoHandle(), (void*)NewStackRemaining, offsetof( TaskInfoData, StackRemaining), 26*sizeof(uint16_t));
 }
 void TaskInfoStackRemainingGet( uint16_t *NewStackRemaining )
 {
-	UAVObjGetDataField(TaskInfoHandle(), (void*)NewStackRemaining, offsetof( TaskInfoData, StackRemaining), 19*sizeof(uint16_t));
+	UAVObjGetDataField(TaskInfoHandle(), (void*)NewStackRemaining, offsetof( TaskInfoData, StackRemaining), 26*sizeof(uint16_t));
 }
 void TaskInfoRunningSet( uint8_t *NewRunning )
 {
-	UAVObjSetDataField(TaskInfoHandle(), (void*)NewRunning, offsetof( TaskInfoData, Running), 19*sizeof(uint8_t));
+	UAVObjSetDataField(TaskInfoHandle(), (void*)NewRunning, offsetof( TaskInfoData, Running), 26*sizeof(uint8_t));
 }
 void TaskInfoRunningGet( uint8_t *NewRunning )
 {
-	UAVObjGetDataField(TaskInfoHandle(), (void*)NewRunning, offsetof( TaskInfoData, Running), 19*sizeof(uint8_t));
+	UAVObjGetDataField(TaskInfoHandle(), (void*)NewRunning, offsetof( TaskInfoData, Running), 26*sizeof(uint8_t));
 }
 void TaskInfoRunningTimeSet( uint8_t *NewRunningTime )
 {
-	UAVObjSetDataField(TaskInfoHandle(), (void*)NewRunningTime, offsetof( TaskInfoData, RunningTime), 19*sizeof(uint8_t));
+	UAVObjSetDataField(TaskInfoHandle(), (void*)NewRunningTime, offsetof( TaskInfoData, RunningTime), 26*sizeof(uint8_t));
 }
 void TaskInfoRunningTimeGet( uint8_t *NewRunningTime )
 {
-	UAVObjGetDataField(TaskInfoHandle(), (void*)NewRunningTime, offsetof( TaskInfoData, RunningTime), 19*sizeof(uint8_t));
+	UAVObjGetDataField(TaskInfoHandle(), (void*)NewRunningTime, offsetof( TaskInfoData, RunningTime), 26*sizeof(uint8_t));
 }
 
 

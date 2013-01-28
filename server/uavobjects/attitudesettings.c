@@ -81,21 +81,17 @@ void AttitudeSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	// Initialize object fields to their default values
 	UAVObjGetInstanceData(obj, instId, &data);
 	memset(&data, 0, sizeof(AttitudeSettingsData));
-	data.GyroGain = 0.42;
+	data.MagKp = 0.0001;
 	data.AccelKp = 0.05;
 	data.AccelKi = 0.0001;
+	data.AccelTau = 0.1;
 	data.YawBiasRate = 1e-06;
-	data.AccelBias[0] = 0;
-	data.AccelBias[1] = 0;
-	data.AccelBias[2] = 0;
-	data.GyroBias[0] = 0;
-	data.GyroBias[1] = 0;
-	data.GyroBias[2] = 0;
 	data.BoardRotation[0] = 0;
 	data.BoardRotation[1] = 0;
 	data.BoardRotation[2] = 0;
 	data.ZeroDuringArming = 1;
 	data.BiasCorrectGyro = 1;
+	data.FilterChoice = 0;
 	data.TrimFlight = 0;
 
 	UAVObjSetInstanceData(obj, instId, &data);
@@ -125,13 +121,13 @@ UAVObjHandle AttitudeSettingsHandle()
 /**
  * Get/Set object Functions
  */
-void AttitudeSettingsGyroGainSet( float *NewGyroGain )
+void AttitudeSettingsMagKpSet( float *NewMagKp )
 {
-	UAVObjSetDataField(AttitudeSettingsHandle(), (void*)NewGyroGain, offsetof( AttitudeSettingsData, GyroGain), sizeof(float));
+	UAVObjSetDataField(AttitudeSettingsHandle(), (void*)NewMagKp, offsetof( AttitudeSettingsData, MagKp), sizeof(float));
 }
-void AttitudeSettingsGyroGainGet( float *NewGyroGain )
+void AttitudeSettingsMagKpGet( float *NewMagKp )
 {
-	UAVObjGetDataField(AttitudeSettingsHandle(), (void*)NewGyroGain, offsetof( AttitudeSettingsData, GyroGain), sizeof(float));
+	UAVObjGetDataField(AttitudeSettingsHandle(), (void*)NewMagKp, offsetof( AttitudeSettingsData, MagKp), sizeof(float));
 }
 void AttitudeSettingsAccelKpSet( float *NewAccelKp )
 {
@@ -149,6 +145,14 @@ void AttitudeSettingsAccelKiGet( float *NewAccelKi )
 {
 	UAVObjGetDataField(AttitudeSettingsHandle(), (void*)NewAccelKi, offsetof( AttitudeSettingsData, AccelKi), sizeof(float));
 }
+void AttitudeSettingsAccelTauSet( float *NewAccelTau )
+{
+	UAVObjSetDataField(AttitudeSettingsHandle(), (void*)NewAccelTau, offsetof( AttitudeSettingsData, AccelTau), sizeof(float));
+}
+void AttitudeSettingsAccelTauGet( float *NewAccelTau )
+{
+	UAVObjGetDataField(AttitudeSettingsHandle(), (void*)NewAccelTau, offsetof( AttitudeSettingsData, AccelTau), sizeof(float));
+}
 void AttitudeSettingsYawBiasRateSet( float *NewYawBiasRate )
 {
 	UAVObjSetDataField(AttitudeSettingsHandle(), (void*)NewYawBiasRate, offsetof( AttitudeSettingsData, YawBiasRate), sizeof(float));
@@ -156,22 +160,6 @@ void AttitudeSettingsYawBiasRateSet( float *NewYawBiasRate )
 void AttitudeSettingsYawBiasRateGet( float *NewYawBiasRate )
 {
 	UAVObjGetDataField(AttitudeSettingsHandle(), (void*)NewYawBiasRate, offsetof( AttitudeSettingsData, YawBiasRate), sizeof(float));
-}
-void AttitudeSettingsAccelBiasSet( int16_t *NewAccelBias )
-{
-	UAVObjSetDataField(AttitudeSettingsHandle(), (void*)NewAccelBias, offsetof( AttitudeSettingsData, AccelBias), 3*sizeof(int16_t));
-}
-void AttitudeSettingsAccelBiasGet( int16_t *NewAccelBias )
-{
-	UAVObjGetDataField(AttitudeSettingsHandle(), (void*)NewAccelBias, offsetof( AttitudeSettingsData, AccelBias), 3*sizeof(int16_t));
-}
-void AttitudeSettingsGyroBiasSet( int16_t *NewGyroBias )
-{
-	UAVObjSetDataField(AttitudeSettingsHandle(), (void*)NewGyroBias, offsetof( AttitudeSettingsData, GyroBias), 3*sizeof(int16_t));
-}
-void AttitudeSettingsGyroBiasGet( int16_t *NewGyroBias )
-{
-	UAVObjGetDataField(AttitudeSettingsHandle(), (void*)NewGyroBias, offsetof( AttitudeSettingsData, GyroBias), 3*sizeof(int16_t));
 }
 void AttitudeSettingsBoardRotationSet( int16_t *NewBoardRotation )
 {
@@ -196,6 +184,14 @@ void AttitudeSettingsBiasCorrectGyroSet( uint8_t *NewBiasCorrectGyro )
 void AttitudeSettingsBiasCorrectGyroGet( uint8_t *NewBiasCorrectGyro )
 {
 	UAVObjGetDataField(AttitudeSettingsHandle(), (void*)NewBiasCorrectGyro, offsetof( AttitudeSettingsData, BiasCorrectGyro), sizeof(uint8_t));
+}
+void AttitudeSettingsFilterChoiceSet( uint8_t *NewFilterChoice )
+{
+	UAVObjSetDataField(AttitudeSettingsHandle(), (void*)NewFilterChoice, offsetof( AttitudeSettingsData, FilterChoice), sizeof(uint8_t));
+}
+void AttitudeSettingsFilterChoiceGet( uint8_t *NewFilterChoice )
+{
+	UAVObjGetDataField(AttitudeSettingsHandle(), (void*)NewFilterChoice, offsetof( AttitudeSettingsData, FilterChoice), sizeof(uint8_t));
 }
 void AttitudeSettingsTrimFlightSet( uint8_t *NewTrimFlight )
 {

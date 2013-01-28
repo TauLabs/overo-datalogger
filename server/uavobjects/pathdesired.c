@@ -90,7 +90,7 @@ void PathDesiredSetDefaults(UAVObjHandle obj, uint16_t instId)
 		ACCESS_READWRITE << UAVOBJ_GCS_ACCESS_SHIFT |
 		0 << UAVOBJ_TELEMETRY_ACKED_SHIFT |
 		0 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
-		UPDATEMODE_ONCHANGE << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+		UPDATEMODE_THROTTLED << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
 		UPDATEMODE_MANUAL << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
 	metadata.telemetryUpdatePeriod = 1000;
 	metadata.gcsTelemetryUpdatePeriod = 0;
@@ -140,6 +140,14 @@ void PathDesiredEndingVelocitySet( float *NewEndingVelocity )
 void PathDesiredEndingVelocityGet( float *NewEndingVelocity )
 {
 	UAVObjGetDataField(PathDesiredHandle(), (void*)NewEndingVelocity, offsetof( PathDesiredData, EndingVelocity), sizeof(float));
+}
+void PathDesiredModeParametersSet( float *NewModeParameters )
+{
+	UAVObjSetDataField(PathDesiredHandle(), (void*)NewModeParameters, offsetof( PathDesiredData, ModeParameters), sizeof(float));
+}
+void PathDesiredModeParametersGet( float *NewModeParameters )
+{
+	UAVObjGetDataField(PathDesiredHandle(), (void*)NewModeParameters, offsetof( PathDesiredData, ModeParameters), sizeof(float));
 }
 void PathDesiredModeSet( uint8_t *NewMode )
 {

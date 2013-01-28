@@ -85,6 +85,8 @@ void ActuatorSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.ChannelUpdateFreq[1] = 50;
 	data.ChannelUpdateFreq[2] = 50;
 	data.ChannelUpdateFreq[3] = 50;
+	data.ChannelUpdateFreq[4] = 50;
+	data.ChannelUpdateFreq[5] = 50;
 	data.ChannelMax[0] = 1000;
 	data.ChannelMax[1] = 1000;
 	data.ChannelMax[2] = 1000;
@@ -166,11 +168,11 @@ UAVObjHandle ActuatorSettingsHandle()
  */
 void ActuatorSettingsChannelUpdateFreqSet( uint16_t *NewChannelUpdateFreq )
 {
-	UAVObjSetDataField(ActuatorSettingsHandle(), (void*)NewChannelUpdateFreq, offsetof( ActuatorSettingsData, ChannelUpdateFreq), 4*sizeof(uint16_t));
+	UAVObjSetDataField(ActuatorSettingsHandle(), (void*)NewChannelUpdateFreq, offsetof( ActuatorSettingsData, ChannelUpdateFreq), 6*sizeof(uint16_t));
 }
 void ActuatorSettingsChannelUpdateFreqGet( uint16_t *NewChannelUpdateFreq )
 {
-	UAVObjGetDataField(ActuatorSettingsHandle(), (void*)NewChannelUpdateFreq, offsetof( ActuatorSettingsData, ChannelUpdateFreq), 4*sizeof(uint16_t));
+	UAVObjGetDataField(ActuatorSettingsHandle(), (void*)NewChannelUpdateFreq, offsetof( ActuatorSettingsData, ChannelUpdateFreq), 6*sizeof(uint16_t));
 }
 void ActuatorSettingsChannelMaxSet( int16_t *NewChannelMax )
 {

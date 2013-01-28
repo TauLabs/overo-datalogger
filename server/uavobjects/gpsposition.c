@@ -92,7 +92,7 @@ void GPSPositionSetDefaults(UAVObjHandle obj, uint16_t instId)
 		0 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
 		UPDATEMODE_PERIODIC << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
 		UPDATEMODE_MANUAL << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
-	metadata.telemetryUpdatePeriod = 1000;
+	metadata.telemetryUpdatePeriod = 2000;
 	metadata.gcsTelemetryUpdatePeriod = 0;
 	metadata.loggingUpdatePeriod = 1000;
 	UAVObjSetMetadata(obj, &metadata);

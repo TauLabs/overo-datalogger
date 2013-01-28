@@ -92,7 +92,7 @@ void FixedWingPathFollowerStatusSetDefaults(UAVObjHandle obj, uint16_t instId)
 		0 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
 		UPDATEMODE_PERIODIC << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
 		UPDATEMODE_MANUAL << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
-	metadata.telemetryUpdatePeriod = 500;
+	metadata.telemetryUpdatePeriod = 50000;
 	metadata.gcsTelemetryUpdatePeriod = 0;
 	metadata.loggingUpdatePeriod = 0;
 	UAVObjSetMetadata(obj, &metadata);
@@ -109,37 +109,37 @@ UAVObjHandle FixedWingPathFollowerStatusHandle()
 /**
  * Get/Set object Functions
  */
-void FixedWingPathFollowerStatusESet( float *NewE )
+void FixedWingPathFollowerStatusErrorSet( float *NewError )
 {
-	UAVObjSetDataField(FixedWingPathFollowerStatusHandle(), (void*)NewE, offsetof( FixedWingPathFollowerStatusData, E), 4*sizeof(float));
+	UAVObjSetDataField(FixedWingPathFollowerStatusHandle(), (void*)NewError, offsetof( FixedWingPathFollowerStatusData, Error), 4*sizeof(float));
 }
-void FixedWingPathFollowerStatusEGet( float *NewE )
+void FixedWingPathFollowerStatusErrorGet( float *NewError )
 {
-	UAVObjGetDataField(FixedWingPathFollowerStatusHandle(), (void*)NewE, offsetof( FixedWingPathFollowerStatusData, E), 4*sizeof(float));
+	UAVObjGetDataField(FixedWingPathFollowerStatusHandle(), (void*)NewError, offsetof( FixedWingPathFollowerStatusData, Error), 4*sizeof(float));
 }
-void FixedWingPathFollowerStatusASet( float *NewA )
+void FixedWingPathFollowerStatusErrorIntSet( float *NewErrorInt )
 {
-	UAVObjSetDataField(FixedWingPathFollowerStatusHandle(), (void*)NewA, offsetof( FixedWingPathFollowerStatusData, A), 4*sizeof(float));
+	UAVObjSetDataField(FixedWingPathFollowerStatusHandle(), (void*)NewErrorInt, offsetof( FixedWingPathFollowerStatusData, ErrorInt), 4*sizeof(float));
 }
-void FixedWingPathFollowerStatusAGet( float *NewA )
+void FixedWingPathFollowerStatusErrorIntGet( float *NewErrorInt )
 {
-	UAVObjGetDataField(FixedWingPathFollowerStatusHandle(), (void*)NewA, offsetof( FixedWingPathFollowerStatusData, A), 4*sizeof(float));
+	UAVObjGetDataField(FixedWingPathFollowerStatusHandle(), (void*)NewErrorInt, offsetof( FixedWingPathFollowerStatusData, ErrorInt), 4*sizeof(float));
 }
-void FixedWingPathFollowerStatusCSet( float *NewC )
+void FixedWingPathFollowerStatusCommandSet( float *NewCommand )
 {
-	UAVObjSetDataField(FixedWingPathFollowerStatusHandle(), (void*)NewC, offsetof( FixedWingPathFollowerStatusData, C), 4*sizeof(float));
+	UAVObjSetDataField(FixedWingPathFollowerStatusHandle(), (void*)NewCommand, offsetof( FixedWingPathFollowerStatusData, Command), 4*sizeof(float));
 }
-void FixedWingPathFollowerStatusCGet( float *NewC )
+void FixedWingPathFollowerStatusCommandGet( float *NewCommand )
 {
-	UAVObjGetDataField(FixedWingPathFollowerStatusHandle(), (void*)NewC, offsetof( FixedWingPathFollowerStatusData, C), 4*sizeof(float));
+	UAVObjGetDataField(FixedWingPathFollowerStatusHandle(), (void*)NewCommand, offsetof( FixedWingPathFollowerStatusData, Command), 4*sizeof(float));
 }
 void FixedWingPathFollowerStatusErrorsSet( uint8_t *NewErrors )
 {
-	UAVObjSetDataField(FixedWingPathFollowerStatusHandle(), (void*)NewErrors, offsetof( FixedWingPathFollowerStatusData, Errors), 6*sizeof(uint8_t));
+	UAVObjSetDataField(FixedWingPathFollowerStatusHandle(), (void*)NewErrors, offsetof( FixedWingPathFollowerStatusData, Errors), 8*sizeof(uint8_t));
 }
 void FixedWingPathFollowerStatusErrorsGet( uint8_t *NewErrors )
 {
-	UAVObjGetDataField(FixedWingPathFollowerStatusHandle(), (void*)NewErrors, offsetof( FixedWingPathFollowerStatusData, Errors), 6*sizeof(uint8_t));
+	UAVObjGetDataField(FixedWingPathFollowerStatusHandle(), (void*)NewErrors, offsetof( FixedWingPathFollowerStatusData, Errors), 8*sizeof(uint8_t));
 }
 
 

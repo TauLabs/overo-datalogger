@@ -81,35 +81,30 @@ void FixedWingPathFollowerSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	// Initialize object fields to their default values
 	UAVObjGetInstanceData(obj, instId, &data);
 	memset(&data, 0, sizeof(FixedWingPathFollowerSettingsData));
-	data.AirSpeedMax = 15;
-	data.AirSpeedMin = 10;
-	data.VerticalVelMax = 10;
-	data.HorizontalPosP = 0.05;
+	data.HorizontalPosP = 0.6;
 	data.VerticalPosP = 0.05;
-	data.CoursePI[0] = 0.2;
-	data.CoursePI[1] = 0;
-	data.CoursePI[2] = 0;
-	data.SpeedP[0] = 10;
-	data.SpeedP[1] = 10;
-	data.AccelPI[0] = 1.5;
-	data.AccelPI[1] = 1.5;
-	data.AccelPI[2] = 20;
-	data.VerticalToPitchCrossFeed[0] = 50;
-	data.VerticalToPitchCrossFeed[1] = 5;
-	data.AirspeedToVerticalCrossFeed[0] = 100;
+	data.BearingPI[0] = 0.6;
+	data.BearingPI[1] = 0;
+	data.BearingPI[2] = 0;
+	data.PowerPI[0] = 1.5;
+	data.PowerPI[1] = 0.15;
+	data.PowerPI[2] = 20;
+	data.VerticalToPitchCrossFeed[0] = 5;
+	data.VerticalToPitchCrossFeed[1] = 10;
+	data.AirspeedToVerticalCrossFeed[0] = 10;
 	data.AirspeedToVerticalCrossFeed[1] = 100;
-	data.PowerPI[0] = 0.01;
-	data.PowerPI[1] = 0.01;
-	data.PowerPI[2] = 0.8;
+	data.SpeedPI[0] = 0.01;
+	data.SpeedPI[1] = 0.01;
+	data.SpeedPI[2] = 0.8;
 	data.RollLimit[0] = -35;
 	data.RollLimit[1] = 0;
 	data.RollLimit[2] = 35;
 	data.PitchLimit[0] = -10;
-	data.PitchLimit[1] = 5;
-	data.PitchLimit[2] = 20;
-	data.ThrottleLimit[0] = 0.1;
+	data.PitchLimit[1] = 0;
+	data.PitchLimit[2] = 10;
+	data.ThrottleLimit[0] = 0;
 	data.ThrottleLimit[1] = 0.5;
-	data.ThrottleLimit[2] = 0.9;
+	data.ThrottleLimit[2] = 1;
 	data.UpdatePeriod = 100;
 
 	UAVObjSetInstanceData(obj, instId, &data);
@@ -139,30 +134,6 @@ UAVObjHandle FixedWingPathFollowerSettingsHandle()
 /**
  * Get/Set object Functions
  */
-void FixedWingPathFollowerSettingsAirSpeedMaxSet( float *NewAirSpeedMax )
-{
-	UAVObjSetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewAirSpeedMax, offsetof( FixedWingPathFollowerSettingsData, AirSpeedMax), sizeof(float));
-}
-void FixedWingPathFollowerSettingsAirSpeedMaxGet( float *NewAirSpeedMax )
-{
-	UAVObjGetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewAirSpeedMax, offsetof( FixedWingPathFollowerSettingsData, AirSpeedMax), sizeof(float));
-}
-void FixedWingPathFollowerSettingsAirSpeedMinSet( float *NewAirSpeedMin )
-{
-	UAVObjSetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewAirSpeedMin, offsetof( FixedWingPathFollowerSettingsData, AirSpeedMin), sizeof(float));
-}
-void FixedWingPathFollowerSettingsAirSpeedMinGet( float *NewAirSpeedMin )
-{
-	UAVObjGetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewAirSpeedMin, offsetof( FixedWingPathFollowerSettingsData, AirSpeedMin), sizeof(float));
-}
-void FixedWingPathFollowerSettingsVerticalVelMaxSet( float *NewVerticalVelMax )
-{
-	UAVObjSetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewVerticalVelMax, offsetof( FixedWingPathFollowerSettingsData, VerticalVelMax), sizeof(float));
-}
-void FixedWingPathFollowerSettingsVerticalVelMaxGet( float *NewVerticalVelMax )
-{
-	UAVObjGetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewVerticalVelMax, offsetof( FixedWingPathFollowerSettingsData, VerticalVelMax), sizeof(float));
-}
 void FixedWingPathFollowerSettingsHorizontalPosPSet( float *NewHorizontalPosP )
 {
 	UAVObjSetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewHorizontalPosP, offsetof( FixedWingPathFollowerSettingsData, HorizontalPosP), sizeof(float));
@@ -179,29 +150,21 @@ void FixedWingPathFollowerSettingsVerticalPosPGet( float *NewVerticalPosP )
 {
 	UAVObjGetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewVerticalPosP, offsetof( FixedWingPathFollowerSettingsData, VerticalPosP), sizeof(float));
 }
-void FixedWingPathFollowerSettingsCoursePISet( float *NewCoursePI )
+void FixedWingPathFollowerSettingsBearingPISet( float *NewBearingPI )
 {
-	UAVObjSetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewCoursePI, offsetof( FixedWingPathFollowerSettingsData, CoursePI), 3*sizeof(float));
+	UAVObjSetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewBearingPI, offsetof( FixedWingPathFollowerSettingsData, BearingPI), 3*sizeof(float));
 }
-void FixedWingPathFollowerSettingsCoursePIGet( float *NewCoursePI )
+void FixedWingPathFollowerSettingsBearingPIGet( float *NewBearingPI )
 {
-	UAVObjGetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewCoursePI, offsetof( FixedWingPathFollowerSettingsData, CoursePI), 3*sizeof(float));
+	UAVObjGetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewBearingPI, offsetof( FixedWingPathFollowerSettingsData, BearingPI), 3*sizeof(float));
 }
-void FixedWingPathFollowerSettingsSpeedPSet( float *NewSpeedP )
+void FixedWingPathFollowerSettingsPowerPISet( float *NewPowerPI )
 {
-	UAVObjSetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewSpeedP, offsetof( FixedWingPathFollowerSettingsData, SpeedP), 2*sizeof(float));
+	UAVObjSetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewPowerPI, offsetof( FixedWingPathFollowerSettingsData, PowerPI), 3*sizeof(float));
 }
-void FixedWingPathFollowerSettingsSpeedPGet( float *NewSpeedP )
+void FixedWingPathFollowerSettingsPowerPIGet( float *NewPowerPI )
 {
-	UAVObjGetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewSpeedP, offsetof( FixedWingPathFollowerSettingsData, SpeedP), 2*sizeof(float));
-}
-void FixedWingPathFollowerSettingsAccelPISet( float *NewAccelPI )
-{
-	UAVObjSetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewAccelPI, offsetof( FixedWingPathFollowerSettingsData, AccelPI), 3*sizeof(float));
-}
-void FixedWingPathFollowerSettingsAccelPIGet( float *NewAccelPI )
-{
-	UAVObjGetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewAccelPI, offsetof( FixedWingPathFollowerSettingsData, AccelPI), 3*sizeof(float));
+	UAVObjGetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewPowerPI, offsetof( FixedWingPathFollowerSettingsData, PowerPI), 3*sizeof(float));
 }
 void FixedWingPathFollowerSettingsVerticalToPitchCrossFeedSet( float *NewVerticalToPitchCrossFeed )
 {
@@ -219,13 +182,13 @@ void FixedWingPathFollowerSettingsAirspeedToVerticalCrossFeedGet( float *NewAirs
 {
 	UAVObjGetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewAirspeedToVerticalCrossFeed, offsetof( FixedWingPathFollowerSettingsData, AirspeedToVerticalCrossFeed), 2*sizeof(float));
 }
-void FixedWingPathFollowerSettingsPowerPISet( float *NewPowerPI )
+void FixedWingPathFollowerSettingsSpeedPISet( float *NewSpeedPI )
 {
-	UAVObjSetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewPowerPI, offsetof( FixedWingPathFollowerSettingsData, PowerPI), 3*sizeof(float));
+	UAVObjSetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewSpeedPI, offsetof( FixedWingPathFollowerSettingsData, SpeedPI), 3*sizeof(float));
 }
-void FixedWingPathFollowerSettingsPowerPIGet( float *NewPowerPI )
+void FixedWingPathFollowerSettingsSpeedPIGet( float *NewSpeedPI )
 {
-	UAVObjGetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewPowerPI, offsetof( FixedWingPathFollowerSettingsData, PowerPI), 3*sizeof(float));
+	UAVObjGetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewSpeedPI, offsetof( FixedWingPathFollowerSettingsData, SpeedPI), 3*sizeof(float));
 }
 void FixedWingPathFollowerSettingsRollLimitSet( float *NewRollLimit )
 {
@@ -251,13 +214,13 @@ void FixedWingPathFollowerSettingsThrottleLimitGet( float *NewThrottleLimit )
 {
 	UAVObjGetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewThrottleLimit, offsetof( FixedWingPathFollowerSettingsData, ThrottleLimit), 3*sizeof(float));
 }
-void FixedWingPathFollowerSettingsUpdatePeriodSet( int32_t *NewUpdatePeriod )
+void FixedWingPathFollowerSettingsUpdatePeriodSet( int16_t *NewUpdatePeriod )
 {
-	UAVObjSetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewUpdatePeriod, offsetof( FixedWingPathFollowerSettingsData, UpdatePeriod), sizeof(int32_t));
+	UAVObjSetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewUpdatePeriod, offsetof( FixedWingPathFollowerSettingsData, UpdatePeriod), sizeof(int16_t));
 }
-void FixedWingPathFollowerSettingsUpdatePeriodGet( int32_t *NewUpdatePeriod )
+void FixedWingPathFollowerSettingsUpdatePeriodGet( int16_t *NewUpdatePeriod )
 {
-	UAVObjGetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewUpdatePeriod, offsetof( FixedWingPathFollowerSettingsData, UpdatePeriod), sizeof(int32_t));
+	UAVObjGetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewUpdatePeriod, offsetof( FixedWingPathFollowerSettingsData, UpdatePeriod), sizeof(int16_t));
 }
 
 

@@ -88,9 +88,8 @@ void FlightBatterySettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.SensorCalibrations[1] = 1;
 	data.Type = 0;
 	data.NbCells = 3;
-	data.SensorType[0] = 0;
-	data.SensorType[1] = 0;
-	data.SensorType[2] = 0;
+	data.SensorType[0] = 1;
+	data.SensorType[1] = 1;
 
 	UAVObjSetInstanceData(obj, instId, &data);
 
@@ -161,11 +160,11 @@ void FlightBatterySettingsNbCellsGet( uint8_t *NewNbCells )
 }
 void FlightBatterySettingsSensorTypeSet( uint8_t *NewSensorType )
 {
-	UAVObjSetDataField(FlightBatterySettingsHandle(), (void*)NewSensorType, offsetof( FlightBatterySettingsData, SensorType), 3*sizeof(uint8_t));
+	UAVObjSetDataField(FlightBatterySettingsHandle(), (void*)NewSensorType, offsetof( FlightBatterySettingsData, SensorType), 2*sizeof(uint8_t));
 }
 void FlightBatterySettingsSensorTypeGet( uint8_t *NewSensorType )
 {
-	UAVObjGetDataField(FlightBatterySettingsHandle(), (void*)NewSensorType, offsetof( FlightBatterySettingsData, SensorType), 3*sizeof(uint8_t));
+	UAVObjGetDataField(FlightBatterySettingsHandle(), (void*)NewSensorType, offsetof( FlightBatterySettingsData, SensorType), 2*sizeof(uint8_t));
 }
 
 

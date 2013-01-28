@@ -119,6 +119,7 @@ void StabilizationSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.VbarYawPI[1] = 0.002;
 	data.VbarTau = 0.5;
 	data.GyroTau = 0.005;
+	data.DerivativeGamma = 1;
 	data.WeakLevelingKp = 0.1;
 	data.RollMax = 55;
 	data.PitchMax = 55;
@@ -126,6 +127,7 @@ void StabilizationSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.VbarGyroSuppress = 30;
 	data.VbarPiroComp = 0;
 	data.VbarMaxAngle = 10;
+	data.DerivativeCutoff = 20;
 	data.MaxAxisLock = 15;
 	data.MaxAxisLockRate = 2;
 	data.MaxWeakLevelingRate = 5;
@@ -270,6 +272,14 @@ void StabilizationSettingsGyroTauGet( float *NewGyroTau )
 {
 	UAVObjGetDataField(StabilizationSettingsHandle(), (void*)NewGyroTau, offsetof( StabilizationSettingsData, GyroTau), sizeof(float));
 }
+void StabilizationSettingsDerivativeGammaSet( float *NewDerivativeGamma )
+{
+	UAVObjSetDataField(StabilizationSettingsHandle(), (void*)NewDerivativeGamma, offsetof( StabilizationSettingsData, DerivativeGamma), sizeof(float));
+}
+void StabilizationSettingsDerivativeGammaGet( float *NewDerivativeGamma )
+{
+	UAVObjGetDataField(StabilizationSettingsHandle(), (void*)NewDerivativeGamma, offsetof( StabilizationSettingsData, DerivativeGamma), sizeof(float));
+}
 void StabilizationSettingsWeakLevelingKpSet( float *NewWeakLevelingKp )
 {
 	UAVObjSetDataField(StabilizationSettingsHandle(), (void*)NewWeakLevelingKp, offsetof( StabilizationSettingsData, WeakLevelingKp), sizeof(float));
@@ -325,6 +335,14 @@ void StabilizationSettingsVbarMaxAngleSet( uint8_t *NewVbarMaxAngle )
 void StabilizationSettingsVbarMaxAngleGet( uint8_t *NewVbarMaxAngle )
 {
 	UAVObjGetDataField(StabilizationSettingsHandle(), (void*)NewVbarMaxAngle, offsetof( StabilizationSettingsData, VbarMaxAngle), sizeof(uint8_t));
+}
+void StabilizationSettingsDerivativeCutoffSet( uint8_t *NewDerivativeCutoff )
+{
+	UAVObjSetDataField(StabilizationSettingsHandle(), (void*)NewDerivativeCutoff, offsetof( StabilizationSettingsData, DerivativeCutoff), sizeof(uint8_t));
+}
+void StabilizationSettingsDerivativeCutoffGet( uint8_t *NewDerivativeCutoff )
+{
+	UAVObjGetDataField(StabilizationSettingsHandle(), (void*)NewDerivativeCutoff, offsetof( StabilizationSettingsData, DerivativeCutoff), sizeof(uint8_t));
 }
 void StabilizationSettingsMaxAxisLockSet( uint8_t *NewMaxAxisLock )
 {

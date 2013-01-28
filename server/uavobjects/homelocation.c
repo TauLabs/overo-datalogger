@@ -88,7 +88,9 @@ void HomeLocationSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.Be[1] = 0;
 	data.Be[2] = 0;
 	data.g_e = 9.81;
+	data.SeaLevelPressure = 1013;
 	data.Set = 0;
+	data.GroundTemperature = 15;
 
 	UAVObjSetInstanceData(obj, instId, &data);
 
@@ -157,6 +159,14 @@ void HomeLocationg_eGet( float *Newg_e )
 {
 	UAVObjGetDataField(HomeLocationHandle(), (void*)Newg_e, offsetof( HomeLocationData, g_e), sizeof(float));
 }
+void HomeLocationSeaLevelPressureSet( uint16_t *NewSeaLevelPressure )
+{
+	UAVObjSetDataField(HomeLocationHandle(), (void*)NewSeaLevelPressure, offsetof( HomeLocationData, SeaLevelPressure), sizeof(uint16_t));
+}
+void HomeLocationSeaLevelPressureGet( uint16_t *NewSeaLevelPressure )
+{
+	UAVObjGetDataField(HomeLocationHandle(), (void*)NewSeaLevelPressure, offsetof( HomeLocationData, SeaLevelPressure), sizeof(uint16_t));
+}
 void HomeLocationSetSet( uint8_t *NewSet )
 {
 	UAVObjSetDataField(HomeLocationHandle(), (void*)NewSet, offsetof( HomeLocationData, Set), sizeof(uint8_t));
@@ -164,6 +174,14 @@ void HomeLocationSetSet( uint8_t *NewSet )
 void HomeLocationSetGet( uint8_t *NewSet )
 {
 	UAVObjGetDataField(HomeLocationHandle(), (void*)NewSet, offsetof( HomeLocationData, Set), sizeof(uint8_t));
+}
+void HomeLocationGroundTemperatureSet( int8_t *NewGroundTemperature )
+{
+	UAVObjSetDataField(HomeLocationHandle(), (void*)NewGroundTemperature, offsetof( HomeLocationData, GroundTemperature), sizeof(int8_t));
+}
+void HomeLocationGroundTemperatureGet( int8_t *NewGroundTemperature )
+{
+	UAVObjGetDataField(HomeLocationHandle(), (void*)NewGroundTemperature, offsetof( HomeLocationData, GroundTemperature), sizeof(int8_t));
 }
 
 

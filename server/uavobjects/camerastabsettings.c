@@ -82,9 +82,6 @@ void CameraStabSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	UAVObjGetInstanceData(obj, instId, &data);
 	memset(&data, 0, sizeof(CameraStabSettingsData));
 	data.MaxAxisLockRate = 1;
-	data.ResponseTime[0] = 150;
-	data.ResponseTime[1] = 150;
-	data.ResponseTime[2] = 150;
 	data.Input[0] = 6;
 	data.Input[1] = 6;
 	data.Input[2] = 6;
@@ -94,12 +91,16 @@ void CameraStabSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.InputRate[0] = 50;
 	data.InputRate[1] = 50;
 	data.InputRate[2] = 50;
-	data.StabilizationMode[0] = 0;
-	data.StabilizationMode[1] = 0;
-	data.StabilizationMode[2] = 0;
 	data.OutputRange[0] = 20;
 	data.OutputRange[1] = 20;
 	data.OutputRange[2] = 20;
+	data.FeedForward[0] = 0;
+	data.FeedForward[1] = 0;
+	data.FeedForward[2] = 0;
+	data.StabilizationMode[0] = 0;
+	data.StabilizationMode[1] = 0;
+	data.StabilizationMode[2] = 0;
+	data.AttitudeFilter = 0;
 
 	UAVObjSetInstanceData(obj, instId, &data);
 
@@ -136,14 +137,6 @@ void CameraStabSettingsMaxAxisLockRateGet( float *NewMaxAxisLockRate )
 {
 	UAVObjGetDataField(CameraStabSettingsHandle(), (void*)NewMaxAxisLockRate, offsetof( CameraStabSettingsData, MaxAxisLockRate), sizeof(float));
 }
-void CameraStabSettingsResponseTimeSet( uint16_t *NewResponseTime )
-{
-	UAVObjSetDataField(CameraStabSettingsHandle(), (void*)NewResponseTime, offsetof( CameraStabSettingsData, ResponseTime), 3*sizeof(uint16_t));
-}
-void CameraStabSettingsResponseTimeGet( uint16_t *NewResponseTime )
-{
-	UAVObjGetDataField(CameraStabSettingsHandle(), (void*)NewResponseTime, offsetof( CameraStabSettingsData, ResponseTime), 3*sizeof(uint16_t));
-}
 void CameraStabSettingsInputSet( uint8_t *NewInput )
 {
 	UAVObjSetDataField(CameraStabSettingsHandle(), (void*)NewInput, offsetof( CameraStabSettingsData, Input), 3*sizeof(uint8_t));
@@ -168,6 +161,22 @@ void CameraStabSettingsInputRateGet( uint8_t *NewInputRate )
 {
 	UAVObjGetDataField(CameraStabSettingsHandle(), (void*)NewInputRate, offsetof( CameraStabSettingsData, InputRate), 3*sizeof(uint8_t));
 }
+void CameraStabSettingsOutputRangeSet( uint8_t *NewOutputRange )
+{
+	UAVObjSetDataField(CameraStabSettingsHandle(), (void*)NewOutputRange, offsetof( CameraStabSettingsData, OutputRange), 3*sizeof(uint8_t));
+}
+void CameraStabSettingsOutputRangeGet( uint8_t *NewOutputRange )
+{
+	UAVObjGetDataField(CameraStabSettingsHandle(), (void*)NewOutputRange, offsetof( CameraStabSettingsData, OutputRange), 3*sizeof(uint8_t));
+}
+void CameraStabSettingsFeedForwardSet( uint8_t *NewFeedForward )
+{
+	UAVObjSetDataField(CameraStabSettingsHandle(), (void*)NewFeedForward, offsetof( CameraStabSettingsData, FeedForward), 3*sizeof(uint8_t));
+}
+void CameraStabSettingsFeedForwardGet( uint8_t *NewFeedForward )
+{
+	UAVObjGetDataField(CameraStabSettingsHandle(), (void*)NewFeedForward, offsetof( CameraStabSettingsData, FeedForward), 3*sizeof(uint8_t));
+}
 void CameraStabSettingsStabilizationModeSet( uint8_t *NewStabilizationMode )
 {
 	UAVObjSetDataField(CameraStabSettingsHandle(), (void*)NewStabilizationMode, offsetof( CameraStabSettingsData, StabilizationMode), 3*sizeof(uint8_t));
@@ -176,13 +185,13 @@ void CameraStabSettingsStabilizationModeGet( uint8_t *NewStabilizationMode )
 {
 	UAVObjGetDataField(CameraStabSettingsHandle(), (void*)NewStabilizationMode, offsetof( CameraStabSettingsData, StabilizationMode), 3*sizeof(uint8_t));
 }
-void CameraStabSettingsOutputRangeSet( uint8_t *NewOutputRange )
+void CameraStabSettingsAttitudeFilterSet( uint8_t *NewAttitudeFilter )
 {
-	UAVObjSetDataField(CameraStabSettingsHandle(), (void*)NewOutputRange, offsetof( CameraStabSettingsData, OutputRange), 3*sizeof(uint8_t));
+	UAVObjSetDataField(CameraStabSettingsHandle(), (void*)NewAttitudeFilter, offsetof( CameraStabSettingsData, AttitudeFilter), sizeof(uint8_t));
 }
-void CameraStabSettingsOutputRangeGet( uint8_t *NewOutputRange )
+void CameraStabSettingsAttitudeFilterGet( uint8_t *NewAttitudeFilter )
 {
-	UAVObjGetDataField(CameraStabSettingsHandle(), (void*)NewOutputRange, offsetof( CameraStabSettingsData, OutputRange), 3*sizeof(uint8_t));
+	UAVObjGetDataField(CameraStabSettingsHandle(), (void*)NewAttitudeFilter, offsetof( CameraStabSettingsData, AttitudeFilter), sizeof(uint8_t));
 }
 
 

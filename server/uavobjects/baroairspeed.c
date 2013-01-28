@@ -109,13 +109,29 @@ UAVObjHandle BaroAirspeedHandle()
 /**
  * Get/Set object Functions
  */
-void BaroAirspeedAirspeedSet( float *NewAirspeed )
+void BaroAirspeedCalibratedAirspeedSet( float *NewCalibratedAirspeed )
 {
-	UAVObjSetDataField(BaroAirspeedHandle(), (void*)NewAirspeed, offsetof( BaroAirspeedData, Airspeed), sizeof(float));
+	UAVObjSetDataField(BaroAirspeedHandle(), (void*)NewCalibratedAirspeed, offsetof( BaroAirspeedData, CalibratedAirspeed), sizeof(float));
 }
-void BaroAirspeedAirspeedGet( float *NewAirspeed )
+void BaroAirspeedCalibratedAirspeedGet( float *NewCalibratedAirspeed )
 {
-	UAVObjGetDataField(BaroAirspeedHandle(), (void*)NewAirspeed, offsetof( BaroAirspeedData, Airspeed), sizeof(float));
+	UAVObjGetDataField(BaroAirspeedHandle(), (void*)NewCalibratedAirspeed, offsetof( BaroAirspeedData, CalibratedAirspeed), sizeof(float));
+}
+void BaroAirspeedGPSAirspeedSet( float *NewGPSAirspeed )
+{
+	UAVObjSetDataField(BaroAirspeedHandle(), (void*)NewGPSAirspeed, offsetof( BaroAirspeedData, GPSAirspeed), sizeof(float));
+}
+void BaroAirspeedGPSAirspeedGet( float *NewGPSAirspeed )
+{
+	UAVObjGetDataField(BaroAirspeedHandle(), (void*)NewGPSAirspeed, offsetof( BaroAirspeedData, GPSAirspeed), sizeof(float));
+}
+void BaroAirspeedTrueAirspeedSet( float *NewTrueAirspeed )
+{
+	UAVObjSetDataField(BaroAirspeedHandle(), (void*)NewTrueAirspeed, offsetof( BaroAirspeedData, TrueAirspeed), sizeof(float));
+}
+void BaroAirspeedTrueAirspeedGet( float *NewTrueAirspeed )
+{
+	UAVObjGetDataField(BaroAirspeedHandle(), (void*)NewTrueAirspeed, offsetof( BaroAirspeedData, TrueAirspeed), sizeof(float));
 }
 void BaroAirspeedSensorValueSet( uint16_t *NewSensorValue )
 {
@@ -125,21 +141,13 @@ void BaroAirspeedSensorValueGet( uint16_t *NewSensorValue )
 {
 	UAVObjGetDataField(BaroAirspeedHandle(), (void*)NewSensorValue, offsetof( BaroAirspeedData, SensorValue), sizeof(uint16_t));
 }
-void BaroAirspeedZeroPointSet( uint16_t *NewZeroPoint )
+void BaroAirspeedBaroConnectedSet( uint8_t *NewBaroConnected )
 {
-	UAVObjSetDataField(BaroAirspeedHandle(), (void*)NewZeroPoint, offsetof( BaroAirspeedData, ZeroPoint), sizeof(uint16_t));
+	UAVObjSetDataField(BaroAirspeedHandle(), (void*)NewBaroConnected, offsetof( BaroAirspeedData, BaroConnected), sizeof(uint8_t));
 }
-void BaroAirspeedZeroPointGet( uint16_t *NewZeroPoint )
+void BaroAirspeedBaroConnectedGet( uint8_t *NewBaroConnected )
 {
-	UAVObjGetDataField(BaroAirspeedHandle(), (void*)NewZeroPoint, offsetof( BaroAirspeedData, ZeroPoint), sizeof(uint16_t));
-}
-void BaroAirspeedConnectedSet( uint8_t *NewConnected )
-{
-	UAVObjSetDataField(BaroAirspeedHandle(), (void*)NewConnected, offsetof( BaroAirspeedData, Connected), sizeof(uint8_t));
-}
-void BaroAirspeedConnectedGet( uint8_t *NewConnected )
-{
-	UAVObjGetDataField(BaroAirspeedHandle(), (void*)NewConnected, offsetof( BaroAirspeedData, Connected), sizeof(uint8_t));
+	UAVObjGetDataField(BaroAirspeedHandle(), (void*)NewBaroConnected, offsetof( BaroAirspeedData, BaroConnected), sizeof(uint8_t));
 }
 
 

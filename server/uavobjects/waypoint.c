@@ -88,8 +88,8 @@ void WaypointSetDefaults(UAVObjHandle obj, uint16_t instId)
 	metadata.flags =
 		ACCESS_READWRITE << UAVOBJ_ACCESS_SHIFT |
 		ACCESS_READWRITE << UAVOBJ_GCS_ACCESS_SHIFT |
-		0 << UAVOBJ_TELEMETRY_ACKED_SHIFT |
-		0 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
+		1 << UAVOBJ_TELEMETRY_ACKED_SHIFT |
+		1 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
 		UPDATEMODE_PERIODIC << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
 		UPDATEMODE_MANUAL << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
 	metadata.telemetryUpdatePeriod = 4000;
@@ -119,27 +119,27 @@ void WaypointPositionGet( float *NewPosition )
 }
 void WaypointVelocitySet( float *NewVelocity )
 {
-	UAVObjSetDataField(WaypointHandle(), (void*)NewVelocity, offsetof( WaypointData, Velocity), 3*sizeof(float));
+	UAVObjSetDataField(WaypointHandle(), (void*)NewVelocity, offsetof( WaypointData, Velocity), sizeof(float));
 }
 void WaypointVelocityGet( float *NewVelocity )
 {
-	UAVObjGetDataField(WaypointHandle(), (void*)NewVelocity, offsetof( WaypointData, Velocity), 3*sizeof(float));
+	UAVObjGetDataField(WaypointHandle(), (void*)NewVelocity, offsetof( WaypointData, Velocity), sizeof(float));
 }
-void WaypointYawDesiredSet( float *NewYawDesired )
+void WaypointModeParametersSet( float *NewModeParameters )
 {
-	UAVObjSetDataField(WaypointHandle(), (void*)NewYawDesired, offsetof( WaypointData, YawDesired), sizeof(float));
+	UAVObjSetDataField(WaypointHandle(), (void*)NewModeParameters, offsetof( WaypointData, ModeParameters), sizeof(float));
 }
-void WaypointYawDesiredGet( float *NewYawDesired )
+void WaypointModeParametersGet( float *NewModeParameters )
 {
-	UAVObjGetDataField(WaypointHandle(), (void*)NewYawDesired, offsetof( WaypointData, YawDesired), sizeof(float));
+	UAVObjGetDataField(WaypointHandle(), (void*)NewModeParameters, offsetof( WaypointData, ModeParameters), sizeof(float));
 }
-void WaypointActionSet( uint8_t *NewAction )
+void WaypointModeSet( uint8_t *NewMode )
 {
-	UAVObjSetDataField(WaypointHandle(), (void*)NewAction, offsetof( WaypointData, Action), sizeof(uint8_t));
+	UAVObjSetDataField(WaypointHandle(), (void*)NewMode, offsetof( WaypointData, Mode), sizeof(uint8_t));
 }
-void WaypointActionGet( uint8_t *NewAction )
+void WaypointModeGet( uint8_t *NewMode )
 {
-	UAVObjGetDataField(WaypointHandle(), (void*)NewAction, offsetof( WaypointData, Action), sizeof(uint8_t));
+	UAVObjGetDataField(WaypointHandle(), (void*)NewMode, offsetof( WaypointData, Mode), sizeof(uint8_t));
 }
 
 

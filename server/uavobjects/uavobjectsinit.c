@@ -33,18 +33,24 @@
 #include "actuatorcommand.h"
 #include "actuatordesired.h"
 #include "actuatorsettings.h"
+#include "adcrouting.h"
+#include "airspeedactual.h"
+#include "airspeedsettings.h"
 #include "altholdsmoothed.h"
 #include "altitudeholddesired.h"
 #include "altitudeholdsettings.h"
 #include "attitudeactual.h"
 #include "attitudesettings.h"
+#include "attitudesimulated.h"
 #include "baroairspeed.h"
 #include "baroaltitude.h"
 #include "cameradesired.h"
 #include "camerastabsettings.h"
 #include "faultsettings.h"
 #include "firmwareiapobj.h"
+#include "fixedwingairspeeds.h"
 #include "fixedwingpathfollowersettings.h"
+#include "fixedwingpathfollowersettingscc.h"
 #include "fixedwingpathfollowerstatus.h"
 #include "flightbatterysettings.h"
 #include "flightbatterystate.h"
@@ -57,31 +63,50 @@
 #include "gcstelemetrystats.h"
 #include "gpsposition.h"
 #include "gpssatellites.h"
-#include "gpssettings.h"
 #include "gpstime.h"
 #include "gpsvelocity.h"
+#include "groundtruth.h"
 #include "gyros.h"
 #include "gyrosbias.h"
 #include "homelocation.h"
-#include "hwsettings.h"
+#include "hwcoptercontrol.h"
+#include "hwdiscoveryf4.h"
+#include "hwflyingf3.h"
+#include "hwflyingf4.h"
+#include "hwfreedom.h"
+#include "hwosd.h"
+#include "hwquanton.h"
+#include "hwrevolution.h"
+#include "hwrevomini.h"
 #include "i2cstats.h"
+#include "i2cvm.h"
+#include "i2cvmuserprogram.h"
+#include "inertialsensorsettings.h"
+#include "inssettings.h"
+#include "insstate.h"
+#include "magbias.h"
 #include "magnetometer.h"
 #include "manualcontrolcommand.h"
 #include "manualcontrolsettings.h"
 #include "mixersettings.h"
 #include "mixerstatus.h"
+#include "modulesettings.h"
 #include "nedaccel.h"
 #include "nedposition.h"
 #include "objectpersistence.h"
+#include "oplinksettings.h"
+#include "oplinkstatus.h"
+#include "osdsettings.h"
 #include "overosyncsettings.h"
 #include "overosyncstats.h"
 #include "pathdesired.h"
 #include "pathplannersettings.h"
-#include "pipxsettings.h"
-#include "pipxstatus.h"
+#include "pathstatus.h"
 #include "positionactual.h"
 #include "ratedesired.h"
 #include "receiveractivity.h"
+#include "relaytuning.h"
+#include "relaytuningsettings.h"
 #include "revocalibration.h"
 #include "revosettings.h"
 #include "sonaraltitude.h"
@@ -111,18 +136,23 @@ void UAVObjectsInitializeAll()
     ActuatorCommandInitialize();
     ActuatorDesiredInitialize();
     ActuatorSettingsInitialize();
+    ADCRoutingInitialize();
+    AirspeedSettingsInitialize();
     AltHoldSmoothedInitialize();
     AltitudeHoldDesiredInitialize();
     AltitudeHoldSettingsInitialize();
     AttitudeActualInitialize();
     AttitudeSettingsInitialize();
+    AttitudeSimulatedInitialize();
     BaroAirspeedInitialize();
     BaroAltitudeInitialize();
     CameraDesiredInitialize();
     CameraStabSettingsInitialize();
     FaultSettingsInitialize();
     FirmwareIAPObjInitialize();
+    FixedWingAirspeedsInitialize();
     FixedWingPathFollowerSettingsInitialize();
+    FixedWingPathFollowerSettingsCCInitialize();
     FixedWingPathFollowerStatusInitialize();
     FlightBatterySettingsInitialize();
     FlightBatteryStateInitialize();
@@ -135,31 +165,50 @@ void UAVObjectsInitializeAll()
     GCSTelemetryStatsInitialize();
     GPSPositionInitialize();
     GPSSatellitesInitialize();
-    GPSSettingsInitialize();
     GPSTimeInitialize();
     GPSVelocityInitialize();
+    GroundTruthInitialize();
     GyrosInitialize();
     GyrosBiasInitialize();
     HomeLocationInitialize();
-    HwSettingsInitialize();
+    HwCopterControlInitialize();
+    HwDiscoveryF4Initialize();
+    HwFlyingF3Initialize();
+    HwFlyingF4Initialize();
+    HwFreedomInitialize();
+    HwOSDInitialize();
+    HwQuantonInitialize();
+    HwRevolutionInitialize();
+    HwRevoMiniInitialize();
     I2CStatsInitialize();
+    I2CVMInitialize();
+    I2CVMUserProgramInitialize();
+    InertialSensorSettingsInitialize();
+    INSSettingsInitialize();
+    INSStateInitialize();
+    MagBiasInitialize();
     MagnetometerInitialize();
     ManualControlCommandInitialize();
     ManualControlSettingsInitialize();
     MixerSettingsInitialize();
     MixerStatusInitialize();
+    ModuleSettingsInitialize();
     NedAccelInitialize();
     NEDPositionInitialize();
     ObjectPersistenceInitialize();
+    OPLinkSettingsInitialize();
+    OPLinkStatusInitialize();
+    OsdSettingsInitialize();
     OveroSyncSettingsInitialize();
     OveroSyncStatsInitialize();
     PathDesiredInitialize();
     PathPlannerSettingsInitialize();
-    PipXSettingsInitialize();
-    PipXStatusInitialize();
+    PathStatusInitialize();
     PositionActualInitialize();
     RateDesiredInitialize();
     ReceiverActivityInitialize();
+    RelayTuningInitialize();
+    RelayTuningSettingsInitialize();
     RevoCalibrationInitialize();
     RevoSettingsInitialize();
     SonarAltitudeInitialize();
@@ -176,5 +225,4 @@ void UAVObjectsInitializeAll()
     WatchdogStatusInitialize();
     WaypointInitialize();
     WaypointActiveInitialize();
-
 }

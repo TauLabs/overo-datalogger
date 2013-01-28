@@ -90,7 +90,7 @@ void FirmwareIAPObjSetDefaults(UAVObjHandle obj, uint16_t instId)
 		ACCESS_READWRITE << UAVOBJ_GCS_ACCESS_SHIFT |
 		1 << UAVOBJ_TELEMETRY_ACKED_SHIFT |
 		1 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
-		UPDATEMODE_MANUAL << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
+		UPDATEMODE_ONCHANGE << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
 		UPDATEMODE_MANUAL << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
 	metadata.telemetryUpdatePeriod = 0;
 	metadata.gcsTelemetryUpdatePeriod = 0;
@@ -135,11 +135,11 @@ void FirmwareIAPObjBoardRevisionGet( uint16_t *NewBoardRevision )
 }
 void FirmwareIAPObjDescriptionSet( uint8_t *NewDescription )
 {
-	UAVObjSetDataField(FirmwareIAPObjHandle(), (void*)NewDescription, offsetof( FirmwareIAPObjData, Description), 40*sizeof(uint8_t));
+	UAVObjSetDataField(FirmwareIAPObjHandle(), (void*)NewDescription, offsetof( FirmwareIAPObjData, Description), 100*sizeof(uint8_t));
 }
 void FirmwareIAPObjDescriptionGet( uint8_t *NewDescription )
 {
-	UAVObjGetDataField(FirmwareIAPObjHandle(), (void*)NewDescription, offsetof( FirmwareIAPObjData, Description), 40*sizeof(uint8_t));
+	UAVObjGetDataField(FirmwareIAPObjHandle(), (void*)NewDescription, offsetof( FirmwareIAPObjData, Description), 100*sizeof(uint8_t));
 }
 void FirmwareIAPObjCPUSerialSet( uint8_t *NewCPUSerial )
 {
