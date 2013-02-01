@@ -103,7 +103,7 @@ int32_t UAVTalkSetOutputStream(UAVTalkConnection connectionHandle, UAVTalkOutput
 UAVTalkOutputStream UAVTalkGetOutputStream(UAVTalkConnection connectionHandle)
 {
 	UAVTalkConnectionData *connection;
-    CHECKCONHANDLE(connectionHandle,connection,return NULL);
+	CHECKCONHANDLE(connectionHandle,connection,return NULL);
 	return connection->outStream;
 }
 
@@ -115,7 +115,7 @@ UAVTalkOutputStream UAVTalkGetOutputStream(UAVTalkConnection connectionHandle)
 void UAVTalkGetStats(UAVTalkConnection connectionHandle, UAVTalkStats* statsOut)
 {
 	UAVTalkConnectionData *connection;
-    CHECKCONHANDLE(connectionHandle,connection,return );
+	CHECKCONHANDLE(connectionHandle,connection,return );
 	
 	// Copy stats
 	memcpy(statsOut, &connection->stats, sizeof(UAVTalkStats));
@@ -128,7 +128,7 @@ void UAVTalkGetStats(UAVTalkConnection connectionHandle, UAVTalkStats* statsOut)
 void UAVTalkResetStats(UAVTalkConnection connectionHandle)
 {
 	UAVTalkConnectionData *connection;
-    CHECKCONHANDLE(connectionHandle,connection,return);
+	CHECKCONHANDLE(connectionHandle,connection,return);
 	
 	// Clear stats
 	memset(&connection->stats, 0, sizeof(UAVTalkStats));
@@ -162,7 +162,7 @@ void UAVTalkGetLastUAVO(UAVTalkConnection connectionHandle, uint8_t **buffer, ui
 int32_t UAVTalkSendObjectRequest(UAVTalkConnection connectionHandle, UAVObjHandle obj, uint16_t instId, int32_t timeout)
 {
 	UAVTalkConnectionData *connection;
-    CHECKCONHANDLE(connectionHandle,connection,return -1);
+	CHECKCONHANDLE(connectionHandle,connection,return -1);
 	return objectTransaction(connection, obj, instId, UAVTALK_TYPE_OBJ_REQ, timeout);
 }
 
@@ -179,7 +179,7 @@ int32_t UAVTalkSendObjectRequest(UAVTalkConnection connectionHandle, UAVObjHandl
 int32_t UAVTalkSendObject(UAVTalkConnection connectionHandle, UAVObjHandle obj, uint16_t instId, uint8_t acked, int32_t timeoutMs)
 {
 	UAVTalkConnectionData *connection;
-    CHECKCONHANDLE(connectionHandle,connection,return -1);
+	CHECKCONHANDLE(connectionHandle,connection,return -1);
 	// Send object
 	if (acked == 1)
 	{
@@ -204,7 +204,7 @@ int32_t UAVTalkSendObject(UAVTalkConnection connectionHandle, UAVObjHandle obj, 
 int32_t UAVTalkSendObjectTimestamped(UAVTalkConnection connectionHandle, UAVObjHandle obj, uint16_t instId, uint8_t acked, int32_t timeoutMs)
 {
 	UAVTalkConnectionData *connection;
-    CHECKCONHANDLE(connectionHandle,connection,return -1);
+	CHECKCONHANDLE(connectionHandle,connection,return -1);
 	// Send object
 	if (acked == 1)
 	{
@@ -259,7 +259,7 @@ static int32_t objectTransaction(UAVTalkConnectionData *connection, UAVObjHandle
 UAVTalkRxState UAVTalkProcessInputStreamQuiet(UAVTalkConnection connectionHandle, uint8_t rxbyte)
 {
 	UAVTalkConnectionData *connection;
-    CHECKCONHANDLE(connectionHandle,connection,return -1);
+	CHECKCONHANDLE(connectionHandle,connection,return -1);
 
 	UAVTalkInputProcessor *iproc = &connection->iproc;
 	++connection->stats.rxBytes;
