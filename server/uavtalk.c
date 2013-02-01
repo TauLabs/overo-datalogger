@@ -137,14 +137,14 @@ void UAVTalkResetStats(UAVTalkConnection connectionHandle)
 /**
  * Accessor method to get the timestamp from the last UAVTalk message
  */
-void UAVTalkGetLastUAVO(UAVTalkConnection connection, uint8_t **buffer, uint8_t *length, int32_t *timestamp)
+void UAVTalkGetLastUAVO(UAVTalkConnection connectionHandle, uint8_t **buffer, uint8_t *length, int32_t *timestamp)
 {
 	UAVTalkConnectionData *connection;
 	CHECKCONHANDLE(connectionHandle,connection,return);
 
 	UAVTalkInputProcessor *iproc = &connection->iproc;
 	*timestamp = iproc->timestamp;
-	*buffer = iproc->rxBuffer;
+	*buffer = connection->rxBuffer;
 	*length = iproc->length;
 }
 
