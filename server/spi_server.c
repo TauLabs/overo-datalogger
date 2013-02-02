@@ -207,6 +207,13 @@ usage:
 				break;
 		}
 
+		{
+			FlightStatusData flightStatus;
+			FlightStatusGet(&flightStatus);
+
+			fprintf(stdout, "Setting: %d, Armed: %d\n", settings.LogOn, flightStatus.Armed);
+		}
+
 		if (!logging && new_logging) {
 			// Open a new log file
 			time_t t;
