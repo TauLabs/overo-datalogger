@@ -191,6 +191,8 @@ usage:
 		OveroSyncSettingsData settings;
 		OveroSyncSettingsGet(&settings);
 
+		// Force logging all the time
+		settings.LogOn = OVEROSYNCSETTINGS_LOGON_ALWAYS;
 		switch(settings.LogOn) {
 			case OVEROSYNCSETTINGS_LOGON_NEVER:
 				new_logging = false;
@@ -205,13 +207,6 @@ usage:
 				new_logging = flightStatus.Armed == FLIGHTSTATUS_ARMED_ARMED;
 			}
 				break;
-		}
-
-		{
-			FlightStatusData flightStatus;
-			FlightStatusGet(&flightStatus);
-
-			fprintf(stdout, "Setting: %d, Armed: %d\n", settings.LogOn, flightStatus.Armed);
 		}
 
 		if (!logging && new_logging) {
