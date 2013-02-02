@@ -1,12 +1,12 @@
 /**
  ******************************************************************************
  *
- * @brief      A server that connects to Revo and passes updates to the
+ * @brief      A server that connects to Freedom and passes updates to the
  *             UAVObjectManager.  Based on the @ref OveroSyncSettings it
  *             will also log to a file.
  *
  * @file       spi_server.c
- * @author     The OpenPilot Team, http://www.openpilot.org Copyright (C) 2012.
+ * @author     Tau Labs, http://github.com/TauLabs Copyright (C) 2012-2013.
  * @brief      Include files of the uavobjectlist library
  * @see        The GNU Public License (GPL) Version 3
  *
@@ -139,7 +139,7 @@ usage:
 	// Install the signal handler
 	signal(SIGINT, sig_handler);
 
-	fprintf(stdout, "Starting the OpenPilot SPI server\n");
+	fprintf(stdout, "Starting the Tau Labs SPI server\n");
 
 	if ((optind + 1) != argc) {
 		name = "/dev/spidev1.1";

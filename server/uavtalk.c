@@ -1,17 +1,10 @@
 /**
  ******************************************************************************
- * @addtogroup OpenPilotSystem OpenPilot System
- * @{
- * @addtogroup OpenPilotLibraries OpenPilot System Libraries
- * @{
- *
  * @file       uavtalk.c
+ * @author     Tau Labs, http://github.com/TauLabs Copyright (C) 2012-2013.
  * @author     The OpenPilot Team, http://www.openpilot.org Copyright (C) 2010.
- * @brief      UAVTalk library, implements to telemetry protocol. See the wiki for more details.
- * 	       This library should not be called directly by the application, it is only used by the
- * 	       Telemetry module.
+ * @brief      UAVTalk library, implements the telemetry protocol.
  * @see        The GNU Public License (GPL) Version 3
- *
  *****************************************************************************/
 /*
  * This program is free software; you can redistribute it and/or modify
@@ -28,7 +21,6 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-
 
 #include <stdio.h>
 #include <string.h>
