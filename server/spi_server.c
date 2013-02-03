@@ -159,7 +159,7 @@ usage:
 		return;
 	}
 
-	__u8 mode = 3;
+	__u8 mode = 0;
 	if (ioctl(fd, SPI_IOC_WR_MODE, &mode) < 0) {
 		perror("cannot set SPI wr_mode");
 		return;

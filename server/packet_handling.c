@@ -83,8 +83,6 @@ static int parse_packet(unsigned char *buf, int len, bool logging)
 {
 	unsigned int i = 0;
 
-	// Make sure there is at least room for the timestamp and uavtalk
-	// header (timestamp = 4 sync = 1 type = 1 packet size = 2 object id = 4)
 	while(i < len)
 		UAVTalkProcessInputStream(uavTalk, buf[i++]);
 
