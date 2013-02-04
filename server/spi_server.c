@@ -238,44 +238,34 @@ usage:
 
 		// Look for first GPS lock to set the system time
 		if (!gps_locked) {
+			fprintf(stdout, "No lock\n");
 			GPSPositionData gpsPosition;
 			GPSPositionGet(&gpsPosition);
 			if (gpsPosition.Status == GPSPOSITION_STATUS_FIX3D) {
 				GPSTimeData gpsTime;
 				GPSTimeGet(&gpsTime);
-				struct       rtc_time {
-					int 	  	tm_sec; 	 
-					int 	  	tm_min; 	 
-					int 	  	tm_hour; 	 
-					int 	  	tm_mday; 	 
-					int 	  	tm_mon; 	 
-					int 	  	tm_year; 	 
-					int 	  	tm_wday; /* unused */
-					int 	  	tm_yday; /* unused */
-					int 	  	tm_isdst;/* unused */
-				};
-
-				struct rtc_time rt;
-				rt.tm_year  = gpsTime.Year;
-				rt.tm_mon   = gpsTime.Month;
-				rt.tm_mday  = gpsTime.Day;
-				rt.tm_hour  = gpsTime.Hour;
-				rt.tm_min   = gpsTime.Minute;
-				rt.tm_sec   = gpsTime.Second;
-				/* set your values here */
-				int rtc_fd = open("/dev/rtc", O_RDONLY);
-				if (rtc_fd == -1) {
-					fprintf(stdout,"/dev/rtc open error\n");
-				}
-				int ret = ioctl(rtc_fd, RTC_SET_TIME, &rt);
-				if (ret == -1) {
-					fprintf(stdout,"rtc ioctl RTC_SET_TIME error\r\n");
-				} else {
-					fprintf(stdout, "Updating system time\n");
-				}
-				close(rtc_fd);
-
 				
+				struct tm        current_time;
+				current_time.tm_year  = gpsTime.Year;
+				current_time.tm_mon   = gpsTime.Month;
+				current_time.tm_mday  = gpsTime.Day;
+				current_time.tm_hour  = gpsTime.Hour;
+				current_time.tm_min   = gpsTime.Minute;
+				current_time.tm_sec   = gpsTime.Second;
+
+				/* set your values here */
+				struct timeval   current_time_second;
+				struct timezone  timezone;
+
+				current_time_second.tv_sec = mktime(&current_time);;
+				timezone.tz_minuteswest = 0;
+				timezone.tz_dsttime = 0;
+
+				if (settimeofday(&current_time_second, &timezone) == 0) {
+					fprintf(stdout, "Set the system time to some time in %d\n", gpsTime.Year);
+				} else {
+					fprintf(stdout, "Error setting the time\n");
+				}
 
 				gps_locked = true;
 			}
