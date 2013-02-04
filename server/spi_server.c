@@ -238,7 +238,6 @@ usage:
 
 		// Look for first GPS lock to set the system time
 		if (!gps_locked) {
-			fprintf(stdout, "No lock\n");
 			GPSPositionData gpsPosition;
 			GPSPositionGet(&gpsPosition);
 			GPSTimeData gpsTime;
@@ -248,22 +247,17 @@ usage:
 				
 				struct timeval   current_time_seconds;
 				struct timezone  timezone;
-				//time_t           current_time;
+				struct tm       *current_time;
 
 				gettimeofday(&current_time_seconds, &timezone);
-				/*current_time = localtime(&current_time_seconds);
-				current_time.tm_year  = gpsTime.Year;
-				current_time.tm_mon   = gpsTime.Month;
-				current_time.tm_mday  = gpsTime.Day;
-				current_time.tm_hour  = gpsTime.Hour;
-				current_time.tm_min   = gpsTime.Minute;
-				current_time.tm_sec   = gpsTime.Second;*/
-
-				/* set your values here */
-
-				current_time_seconds.tv_sec += 10000; //mktime(&current_time);;
-				timezone.tz_minuteswest = 0;
-				timezone.tz_dsttime = 0;
+				current_time = localtime((time_t *) &current_time_seconds.tv_sec);
+				current_time->tm_year  = gpsTime.Year - 1900;
+				current_time->tm_mon   = gpsTime.Month - 1;
+				current_time->tm_mday  = gpsTime.Day;
+				current_time->tm_hour  = gpsTime.Hour;
+				current_time->tm_min   = gpsTime.Minute;
+				current_time->tm_sec   = gpsTime.Second;
+				current_time_seconds.tv_sec = mktime(current_time);;
 
 				if (settimeofday(&current_time_seconds, &timezone) == 0) {
 					fprintf(stdout, "Set the system time to some time in %u\n", gpsTime.Year);
