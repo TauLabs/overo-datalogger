@@ -43,6 +43,7 @@
 
 #include <linux/types.h>
 #include <linux/spi/spidev.h>
+#include <linux/rtc.h>
 
 #include "packet_handling.h"
 
@@ -51,6 +52,8 @@
 #include "uavobjectmanager.h"
 
 #include "systemstats.h"
+#include "gpstime.h"
+#include "gpsposition.h"
 #include "overosyncsettings.h"
 #include "flightstatus.h"
 
@@ -100,6 +103,8 @@ int main(int argc, char **argv)
 
 	int             i;
 	const char	*name;
+
+	bool gps_locked = false;
 
 	while ((c = getopt(argc, argv, "hm:r:l:d:v")) != EOF) {
 		switch (c) {
@@ -231,7 +236,51 @@ usage:
 			// No change
 		}
 
-	
+		// Look for first GPS lock to set the system time
+		if (!gps_locked) {
+			GPSPositionData gpsPosition;
+			GPSPositionGet(&gpsPosition);
+			if (gpsPosition.Status == GPSPOSITION_STATUS_FIX3D) {
+				GPSTimeData gpsTime;
+				GPSTimeGet(&gpsTime);
+				struct       rtc_time {
+					int 	  	tm_sec; 	 
+					int 	  	tm_min; 	 
+					int 	  	tm_hour; 	 
+					int 	  	tm_mday; 	 
+					int 	  	tm_mon; 	 
+					int 	  	tm_year; 	 
+					int 	  	tm_wday; /* unused */
+					int 	  	tm_yday; /* unused */
+					int 	  	tm_isdst;/* unused */
+				};
+
+				struct rtc_time rt;
+				rt.tm_year  = gpsTime.Year;
+				rt.tm_mon   = gpsTime.Month;
+				rt.tm_mday  = gpsTime.Day;
+				rt.tm_hour  = gpsTime.Hour;
+				rt.tm_min   = gpsTime.Minute;
+				rt.tm_sec   = gpsTime.Second;
+				/* set your values here */
+				int rtc_fd = open("/dev/rtc", O_RDONLY);
+				if (rtc_fd == -1) {
+					fprintf(stdout,"/dev/rtc open error\n");
+				}
+				int ret = ioctl(rtc_fd, RTC_SET_TIME, &rt);
+				if (ret == -1) {
+					fprintf(stdout,"rtc ioctl RTC_SET_TIME error\r\n");
+				} else {
+					fprintf(stdout, "Updating system time\n");
+				}
+				close(rtc_fd);
+
+				
+
+				gps_locked = true;
+			}
+		}
+
 		i++;
 		if (i % 1000 == 0) {
 			UAVTalkGetStats(uavTalk, &stats);
