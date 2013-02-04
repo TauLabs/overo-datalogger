@@ -191,8 +191,6 @@ usage:
 		OveroSyncSettingsData settings;
 		OveroSyncSettingsGet(&settings);
 
-		// Force logging all the time
-		settings.LogOn = OVEROSYNCSETTINGS_LOGON_ALWAYS;
 		switch(settings.LogOn) {
 			case OVEROSYNCSETTINGS_LOGON_NEVER:
 				new_logging = false;
