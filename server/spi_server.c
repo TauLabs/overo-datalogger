@@ -43,6 +43,7 @@
 
 #include <linux/types.h>
 #include <linux/spi/spidev.h>
+#include <linux/rtc.h>
 
 #include "packet_handling.h"
 
@@ -51,6 +52,8 @@
 #include "uavobjectmanager.h"
 
 #include "systemstats.h"
+#include "gpstime.h"
+#include "gpsposition.h"
 #include "overosyncsettings.h"
 #include "flightstatus.h"
 
@@ -100,6 +103,8 @@ int main(int argc, char **argv)
 
 	int             i;
 	const char	*name;
+
+	bool gps_locked = false;
 
 	while ((c = getopt(argc, argv, "hm:r:l:d:v")) != EOF) {
 		switch (c) {
@@ -231,7 +236,39 @@ usage:
 			// No change
 		}
 
-	
+		// Look for first GPS lock to set the system time
+		if (!gps_locked) {
+			GPSPositionData gpsPosition;
+			GPSPositionGet(&gpsPosition);
+			GPSTimeData gpsTime;
+			GPSTimeGet(&gpsTime);
+			if (gpsPosition.Status == GPSPOSITION_STATUS_FIX3D &&
+				gpsTime.Year > 2000) {
+				
+				struct timeval   current_time_seconds;
+				struct timezone  timezone;
+				struct tm       *current_time;
+
+				gettimeofday(&current_time_seconds, &timezone);
+				current_time = localtime((time_t *) &current_time_seconds.tv_sec);
+				current_time->tm_year  = gpsTime.Year - 1900;
+				current_time->tm_mon   = gpsTime.Month - 1;
+				current_time->tm_mday  = gpsTime.Day;
+				current_time->tm_hour  = gpsTime.Hour;
+				current_time->tm_min   = gpsTime.Minute;
+				current_time->tm_sec   = gpsTime.Second;
+				current_time_seconds.tv_sec = mktime(current_time);;
+
+				if (settimeofday(&current_time_seconds, &timezone) == 0) {
+					fprintf(stdout, "Set the system time to some time in %u\n", gpsTime.Year);
+				} else {
+					fprintf(stdout, "Error setting the time\n");
+				}
+
+				gps_locked = true;
+			}
+		}
+
 		i++;
 		if (i % 1000 == 0) {
 			UAVTalkGetStats(uavTalk, &stats);
