@@ -81,7 +81,8 @@ void AttitudeSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	// Initialize object fields to their default values
 	UAVObjGetInstanceData(obj, instId, &data);
 	memset(&data, 0, sizeof(AttitudeSettingsData));
-	data.MagKp = 0.0001;
+	data.MagKp = 0.05;
+	data.MagKi = 0.0001;
 	data.AccelKp = 0.05;
 	data.AccelKi = 0.0001;
 	data.AccelTau = 0.1;
@@ -128,6 +129,14 @@ void AttitudeSettingsMagKpSet( float *NewMagKp )
 void AttitudeSettingsMagKpGet( float *NewMagKp )
 {
 	UAVObjGetDataField(AttitudeSettingsHandle(), (void*)NewMagKp, offsetof( AttitudeSettingsData, MagKp), sizeof(float));
+}
+void AttitudeSettingsMagKiSet( float *NewMagKi )
+{
+	UAVObjSetDataField(AttitudeSettingsHandle(), (void*)NewMagKi, offsetof( AttitudeSettingsData, MagKi), sizeof(float));
+}
+void AttitudeSettingsMagKiGet( float *NewMagKi )
+{
+	UAVObjGetDataField(AttitudeSettingsHandle(), (void*)NewMagKi, offsetof( AttitudeSettingsData, MagKi), sizeof(float));
 }
 void AttitudeSettingsAccelKpSet( float *NewAccelKp )
 {

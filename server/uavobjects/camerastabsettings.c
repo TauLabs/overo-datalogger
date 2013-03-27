@@ -82,9 +82,10 @@ void CameraStabSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	UAVObjGetInstanceData(obj, instId, &data);
 	memset(&data, 0, sizeof(CameraStabSettingsData));
 	data.MaxAxisLockRate = 1;
-	data.Input[0] = 6;
-	data.Input[1] = 6;
-	data.Input[2] = 6;
+	data.MaxAccel = 1000;
+	data.Input[0] = 7;
+	data.Input[1] = 7;
+	data.Input[2] = 7;
 	data.InputRange[0] = 20;
 	data.InputRange[1] = 20;
 	data.InputRange[2] = 20;
@@ -101,6 +102,8 @@ void CameraStabSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.StabilizationMode[1] = 0;
 	data.StabilizationMode[2] = 0;
 	data.AttitudeFilter = 0;
+	data.InputFilter = 0;
+	data.FeedForwardTime = 0;
 
 	UAVObjSetInstanceData(obj, instId, &data);
 
@@ -136,6 +139,14 @@ void CameraStabSettingsMaxAxisLockRateSet( float *NewMaxAxisLockRate )
 void CameraStabSettingsMaxAxisLockRateGet( float *NewMaxAxisLockRate )
 {
 	UAVObjGetDataField(CameraStabSettingsHandle(), (void*)NewMaxAxisLockRate, offsetof( CameraStabSettingsData, MaxAxisLockRate), sizeof(float));
+}
+void CameraStabSettingsMaxAccelSet( float *NewMaxAccel )
+{
+	UAVObjSetDataField(CameraStabSettingsHandle(), (void*)NewMaxAccel, offsetof( CameraStabSettingsData, MaxAccel), sizeof(float));
+}
+void CameraStabSettingsMaxAccelGet( float *NewMaxAccel )
+{
+	UAVObjGetDataField(CameraStabSettingsHandle(), (void*)NewMaxAccel, offsetof( CameraStabSettingsData, MaxAccel), sizeof(float));
 }
 void CameraStabSettingsInputSet( uint8_t *NewInput )
 {
@@ -192,6 +203,22 @@ void CameraStabSettingsAttitudeFilterSet( uint8_t *NewAttitudeFilter )
 void CameraStabSettingsAttitudeFilterGet( uint8_t *NewAttitudeFilter )
 {
 	UAVObjGetDataField(CameraStabSettingsHandle(), (void*)NewAttitudeFilter, offsetof( CameraStabSettingsData, AttitudeFilter), sizeof(uint8_t));
+}
+void CameraStabSettingsInputFilterSet( uint8_t *NewInputFilter )
+{
+	UAVObjSetDataField(CameraStabSettingsHandle(), (void*)NewInputFilter, offsetof( CameraStabSettingsData, InputFilter), sizeof(uint8_t));
+}
+void CameraStabSettingsInputFilterGet( uint8_t *NewInputFilter )
+{
+	UAVObjGetDataField(CameraStabSettingsHandle(), (void*)NewInputFilter, offsetof( CameraStabSettingsData, InputFilter), sizeof(uint8_t));
+}
+void CameraStabSettingsFeedForwardTimeSet( uint8_t *NewFeedForwardTime )
+{
+	UAVObjSetDataField(CameraStabSettingsHandle(), (void*)NewFeedForwardTime, offsetof( CameraStabSettingsData, FeedForwardTime), sizeof(uint8_t));
+}
+void CameraStabSettingsFeedForwardTimeGet( uint8_t *NewFeedForwardTime )
+{
+	UAVObjGetDataField(CameraStabSettingsHandle(), (void*)NewFeedForwardTime, offsetof( CameraStabSettingsData, FeedForwardTime), sizeof(uint8_t));
 }
 
 

@@ -42,10 +42,10 @@
 #define CAMERADESIRED_H
 
 // Object constants
-#define CAMERADESIRED_OBJID 0x531F544E
+#define CAMERADESIRED_OBJID 0x73EF1BAE
 #define CAMERADESIRED_ISSINGLEINST 1
 #define CAMERADESIRED_ISSETTINGS 0
-#define CAMERADESIRED_NUMBYTES 12
+#define CAMERADESIRED_NUMBYTES 16
 
 // Generic interface functions
 int32_t CameraDesiredInitialize();
@@ -57,6 +57,7 @@ typedef struct {
     float Roll;
     float Pitch;
     float Yaw;
+    float Bearing;
 
 } __attribute__((packed)) __attribute__((aligned(4))) CameraDesiredData;
 
@@ -98,6 +99,7 @@ static inline int8_t CameraDesiredReadOnly() { return UAVObjReadOnly(CameraDesir
 // Field Roll information
 // Field Pitch information
 // Field Yaw information
+// Field Bearing information
 
 
 // set/Get functions
@@ -107,6 +109,8 @@ extern void CameraDesiredPitchSet( float *NewPitch );
 extern void CameraDesiredPitchGet( float *NewPitch );
 extern void CameraDesiredYawSet( float *NewYaw );
 extern void CameraDesiredYawGet( float *NewYaw );
+extern void CameraDesiredBearingSet( float *NewBearing );
+extern void CameraDesiredBearingGet( float *NewBearing );
 
 
 #endif // CAMERADESIRED_H

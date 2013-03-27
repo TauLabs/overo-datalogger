@@ -87,15 +87,21 @@ void InertialSensorSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.AccelScale[0] = 1;
 	data.AccelScale[1] = 1;
 	data.AccelScale[2] = 1;
-	data.InitialGyroBias[0] = 0;
-	data.InitialGyroBias[1] = 0;
-	data.InitialGyroBias[2] = 0;
 	data.GyroScale[0] = 1;
 	data.GyroScale[1] = 1;
 	data.GyroScale[2] = 1;
-	data.GyroTempCoeff[0] = 1;
-	data.GyroTempCoeff[1] = 1;
-	data.GyroTempCoeff[2] = 1;
+	data.XGyroTempCoeff[0] = 0;
+	data.XGyroTempCoeff[1] = 0;
+	data.XGyroTempCoeff[2] = 0;
+	data.XGyroTempCoeff[3] = 0;
+	data.YGyroTempCoeff[0] = 0;
+	data.YGyroTempCoeff[1] = 0;
+	data.YGyroTempCoeff[2] = 0;
+	data.YGyroTempCoeff[3] = 0;
+	data.ZGyroTempCoeff[0] = 0;
+	data.ZGyroTempCoeff[1] = 0;
+	data.ZGyroTempCoeff[2] = 0;
+	data.ZGyroTempCoeff[3] = 0;
 
 	UAVObjSetInstanceData(obj, instId, &data);
 
@@ -140,14 +146,6 @@ void InertialSensorSettingsAccelScaleGet( float *NewAccelScale )
 {
 	UAVObjGetDataField(InertialSensorSettingsHandle(), (void*)NewAccelScale, offsetof( InertialSensorSettingsData, AccelScale), 3*sizeof(float));
 }
-void InertialSensorSettingsInitialGyroBiasSet( float *NewInitialGyroBias )
-{
-	UAVObjSetDataField(InertialSensorSettingsHandle(), (void*)NewInitialGyroBias, offsetof( InertialSensorSettingsData, InitialGyroBias), 3*sizeof(float));
-}
-void InertialSensorSettingsInitialGyroBiasGet( float *NewInitialGyroBias )
-{
-	UAVObjGetDataField(InertialSensorSettingsHandle(), (void*)NewInitialGyroBias, offsetof( InertialSensorSettingsData, InitialGyroBias), 3*sizeof(float));
-}
 void InertialSensorSettingsGyroScaleSet( float *NewGyroScale )
 {
 	UAVObjSetDataField(InertialSensorSettingsHandle(), (void*)NewGyroScale, offsetof( InertialSensorSettingsData, GyroScale), 3*sizeof(float));
@@ -156,13 +154,29 @@ void InertialSensorSettingsGyroScaleGet( float *NewGyroScale )
 {
 	UAVObjGetDataField(InertialSensorSettingsHandle(), (void*)NewGyroScale, offsetof( InertialSensorSettingsData, GyroScale), 3*sizeof(float));
 }
-void InertialSensorSettingsGyroTempCoeffSet( float *NewGyroTempCoeff )
+void InertialSensorSettingsXGyroTempCoeffSet( float *NewXGyroTempCoeff )
 {
-	UAVObjSetDataField(InertialSensorSettingsHandle(), (void*)NewGyroTempCoeff, offsetof( InertialSensorSettingsData, GyroTempCoeff), 3*sizeof(float));
+	UAVObjSetDataField(InertialSensorSettingsHandle(), (void*)NewXGyroTempCoeff, offsetof( InertialSensorSettingsData, XGyroTempCoeff), 4*sizeof(float));
 }
-void InertialSensorSettingsGyroTempCoeffGet( float *NewGyroTempCoeff )
+void InertialSensorSettingsXGyroTempCoeffGet( float *NewXGyroTempCoeff )
 {
-	UAVObjGetDataField(InertialSensorSettingsHandle(), (void*)NewGyroTempCoeff, offsetof( InertialSensorSettingsData, GyroTempCoeff), 3*sizeof(float));
+	UAVObjGetDataField(InertialSensorSettingsHandle(), (void*)NewXGyroTempCoeff, offsetof( InertialSensorSettingsData, XGyroTempCoeff), 4*sizeof(float));
+}
+void InertialSensorSettingsYGyroTempCoeffSet( float *NewYGyroTempCoeff )
+{
+	UAVObjSetDataField(InertialSensorSettingsHandle(), (void*)NewYGyroTempCoeff, offsetof( InertialSensorSettingsData, YGyroTempCoeff), 4*sizeof(float));
+}
+void InertialSensorSettingsYGyroTempCoeffGet( float *NewYGyroTempCoeff )
+{
+	UAVObjGetDataField(InertialSensorSettingsHandle(), (void*)NewYGyroTempCoeff, offsetof( InertialSensorSettingsData, YGyroTempCoeff), 4*sizeof(float));
+}
+void InertialSensorSettingsZGyroTempCoeffSet( float *NewZGyroTempCoeff )
+{
+	UAVObjSetDataField(InertialSensorSettingsHandle(), (void*)NewZGyroTempCoeff, offsetof( InertialSensorSettingsData, ZGyroTempCoeff), 4*sizeof(float));
+}
+void InertialSensorSettingsZGyroTempCoeffGet( float *NewZGyroTempCoeff )
+{
+	UAVObjGetDataField(InertialSensorSettingsHandle(), (void*)NewZGyroTempCoeff, offsetof( InertialSensorSettingsData, ZGyroTempCoeff), 4*sizeof(float));
 }
 
 

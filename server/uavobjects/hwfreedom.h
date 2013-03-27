@@ -42,10 +42,10 @@
 #define HWFREEDOM_H
 
 // Object constants
-#define HWFREEDOM_OBJID 0xE41B837A
+#define HWFREEDOM_OBJID 0xC19B79D6
 #define HWFREEDOM_ISSINGLEINST 1
 #define HWFREEDOM_ISSETTINGS 1
-#define HWFREEDOM_NUMBYTES 10
+#define HWFREEDOM_NUMBYTES 12
 
 // Generic interface functions
 int32_t HwFreedomInitialize();
@@ -64,6 +64,8 @@ typedef struct {
     uint8_t DSMxBind;
     uint8_t GyroRange;
     uint8_t AccelRange;
+    uint8_t MPU6000Rate;
+    uint8_t MPU6000DLPF;
 
 } __attribute__((packed)) __attribute__((aligned(4))) HwFreedomData;
 
@@ -130,6 +132,12 @@ typedef enum { HWFREEDOM_GYRORANGE_250=0, HWFREEDOM_GYRORANGE_500=1, HWFREEDOM_G
 // Field AccelRange information
 /* Enumeration options for field AccelRange */
 typedef enum { HWFREEDOM_ACCELRANGE_2G=0, HWFREEDOM_ACCELRANGE_4G=1, HWFREEDOM_ACCELRANGE_8G=2, HWFREEDOM_ACCELRANGE_16G=3 } HwFreedomAccelRangeOptions;
+// Field MPU6000Rate information
+/* Enumeration options for field MPU6000Rate */
+typedef enum { HWFREEDOM_MPU6000RATE_500=0, HWFREEDOM_MPU6000RATE_666=1, HWFREEDOM_MPU6000RATE_1000=2, HWFREEDOM_MPU6000RATE_2000=3, HWFREEDOM_MPU6000RATE_4000=4, HWFREEDOM_MPU6000RATE_8000=5 } HwFreedomMPU6000RateOptions;
+// Field MPU6000DLPF information
+/* Enumeration options for field MPU6000DLPF */
+typedef enum { HWFREEDOM_MPU6000DLPF_256=0, HWFREEDOM_MPU6000DLPF_188=1, HWFREEDOM_MPU6000DLPF_98=2, HWFREEDOM_MPU6000DLPF_42=3, HWFREEDOM_MPU6000DLPF_20=4, HWFREEDOM_MPU6000DLPF_10=5, HWFREEDOM_MPU6000DLPF_5=6 } HwFreedomMPU6000DLPFOptions;
 
 
 // set/Get functions
@@ -153,6 +161,10 @@ extern void HwFreedomGyroRangeSet( uint8_t *NewGyroRange );
 extern void HwFreedomGyroRangeGet( uint8_t *NewGyroRange );
 extern void HwFreedomAccelRangeSet( uint8_t *NewAccelRange );
 extern void HwFreedomAccelRangeGet( uint8_t *NewAccelRange );
+extern void HwFreedomMPU6000RateSet( uint8_t *NewMPU6000Rate );
+extern void HwFreedomMPU6000RateGet( uint8_t *NewMPU6000Rate );
+extern void HwFreedomMPU6000DLPFSet( uint8_t *NewMPU6000DLPF );
+extern void HwFreedomMPU6000DLPFGet( uint8_t *NewMPU6000DLPF );
 
 
 #endif // HWFREEDOM_H

@@ -87,7 +87,6 @@ void HomeLocationSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.Be[0] = 0;
 	data.Be[1] = 0;
 	data.Be[2] = 0;
-	data.g_e = 9.81;
 	data.SeaLevelPressure = 1013;
 	data.Set = 0;
 	data.GroundTemperature = 15;
@@ -150,14 +149,6 @@ void HomeLocationBeSet( float *NewBe )
 void HomeLocationBeGet( float *NewBe )
 {
 	UAVObjGetDataField(HomeLocationHandle(), (void*)NewBe, offsetof( HomeLocationData, Be), 3*sizeof(float));
-}
-void HomeLocationg_eSet( float *Newg_e )
-{
-	UAVObjSetDataField(HomeLocationHandle(), (void*)Newg_e, offsetof( HomeLocationData, g_e), sizeof(float));
-}
-void HomeLocationg_eGet( float *Newg_e )
-{
-	UAVObjGetDataField(HomeLocationHandle(), (void*)Newg_e, offsetof( HomeLocationData, g_e), sizeof(float));
 }
 void HomeLocationSeaLevelPressureSet( uint16_t *NewSeaLevelPressure )
 {

@@ -82,28 +82,30 @@ void VtolPathFollowerSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	UAVObjGetInstanceData(obj, instId, &data);
 	memset(&data, 0, sizeof(VtolPathFollowerSettingsData));
 	data.HorizontalPosPI[0] = 1;
-	data.HorizontalPosPI[1] = 0;
-	data.HorizontalPosPI[2] = 0;
-	data.HorizontalVelPID[0] = 5;
+	data.HorizontalPosPI[1] = 0.1;
+	data.HorizontalPosPI[2] = 2;
+	data.HorizontalVelPID[0] = 7;
 	data.HorizontalVelPID[1] = 0;
 	data.HorizontalVelPID[2] = 1;
 	data.HorizontalVelPID[3] = 0;
-	data.VerticalPosPI[0] = 0.1;
+	data.VerticalPosPI[0] = 0.3;
 	data.VerticalPosPI[1] = 0.001;
-	data.VerticalPosPI[2] = 200;
-	data.VerticalVelPID[0] = 0.1;
+	data.VerticalPosPI[2] = 2;
+	data.VerticalVelPID[0] = 0.3;
 	data.VerticalVelPID[1] = 0;
 	data.VerticalVelPID[2] = 0;
 	data.VerticalVelPID[3] = 0;
 	data.VelocityFeedforward = 0;
 	data.MaxRollPitch = 20;
 	data.UpdatePeriod = 100;
+	data.LandingRate = 1;
+	data.TakeoffRate = 1;
+	data.HoverThrottle = 0;
 	data.HorizontalVelMax = 10;
 	data.VerticalVelMax = 1;
 	data.GuidanceMode = 0;
 	data.ThrottleControl = 0;
-	data.VelocitySource = 0;
-	data.PositionSource = 0;
+	data.YawMode = 1;
 
 	UAVObjSetInstanceData(obj, instId, &data);
 
@@ -188,6 +190,30 @@ void VtolPathFollowerSettingsUpdatePeriodGet( int32_t *NewUpdatePeriod )
 {
 	UAVObjGetDataField(VtolPathFollowerSettingsHandle(), (void*)NewUpdatePeriod, offsetof( VtolPathFollowerSettingsData, UpdatePeriod), sizeof(int32_t));
 }
+void VtolPathFollowerSettingsLandingRateSet( float *NewLandingRate )
+{
+	UAVObjSetDataField(VtolPathFollowerSettingsHandle(), (void*)NewLandingRate, offsetof( VtolPathFollowerSettingsData, LandingRate), sizeof(float));
+}
+void VtolPathFollowerSettingsLandingRateGet( float *NewLandingRate )
+{
+	UAVObjGetDataField(VtolPathFollowerSettingsHandle(), (void*)NewLandingRate, offsetof( VtolPathFollowerSettingsData, LandingRate), sizeof(float));
+}
+void VtolPathFollowerSettingsTakeoffRateSet( float *NewTakeoffRate )
+{
+	UAVObjSetDataField(VtolPathFollowerSettingsHandle(), (void*)NewTakeoffRate, offsetof( VtolPathFollowerSettingsData, TakeoffRate), sizeof(float));
+}
+void VtolPathFollowerSettingsTakeoffRateGet( float *NewTakeoffRate )
+{
+	UAVObjGetDataField(VtolPathFollowerSettingsHandle(), (void*)NewTakeoffRate, offsetof( VtolPathFollowerSettingsData, TakeoffRate), sizeof(float));
+}
+void VtolPathFollowerSettingsHoverThrottleSet( float *NewHoverThrottle )
+{
+	UAVObjSetDataField(VtolPathFollowerSettingsHandle(), (void*)NewHoverThrottle, offsetof( VtolPathFollowerSettingsData, HoverThrottle), sizeof(float));
+}
+void VtolPathFollowerSettingsHoverThrottleGet( float *NewHoverThrottle )
+{
+	UAVObjGetDataField(VtolPathFollowerSettingsHandle(), (void*)NewHoverThrottle, offsetof( VtolPathFollowerSettingsData, HoverThrottle), sizeof(float));
+}
 void VtolPathFollowerSettingsHorizontalVelMaxSet( uint16_t *NewHorizontalVelMax )
 {
 	UAVObjSetDataField(VtolPathFollowerSettingsHandle(), (void*)NewHorizontalVelMax, offsetof( VtolPathFollowerSettingsData, HorizontalVelMax), sizeof(uint16_t));
@@ -220,21 +246,13 @@ void VtolPathFollowerSettingsThrottleControlGet( uint8_t *NewThrottleControl )
 {
 	UAVObjGetDataField(VtolPathFollowerSettingsHandle(), (void*)NewThrottleControl, offsetof( VtolPathFollowerSettingsData, ThrottleControl), sizeof(uint8_t));
 }
-void VtolPathFollowerSettingsVelocitySourceSet( uint8_t *NewVelocitySource )
+void VtolPathFollowerSettingsYawModeSet( uint8_t *NewYawMode )
 {
-	UAVObjSetDataField(VtolPathFollowerSettingsHandle(), (void*)NewVelocitySource, offsetof( VtolPathFollowerSettingsData, VelocitySource), sizeof(uint8_t));
+	UAVObjSetDataField(VtolPathFollowerSettingsHandle(), (void*)NewYawMode, offsetof( VtolPathFollowerSettingsData, YawMode), sizeof(uint8_t));
 }
-void VtolPathFollowerSettingsVelocitySourceGet( uint8_t *NewVelocitySource )
+void VtolPathFollowerSettingsYawModeGet( uint8_t *NewYawMode )
 {
-	UAVObjGetDataField(VtolPathFollowerSettingsHandle(), (void*)NewVelocitySource, offsetof( VtolPathFollowerSettingsData, VelocitySource), sizeof(uint8_t));
-}
-void VtolPathFollowerSettingsPositionSourceSet( uint8_t *NewPositionSource )
-{
-	UAVObjSetDataField(VtolPathFollowerSettingsHandle(), (void*)NewPositionSource, offsetof( VtolPathFollowerSettingsData, PositionSource), sizeof(uint8_t));
-}
-void VtolPathFollowerSettingsPositionSourceGet( uint8_t *NewPositionSource )
-{
-	UAVObjGetDataField(VtolPathFollowerSettingsHandle(), (void*)NewPositionSource, offsetof( VtolPathFollowerSettingsData, PositionSource), sizeof(uint8_t));
+	UAVObjGetDataField(VtolPathFollowerSettingsHandle(), (void*)NewYawMode, offsetof( VtolPathFollowerSettingsData, YawMode), sizeof(uint8_t));
 }
 
 

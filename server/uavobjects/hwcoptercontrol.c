@@ -89,6 +89,8 @@ void HwCopterControlSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.DSMxBind = 0;
 	data.GyroRange = 1;
 	data.AccelRange = 2;
+	data.MPU6000Rate = 0;
+	data.MPU6000DLPF = 0;
 
 	UAVObjSetInstanceData(obj, instId, &data);
 
@@ -180,6 +182,22 @@ void HwCopterControlAccelRangeSet( uint8_t *NewAccelRange )
 void HwCopterControlAccelRangeGet( uint8_t *NewAccelRange )
 {
 	UAVObjGetDataField(HwCopterControlHandle(), (void*)NewAccelRange, offsetof( HwCopterControlData, AccelRange), sizeof(uint8_t));
+}
+void HwCopterControlMPU6000RateSet( uint8_t *NewMPU6000Rate )
+{
+	UAVObjSetDataField(HwCopterControlHandle(), (void*)NewMPU6000Rate, offsetof( HwCopterControlData, MPU6000Rate), sizeof(uint8_t));
+}
+void HwCopterControlMPU6000RateGet( uint8_t *NewMPU6000Rate )
+{
+	UAVObjGetDataField(HwCopterControlHandle(), (void*)NewMPU6000Rate, offsetof( HwCopterControlData, MPU6000Rate), sizeof(uint8_t));
+}
+void HwCopterControlMPU6000DLPFSet( uint8_t *NewMPU6000DLPF )
+{
+	UAVObjSetDataField(HwCopterControlHandle(), (void*)NewMPU6000DLPF, offsetof( HwCopterControlData, MPU6000DLPF), sizeof(uint8_t));
+}
+void HwCopterControlMPU6000DLPFGet( uint8_t *NewMPU6000DLPF )
+{
+	UAVObjGetDataField(HwCopterControlHandle(), (void*)NewMPU6000DLPF, offsetof( HwCopterControlData, MPU6000DLPF), sizeof(uint8_t));
 }
 
 

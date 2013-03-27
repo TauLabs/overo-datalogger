@@ -145,7 +145,6 @@ void ManualControlSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.FlightModePosition[3] = 3;
 	data.FlightModePosition[4] = 8;
 	data.FlightModePosition[5] = 7;
-	data.FailsafeBehavior = 0;
 
 	UAVObjSetInstanceData(obj, instId, &data);
 
@@ -277,14 +276,6 @@ void ManualControlSettingsFlightModePositionSet( uint8_t *NewFlightModePosition 
 void ManualControlSettingsFlightModePositionGet( uint8_t *NewFlightModePosition )
 {
 	UAVObjGetDataField(ManualControlSettingsHandle(), (void*)NewFlightModePosition, offsetof( ManualControlSettingsData, FlightModePosition), 6*sizeof(uint8_t));
-}
-void ManualControlSettingsFailsafeBehaviorSet( uint8_t *NewFailsafeBehavior )
-{
-	UAVObjSetDataField(ManualControlSettingsHandle(), (void*)NewFailsafeBehavior, offsetof( ManualControlSettingsData, FailsafeBehavior), sizeof(uint8_t));
-}
-void ManualControlSettingsFailsafeBehaviorGet( uint8_t *NewFailsafeBehavior )
-{
-	UAVObjGetDataField(ManualControlSettingsHandle(), (void*)NewFailsafeBehavior, offsetof( ManualControlSettingsData, FailsafeBehavior), sizeof(uint8_t));
 }
 
 

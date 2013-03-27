@@ -84,15 +84,16 @@ void INSSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.accel_var[0] = 0.01;
 	data.accel_var[1] = 0.01;
 	data.accel_var[2] = 0.01;
-	data.gyro_var[0] = 0.01;
-	data.gyro_var[1] = 0.01;
-	data.gyro_var[2] = 0.01;
-	data.mag_var[0] = 0.01;
-	data.mag_var[1] = 0.01;
+	data.gyro_var[0] = 1e-05;
+	data.gyro_var[1] = 1e-05;
+	data.gyro_var[2] = 0.0001;
+	data.mag_var[0] = 0.005;
+	data.mag_var[1] = 0.005;
 	data.mag_var[2] = 10;
-	data.gps_var[0] = 1;
-	data.gps_var[1] = 1;
-	data.baro_var = 1;
+	data.gps_var[0] = 0.001;
+	data.gps_var[1] = 0.01;
+	data.gps_var[2] = 10;
+	data.baro_var = 0.1;
 	data.MagBiasNullingRate = 0;
 	data.ComputeGyroBias = 0;
 
@@ -149,11 +150,11 @@ void INSSettingsmag_varGet( float *Newmag_var )
 }
 void INSSettingsgps_varSet( float *Newgps_var )
 {
-	UAVObjSetDataField(INSSettingsHandle(), (void*)Newgps_var, offsetof( INSSettingsData, gps_var), 2*sizeof(float));
+	UAVObjSetDataField(INSSettingsHandle(), (void*)Newgps_var, offsetof( INSSettingsData, gps_var), 3*sizeof(float));
 }
 void INSSettingsgps_varGet( float *Newgps_var )
 {
-	UAVObjGetDataField(INSSettingsHandle(), (void*)Newgps_var, offsetof( INSSettingsData, gps_var), 2*sizeof(float));
+	UAVObjGetDataField(INSSettingsHandle(), (void*)Newgps_var, offsetof( INSSettingsData, gps_var), 3*sizeof(float));
 }
 void INSSettingsbaro_varSet( float *Newbaro_var )
 {

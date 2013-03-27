@@ -42,10 +42,10 @@
 #define FIXEDWINGPATHFOLLOWERSETTINGS_H
 
 // Object constants
-#define FIXEDWINGPATHFOLLOWERSETTINGS_OBJID 0x6421EA98
+#define FIXEDWINGPATHFOLLOWERSETTINGS_OBJID 0x56C316DA
 #define FIXEDWINGPATHFOLLOWERSETTINGS_ISSINGLEINST 1
 #define FIXEDWINGPATHFOLLOWERSETTINGS_ISSETTINGS 1
-#define FIXEDWINGPATHFOLLOWERSETTINGS_NUMBYTES 98
+#define FIXEDWINGPATHFOLLOWERSETTINGS_NUMBYTES 102
 
 // Generic interface functions
 int32_t FixedWingPathFollowerSettingsInitialize();
@@ -64,6 +64,7 @@ typedef struct {
     float RollLimit[3];
     float PitchLimit[3];
     float ThrottleLimit[3];
+    float OrbitRadius;
     int16_t UpdatePeriod;
 
 } __attribute__((packed)) __attribute__((aligned(4))) FixedWingPathFollowerSettingsData;
@@ -145,6 +146,7 @@ typedef enum { FIXEDWINGPATHFOLLOWERSETTINGS_PITCHLIMIT_MIN=0, FIXEDWINGPATHFOLL
 typedef enum { FIXEDWINGPATHFOLLOWERSETTINGS_THROTTLELIMIT_MIN=0, FIXEDWINGPATHFOLLOWERSETTINGS_THROTTLELIMIT_NEUTRAL=1, FIXEDWINGPATHFOLLOWERSETTINGS_THROTTLELIMIT_MAX=2 } FixedWingPathFollowerSettingsThrottleLimitElem;
 /* Number of elements for field ThrottleLimit */
 #define FIXEDWINGPATHFOLLOWERSETTINGS_THROTTLELIMIT_NUMELEM 3
+// Field OrbitRadius information
 // Field UpdatePeriod information
 
 
@@ -169,6 +171,8 @@ extern void FixedWingPathFollowerSettingsPitchLimitSet( float *NewPitchLimit );
 extern void FixedWingPathFollowerSettingsPitchLimitGet( float *NewPitchLimit );
 extern void FixedWingPathFollowerSettingsThrottleLimitSet( float *NewThrottleLimit );
 extern void FixedWingPathFollowerSettingsThrottleLimitGet( float *NewThrottleLimit );
+extern void FixedWingPathFollowerSettingsOrbitRadiusSet( float *NewOrbitRadius );
+extern void FixedWingPathFollowerSettingsOrbitRadiusGet( float *NewOrbitRadius );
 extern void FixedWingPathFollowerSettingsUpdatePeriodSet( int16_t *NewUpdatePeriod );
 extern void FixedWingPathFollowerSettingsUpdatePeriodGet( int16_t *NewUpdatePeriod );
 

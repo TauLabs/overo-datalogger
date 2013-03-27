@@ -105,6 +105,7 @@ void FixedWingPathFollowerSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	data.ThrottleLimit[0] = 0;
 	data.ThrottleLimit[1] = 0.5;
 	data.ThrottleLimit[2] = 1;
+	data.OrbitRadius = 50;
 	data.UpdatePeriod = 100;
 
 	UAVObjSetInstanceData(obj, instId, &data);
@@ -213,6 +214,14 @@ void FixedWingPathFollowerSettingsThrottleLimitSet( float *NewThrottleLimit )
 void FixedWingPathFollowerSettingsThrottleLimitGet( float *NewThrottleLimit )
 {
 	UAVObjGetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewThrottleLimit, offsetof( FixedWingPathFollowerSettingsData, ThrottleLimit), 3*sizeof(float));
+}
+void FixedWingPathFollowerSettingsOrbitRadiusSet( float *NewOrbitRadius )
+{
+	UAVObjSetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewOrbitRadius, offsetof( FixedWingPathFollowerSettingsData, OrbitRadius), sizeof(float));
+}
+void FixedWingPathFollowerSettingsOrbitRadiusGet( float *NewOrbitRadius )
+{
+	UAVObjGetDataField(FixedWingPathFollowerSettingsHandle(), (void*)NewOrbitRadius, offsetof( FixedWingPathFollowerSettingsData, OrbitRadius), sizeof(float));
 }
 void FixedWingPathFollowerSettingsUpdatePeriodSet( int16_t *NewUpdatePeriod )
 {

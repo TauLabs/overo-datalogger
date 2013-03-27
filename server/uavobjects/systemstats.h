@@ -42,10 +42,10 @@
 #define SYSTEMSTATS_H
 
 // Object constants
-#define SYSTEMSTATS_OBJID 0x364D1406
+#define SYSTEMSTATS_OBJID 0x74E632D4
 #define SYSTEMSTATS_ISSINGLEINST 1
 #define SYSTEMSTATS_ISSETTINGS 0
-#define SYSTEMSTATS_NUMBYTES 22
+#define SYSTEMSTATS_NUMBYTES 24
 
 // Generic interface functions
 int32_t SystemStatsInitialize();
@@ -55,10 +55,10 @@ void SystemStatsSetDefaults(UAVObjHandle obj, uint16_t instId);
 // Object data
 typedef struct {
     uint32_t FlightTime;
+    uint32_t HeapRemaining;
     uint32_t EventSystemWarningID;
     uint32_t ObjectManagerCallbackID;
     uint32_t ObjectManagerQueueID;
-    uint16_t HeapRemaining;
     uint16_t IRQStackRemaining;
     uint8_t CPULoad;
     int8_t CPUTemp;
@@ -101,10 +101,10 @@ static inline int8_t SystemStatsReadOnly() { return UAVObjReadOnly(SystemStatsHa
 
 // Field information
 // Field FlightTime information
+// Field HeapRemaining information
 // Field EventSystemWarningID information
 // Field ObjectManagerCallbackID information
 // Field ObjectManagerQueueID information
-// Field HeapRemaining information
 // Field IRQStackRemaining information
 // Field CPULoad information
 // Field CPUTemp information
@@ -113,14 +113,14 @@ static inline int8_t SystemStatsReadOnly() { return UAVObjReadOnly(SystemStatsHa
 // set/Get functions
 extern void SystemStatsFlightTimeSet( uint32_t *NewFlightTime );
 extern void SystemStatsFlightTimeGet( uint32_t *NewFlightTime );
+extern void SystemStatsHeapRemainingSet( uint32_t *NewHeapRemaining );
+extern void SystemStatsHeapRemainingGet( uint32_t *NewHeapRemaining );
 extern void SystemStatsEventSystemWarningIDSet( uint32_t *NewEventSystemWarningID );
 extern void SystemStatsEventSystemWarningIDGet( uint32_t *NewEventSystemWarningID );
 extern void SystemStatsObjectManagerCallbackIDSet( uint32_t *NewObjectManagerCallbackID );
 extern void SystemStatsObjectManagerCallbackIDGet( uint32_t *NewObjectManagerCallbackID );
 extern void SystemStatsObjectManagerQueueIDSet( uint32_t *NewObjectManagerQueueID );
 extern void SystemStatsObjectManagerQueueIDGet( uint32_t *NewObjectManagerQueueID );
-extern void SystemStatsHeapRemainingSet( uint16_t *NewHeapRemaining );
-extern void SystemStatsHeapRemainingGet( uint16_t *NewHeapRemaining );
 extern void SystemStatsIRQStackRemainingSet( uint16_t *NewIRQStackRemaining );
 extern void SystemStatsIRQStackRemainingGet( uint16_t *NewIRQStackRemaining );
 extern void SystemStatsCPULoadSet( uint8_t *NewCPULoad );

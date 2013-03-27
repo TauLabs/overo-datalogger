@@ -42,10 +42,10 @@
 #define CAMERASTABSETTINGS_H
 
 // Object constants
-#define CAMERASTABSETTINGS_OBJID 0x842162DC
+#define CAMERASTABSETTINGS_OBJID 0xFA09A51A
 #define CAMERASTABSETTINGS_ISSINGLEINST 1
 #define CAMERASTABSETTINGS_ISSETTINGS 1
-#define CAMERASTABSETTINGS_NUMBYTES 23
+#define CAMERASTABSETTINGS_NUMBYTES 29
 
 // Generic interface functions
 int32_t CameraStabSettingsInitialize();
@@ -55,6 +55,7 @@ void CameraStabSettingsSetDefaults(UAVObjHandle obj, uint16_t instId);
 // Object data
 typedef struct {
     float MaxAxisLockRate;
+    float MaxAccel;
     uint8_t Input[3];
     uint8_t InputRange[3];
     uint8_t InputRate[3];
@@ -62,6 +63,8 @@ typedef struct {
     uint8_t FeedForward[3];
     uint8_t StabilizationMode[3];
     uint8_t AttitudeFilter;
+    uint8_t InputFilter;
+    uint8_t FeedForwardTime;
 
 } __attribute__((packed)) __attribute__((aligned(4))) CameraStabSettingsData;
 
@@ -101,9 +104,10 @@ static inline int8_t CameraStabSettingsReadOnly() { return UAVObjReadOnly(Camera
 
 // Field information
 // Field MaxAxisLockRate information
+// Field MaxAccel information
 // Field Input information
 /* Enumeration options for field Input */
-typedef enum { CAMERASTABSETTINGS_INPUT_ACCESSORY0=0, CAMERASTABSETTINGS_INPUT_ACCESSORY1=1, CAMERASTABSETTINGS_INPUT_ACCESSORY2=2, CAMERASTABSETTINGS_INPUT_ACCESSORY3=3, CAMERASTABSETTINGS_INPUT_ACCESSORY4=4, CAMERASTABSETTINGS_INPUT_ACCESSORY5=5, CAMERASTABSETTINGS_INPUT_NONE=6 } CameraStabSettingsInputOptions;
+typedef enum { CAMERASTABSETTINGS_INPUT_ACCESSORY0=0, CAMERASTABSETTINGS_INPUT_ACCESSORY1=1, CAMERASTABSETTINGS_INPUT_ACCESSORY2=2, CAMERASTABSETTINGS_INPUT_ACCESSORY3=3, CAMERASTABSETTINGS_INPUT_ACCESSORY4=4, CAMERASTABSETTINGS_INPUT_ACCESSORY5=5, CAMERASTABSETTINGS_INPUT_POI=6, CAMERASTABSETTINGS_INPUT_NONE=7 } CameraStabSettingsInputOptions;
 /* Array element names for field Input */
 typedef enum { CAMERASTABSETTINGS_INPUT_ROLL=0, CAMERASTABSETTINGS_INPUT_PITCH=1, CAMERASTABSETTINGS_INPUT_YAW=2 } CameraStabSettingsInputElem;
 /* Number of elements for field Input */
@@ -136,11 +140,15 @@ typedef enum { CAMERASTABSETTINGS_STABILIZATIONMODE_ROLL=0, CAMERASTABSETTINGS_S
 /* Number of elements for field StabilizationMode */
 #define CAMERASTABSETTINGS_STABILIZATIONMODE_NUMELEM 3
 // Field AttitudeFilter information
+// Field InputFilter information
+// Field FeedForwardTime information
 
 
 // set/Get functions
 extern void CameraStabSettingsMaxAxisLockRateSet( float *NewMaxAxisLockRate );
 extern void CameraStabSettingsMaxAxisLockRateGet( float *NewMaxAxisLockRate );
+extern void CameraStabSettingsMaxAccelSet( float *NewMaxAccel );
+extern void CameraStabSettingsMaxAccelGet( float *NewMaxAccel );
 extern void CameraStabSettingsInputSet( uint8_t *NewInput );
 extern void CameraStabSettingsInputGet( uint8_t *NewInput );
 extern void CameraStabSettingsInputRangeSet( uint8_t *NewInputRange );
@@ -155,6 +163,10 @@ extern void CameraStabSettingsStabilizationModeSet( uint8_t *NewStabilizationMod
 extern void CameraStabSettingsStabilizationModeGet( uint8_t *NewStabilizationMode );
 extern void CameraStabSettingsAttitudeFilterSet( uint8_t *NewAttitudeFilter );
 extern void CameraStabSettingsAttitudeFilterGet( uint8_t *NewAttitudeFilter );
+extern void CameraStabSettingsInputFilterSet( uint8_t *NewInputFilter );
+extern void CameraStabSettingsInputFilterGet( uint8_t *NewInputFilter );
+extern void CameraStabSettingsFeedForwardTimeSet( uint8_t *NewFeedForwardTime );
+extern void CameraStabSettingsFeedForwardTimeGet( uint8_t *NewFeedForwardTime );
 
 
 #endif // CAMERASTABSETTINGS_H

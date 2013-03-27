@@ -81,23 +81,22 @@ void ModuleSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 	// Initialize object fields to their default values
 	UAVObjGetInstanceData(obj, instId, &data);
 	memset(&data, 0, sizeof(ModuleSettingsData));
-	data.State[0] = 0;
-	data.State[1] = 0;
-	data.State[2] = 0;
-	data.State[3] = 0;
-	data.State[4] = 0;
-	data.State[5] = 0;
-	data.State[6] = 0;
-	data.State[7] = 0;
-	data.State[8] = 0;
-	data.State[9] = 0;
-	data.State[10] = 0;
-	data.State[11] = 0;
-	data.State[12] = 0;
-	data.State[13] = 0;
-	data.State[14] = 0;
-	data.State[15] = 0;
-	data.State[16] = 0;
+	data.AdminState[0] = 0;
+	data.AdminState[1] = 0;
+	data.AdminState[2] = 0;
+	data.AdminState[3] = 0;
+	data.AdminState[4] = 0;
+	data.AdminState[5] = 0;
+	data.AdminState[6] = 0;
+	data.AdminState[7] = 0;
+	data.AdminState[8] = 0;
+	data.AdminState[9] = 0;
+	data.AdminState[10] = 0;
+	data.AdminState[11] = 0;
+	data.AdminState[12] = 0;
+	data.AdminState[13] = 0;
+	data.AdminState[14] = 0;
+	data.AdminState[15] = 0;
 	data.TelemetrySpeed = 5;
 	data.GPSSpeed = 5;
 	data.GPSDataProtocol = 1;
@@ -108,7 +107,7 @@ void ModuleSettingsSetDefaults(UAVObjHandle obj, uint16_t instId)
 
 	// Initialize object metadata to their default values
 	metadata.flags =
-		ACCESS_READONLY << UAVOBJ_ACCESS_SHIFT |
+		ACCESS_READWRITE << UAVOBJ_ACCESS_SHIFT |
 		ACCESS_READWRITE << UAVOBJ_GCS_ACCESS_SHIFT |
 		1 << UAVOBJ_TELEMETRY_ACKED_SHIFT |
 		1 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
@@ -131,13 +130,13 @@ UAVObjHandle ModuleSettingsHandle()
 /**
  * Get/Set object Functions
  */
-void ModuleSettingsStateSet( uint8_t *NewState )
+void ModuleSettingsAdminStateSet( uint8_t *NewAdminState )
 {
-	UAVObjSetDataField(ModuleSettingsHandle(), (void*)NewState, offsetof( ModuleSettingsData, State), 17*sizeof(uint8_t));
+	UAVObjSetDataField(ModuleSettingsHandle(), (void*)NewAdminState, offsetof( ModuleSettingsData, AdminState), 16*sizeof(uint8_t));
 }
-void ModuleSettingsStateGet( uint8_t *NewState )
+void ModuleSettingsAdminStateGet( uint8_t *NewAdminState )
 {
-	UAVObjGetDataField(ModuleSettingsHandle(), (void*)NewState, offsetof( ModuleSettingsData, State), 17*sizeof(uint8_t));
+	UAVObjGetDataField(ModuleSettingsHandle(), (void*)NewAdminState, offsetof( ModuleSettingsData, AdminState), 16*sizeof(uint8_t));
 }
 void ModuleSettingsTelemetrySpeedSet( uint8_t *NewTelemetrySpeed )
 {

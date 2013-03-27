@@ -42,10 +42,10 @@
 #define ATTITUDESETTINGS_H
 
 // Object constants
-#define ATTITUDESETTINGS_OBJID 0x754271C2
+#define ATTITUDESETTINGS_OBJID 0xAA472714
 #define ATTITUDESETTINGS_ISSINGLEINST 1
 #define ATTITUDESETTINGS_ISSETTINGS 1
-#define ATTITUDESETTINGS_NUMBYTES 30
+#define ATTITUDESETTINGS_NUMBYTES 34
 
 // Generic interface functions
 int32_t AttitudeSettingsInitialize();
@@ -55,6 +55,7 @@ void AttitudeSettingsSetDefaults(UAVObjHandle obj, uint16_t instId);
 // Object data
 typedef struct {
     float MagKp;
+    float MagKi;
     float AccelKp;
     float AccelKi;
     float AccelTau;
@@ -103,6 +104,7 @@ static inline int8_t AttitudeSettingsReadOnly() { return UAVObjReadOnly(Attitude
 
 // Field information
 // Field MagKp information
+// Field MagKi information
 // Field AccelKp information
 // Field AccelKi information
 // Field AccelTau information
@@ -129,6 +131,8 @@ typedef enum { ATTITUDESETTINGS_TRIMFLIGHT_NORMAL=0, ATTITUDESETTINGS_TRIMFLIGHT
 // set/Get functions
 extern void AttitudeSettingsMagKpSet( float *NewMagKp );
 extern void AttitudeSettingsMagKpGet( float *NewMagKp );
+extern void AttitudeSettingsMagKiSet( float *NewMagKi );
+extern void AttitudeSettingsMagKiGet( float *NewMagKi );
 extern void AttitudeSettingsAccelKpSet( float *NewAccelKp );
 extern void AttitudeSettingsAccelKpGet( float *NewAccelKp );
 extern void AttitudeSettingsAccelKiSet( float *NewAccelKi );

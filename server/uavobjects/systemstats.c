@@ -117,6 +117,14 @@ void SystemStatsFlightTimeGet( uint32_t *NewFlightTime )
 {
 	UAVObjGetDataField(SystemStatsHandle(), (void*)NewFlightTime, offsetof( SystemStatsData, FlightTime), sizeof(uint32_t));
 }
+void SystemStatsHeapRemainingSet( uint32_t *NewHeapRemaining )
+{
+	UAVObjSetDataField(SystemStatsHandle(), (void*)NewHeapRemaining, offsetof( SystemStatsData, HeapRemaining), sizeof(uint32_t));
+}
+void SystemStatsHeapRemainingGet( uint32_t *NewHeapRemaining )
+{
+	UAVObjGetDataField(SystemStatsHandle(), (void*)NewHeapRemaining, offsetof( SystemStatsData, HeapRemaining), sizeof(uint32_t));
+}
 void SystemStatsEventSystemWarningIDSet( uint32_t *NewEventSystemWarningID )
 {
 	UAVObjSetDataField(SystemStatsHandle(), (void*)NewEventSystemWarningID, offsetof( SystemStatsData, EventSystemWarningID), sizeof(uint32_t));
@@ -140,14 +148,6 @@ void SystemStatsObjectManagerQueueIDSet( uint32_t *NewObjectManagerQueueID )
 void SystemStatsObjectManagerQueueIDGet( uint32_t *NewObjectManagerQueueID )
 {
 	UAVObjGetDataField(SystemStatsHandle(), (void*)NewObjectManagerQueueID, offsetof( SystemStatsData, ObjectManagerQueueID), sizeof(uint32_t));
-}
-void SystemStatsHeapRemainingSet( uint16_t *NewHeapRemaining )
-{
-	UAVObjSetDataField(SystemStatsHandle(), (void*)NewHeapRemaining, offsetof( SystemStatsData, HeapRemaining), sizeof(uint16_t));
-}
-void SystemStatsHeapRemainingGet( uint16_t *NewHeapRemaining )
-{
-	UAVObjGetDataField(SystemStatsHandle(), (void*)NewHeapRemaining, offsetof( SystemStatsData, HeapRemaining), sizeof(uint16_t));
 }
 void SystemStatsIRQStackRemainingSet( uint16_t *NewIRQStackRemaining )
 {

@@ -91,9 +91,9 @@ void I2CVMSetDefaults(UAVObjHandle obj, uint16_t instId)
 		0 << UAVOBJ_TELEMETRY_ACKED_SHIFT |
 		0 << UAVOBJ_GCS_TELEMETRY_ACKED_SHIFT |
 		UPDATEMODE_ONCHANGE << UAVOBJ_TELEMETRY_UPDATE_MODE_SHIFT |
-		UPDATEMODE_PERIODIC << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
+		UPDATEMODE_MANUAL << UAVOBJ_GCS_TELEMETRY_UPDATE_MODE_SHIFT;
 	metadata.telemetryUpdatePeriod = 100;
-	metadata.gcsTelemetryUpdatePeriod = 1000;
+	metadata.gcsTelemetryUpdatePeriod = 0;
 	metadata.loggingUpdatePeriod = 0;
 	UAVObjSetMetadata(obj, &metadata);
 }

@@ -102,6 +102,7 @@
 #include "pathdesired.h"
 #include "pathplannersettings.h"
 #include "pathstatus.h"
+#include "poilocation.h"
 #include "positionactual.h"
 #include "ratedesired.h"
 #include "receiveractivity.h"
@@ -112,13 +113,17 @@
 #include "sonaraltitude.h"
 #include "stabilizationdesired.h"
 #include "stabilizationsettings.h"
+#include "stateestimation.h"
 #include "systemalarms.h"
 #include "systemsettings.h"
 #include "systemstats.h"
+#include "tabletinfo.h"
 #include "taskinfo.h"
 #include "txpidsettings.h"
 #include "velocityactual.h"
 #include "velocitydesired.h"
+#include "vibrationanalysisoutput.h"
+#include "vibrationanalysissettings.h"
 #include "vtolpathfollowersettings.h"
 #include "watchdogstatus.h"
 #include "waypoint.h"
@@ -204,6 +209,7 @@ void UAVObjectsInitializeAll()
     PathDesiredInitialize();
     PathPlannerSettingsInitialize();
     PathStatusInitialize();
+    PoiLocationInitialize();
     PositionActualInitialize();
     RateDesiredInitialize();
     ReceiverActivityInitialize();
@@ -214,13 +220,17 @@ void UAVObjectsInitializeAll()
     SonarAltitudeInitialize();
     StabilizationDesiredInitialize();
     StabilizationSettingsInitialize();
+    StateEstimationInitialize();
     SystemAlarmsInitialize();
     SystemSettingsInitialize();
     SystemStatsInitialize();
+    TabletInfoInitialize();
     TaskInfoInitialize();
     TxPIDSettingsInitialize();
     VelocityActualInitialize();
     VelocityDesiredInitialize();
+    VibrationAnalysisOutputInitialize();
+    VibrationAnalysisSettingsInitialize();
     VtolPathFollowerSettingsInitialize();
     WatchdogStatusInitialize();
     WaypointInitialize();

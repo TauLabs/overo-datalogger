@@ -42,10 +42,10 @@
 #define HOMELOCATION_H
 
 // Object constants
-#define HOMELOCATION_OBJID 0xE884FA9E
+#define HOMELOCATION_OBJID 0x10EBA682
 #define HOMELOCATION_ISSINGLEINST 1
 #define HOMELOCATION_ISSETTINGS 1
-#define HOMELOCATION_NUMBYTES 32
+#define HOMELOCATION_NUMBYTES 28
 
 // Generic interface functions
 int32_t HomeLocationInitialize();
@@ -58,7 +58,6 @@ typedef struct {
     int32_t Longitude;
     float Altitude;
     float Be[3];
-    float g_e;
     uint16_t SeaLevelPressure;
     uint8_t Set;
     int8_t GroundTemperature;
@@ -106,7 +105,6 @@ static inline int8_t HomeLocationReadOnly() { return UAVObjReadOnly(HomeLocation
 // Field Be information
 /* Number of elements for field Be */
 #define HOMELOCATION_BE_NUMELEM 3
-// Field g_e information
 // Field SeaLevelPressure information
 // Field Set information
 /* Enumeration options for field Set */
@@ -123,8 +121,6 @@ extern void HomeLocationAltitudeSet( float *NewAltitude );
 extern void HomeLocationAltitudeGet( float *NewAltitude );
 extern void HomeLocationBeSet( float *NewBe );
 extern void HomeLocationBeGet( float *NewBe );
-extern void HomeLocationg_eSet( float *Newg_e );
-extern void HomeLocationg_eGet( float *Newg_e );
 extern void HomeLocationSeaLevelPressureSet( uint16_t *NewSeaLevelPressure );
 extern void HomeLocationSeaLevelPressureGet( uint16_t *NewSeaLevelPressure );
 extern void HomeLocationSetSet( uint8_t *NewSet );

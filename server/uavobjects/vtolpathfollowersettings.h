@@ -42,10 +42,10 @@
 #define VTOLPATHFOLLOWERSETTINGS_H
 
 // Object constants
-#define VTOLPATHFOLLOWERSETTINGS_OBJID 0x973991F6
+#define VTOLPATHFOLLOWERSETTINGS_OBJID 0xAD46C8E6
 #define VTOLPATHFOLLOWERSETTINGS_ISSINGLEINST 1
 #define VTOLPATHFOLLOWERSETTINGS_ISSETTINGS 1
-#define VTOLPATHFOLLOWERSETTINGS_NUMBYTES 76
+#define VTOLPATHFOLLOWERSETTINGS_NUMBYTES 87
 
 // Generic interface functions
 int32_t VtolPathFollowerSettingsInitialize();
@@ -61,12 +61,14 @@ typedef struct {
     float VelocityFeedforward;
     float MaxRollPitch;
     int32_t UpdatePeriod;
+    float LandingRate;
+    float TakeoffRate;
+    float HoverThrottle;
     uint16_t HorizontalVelMax;
     uint16_t VerticalVelMax;
     uint8_t GuidanceMode;
     uint8_t ThrottleControl;
-    uint8_t VelocitySource;
-    uint8_t PositionSource;
+    uint8_t YawMode;
 
 } __attribute__((packed)) __attribute__((aligned(4))) VtolPathFollowerSettingsData;
 
@@ -128,6 +130,9 @@ typedef enum { VTOLPATHFOLLOWERSETTINGS_VERTICALVELPID_KP=0, VTOLPATHFOLLOWERSET
 // Field VelocityFeedforward information
 // Field MaxRollPitch information
 // Field UpdatePeriod information
+// Field LandingRate information
+// Field TakeoffRate information
+// Field HoverThrottle information
 // Field HorizontalVelMax information
 // Field VerticalVelMax information
 // Field GuidanceMode information
@@ -136,12 +141,9 @@ typedef enum { VTOLPATHFOLLOWERSETTINGS_GUIDANCEMODE_DUAL_LOOP=0, VTOLPATHFOLLOW
 // Field ThrottleControl information
 /* Enumeration options for field ThrottleControl */
 typedef enum { VTOLPATHFOLLOWERSETTINGS_THROTTLECONTROL_FALSE=0, VTOLPATHFOLLOWERSETTINGS_THROTTLECONTROL_TRUE=1 } VtolPathFollowerSettingsThrottleControlOptions;
-// Field VelocitySource information
-/* Enumeration options for field VelocitySource */
-typedef enum { VTOLPATHFOLLOWERSETTINGS_VELOCITYSOURCE_EKF=0, VTOLPATHFOLLOWERSETTINGS_VELOCITYSOURCE_NEDVEL=1, VTOLPATHFOLLOWERSETTINGS_VELOCITYSOURCE_GPSPOS=2 } VtolPathFollowerSettingsVelocitySourceOptions;
-// Field PositionSource information
-/* Enumeration options for field PositionSource */
-typedef enum { VTOLPATHFOLLOWERSETTINGS_POSITIONSOURCE_EKF=0, VTOLPATHFOLLOWERSETTINGS_POSITIONSOURCE_GPSPOS=1 } VtolPathFollowerSettingsPositionSourceOptions;
+// Field YawMode information
+/* Enumeration options for field YawMode */
+typedef enum { VTOLPATHFOLLOWERSETTINGS_YAWMODE_RATE=0, VTOLPATHFOLLOWERSETTINGS_YAWMODE_AXISLOCK=1, VTOLPATHFOLLOWERSETTINGS_YAWMODE_ATTITUDE=2, VTOLPATHFOLLOWERSETTINGS_YAWMODE_POI=3 } VtolPathFollowerSettingsYawModeOptions;
 
 
 // set/Get functions
@@ -159,6 +161,12 @@ extern void VtolPathFollowerSettingsMaxRollPitchSet( float *NewMaxRollPitch );
 extern void VtolPathFollowerSettingsMaxRollPitchGet( float *NewMaxRollPitch );
 extern void VtolPathFollowerSettingsUpdatePeriodSet( int32_t *NewUpdatePeriod );
 extern void VtolPathFollowerSettingsUpdatePeriodGet( int32_t *NewUpdatePeriod );
+extern void VtolPathFollowerSettingsLandingRateSet( float *NewLandingRate );
+extern void VtolPathFollowerSettingsLandingRateGet( float *NewLandingRate );
+extern void VtolPathFollowerSettingsTakeoffRateSet( float *NewTakeoffRate );
+extern void VtolPathFollowerSettingsTakeoffRateGet( float *NewTakeoffRate );
+extern void VtolPathFollowerSettingsHoverThrottleSet( float *NewHoverThrottle );
+extern void VtolPathFollowerSettingsHoverThrottleGet( float *NewHoverThrottle );
 extern void VtolPathFollowerSettingsHorizontalVelMaxSet( uint16_t *NewHorizontalVelMax );
 extern void VtolPathFollowerSettingsHorizontalVelMaxGet( uint16_t *NewHorizontalVelMax );
 extern void VtolPathFollowerSettingsVerticalVelMaxSet( uint16_t *NewVerticalVelMax );
@@ -167,10 +175,8 @@ extern void VtolPathFollowerSettingsGuidanceModeSet( uint8_t *NewGuidanceMode );
 extern void VtolPathFollowerSettingsGuidanceModeGet( uint8_t *NewGuidanceMode );
 extern void VtolPathFollowerSettingsThrottleControlSet( uint8_t *NewThrottleControl );
 extern void VtolPathFollowerSettingsThrottleControlGet( uint8_t *NewThrottleControl );
-extern void VtolPathFollowerSettingsVelocitySourceSet( uint8_t *NewVelocitySource );
-extern void VtolPathFollowerSettingsVelocitySourceGet( uint8_t *NewVelocitySource );
-extern void VtolPathFollowerSettingsPositionSourceSet( uint8_t *NewPositionSource );
-extern void VtolPathFollowerSettingsPositionSourceGet( uint8_t *NewPositionSource );
+extern void VtolPathFollowerSettingsYawModeSet( uint8_t *NewYawMode );
+extern void VtolPathFollowerSettingsYawModeGet( uint8_t *NewYawMode );
 
 
 #endif // VTOLPATHFOLLOWERSETTINGS_H

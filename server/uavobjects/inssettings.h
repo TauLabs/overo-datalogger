@@ -42,10 +42,10 @@
 #define INSSETTINGS_H
 
 // Object constants
-#define INSSETTINGS_OBJID 0x82AE6C6E
+#define INSSETTINGS_OBJID 0x8CCFF752
 #define INSSETTINGS_ISSINGLEINST 1
 #define INSSETTINGS_ISSETTINGS 1
-#define INSSETTINGS_NUMBYTES 53
+#define INSSETTINGS_NUMBYTES 57
 
 // Generic interface functions
 int32_t INSSettingsInitialize();
@@ -57,7 +57,7 @@ typedef struct {
     float accel_var[3];
     float gyro_var[3];
     float mag_var[3];
-    float gps_var[2];
+    float gps_var[3];
     float baro_var;
     float MagBiasNullingRate;
     uint8_t ComputeGyroBias;
@@ -116,9 +116,9 @@ typedef enum { INSSETTINGS_MAG_VAR_X=0, INSSETTINGS_MAG_VAR_Y=1, INSSETTINGS_MAG
 #define INSSETTINGS_MAG_VAR_NUMELEM 3
 // Field gps_var information
 /* Array element names for field gps_var */
-typedef enum { INSSETTINGS_GPS_VAR_POS=0, INSSETTINGS_GPS_VAR_VEL=1 } INSSettingsgps_varElem;
+typedef enum { INSSETTINGS_GPS_VAR_POS=0, INSSETTINGS_GPS_VAR_VEL=1, INSSETTINGS_GPS_VAR_VERTPOS=2 } INSSettingsgps_varElem;
 /* Number of elements for field gps_var */
-#define INSSETTINGS_GPS_VAR_NUMELEM 2
+#define INSSETTINGS_GPS_VAR_NUMELEM 3
 // Field baro_var information
 // Field MagBiasNullingRate information
 // Field ComputeGyroBias information

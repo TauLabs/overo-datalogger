@@ -42,10 +42,10 @@
 #define INERTIALSENSORSETTINGS_H
 
 // Object constants
-#define INERTIALSENSORSETTINGS_OBJID 0x6E411E4E
+#define INERTIALSENSORSETTINGS_OBJID 0x15D7DEDA
 #define INERTIALSENSORSETTINGS_ISSINGLEINST 1
 #define INERTIALSENSORSETTINGS_ISSETTINGS 1
-#define INERTIALSENSORSETTINGS_NUMBYTES 60
+#define INERTIALSENSORSETTINGS_NUMBYTES 84
 
 // Generic interface functions
 int32_t InertialSensorSettingsInitialize();
@@ -56,9 +56,10 @@ void InertialSensorSettingsSetDefaults(UAVObjHandle obj, uint16_t instId);
 typedef struct {
     float AccelBias[3];
     float AccelScale[3];
-    float InitialGyroBias[3];
     float GyroScale[3];
-    float GyroTempCoeff[3];
+    float XGyroTempCoeff[4];
+    float YGyroTempCoeff[4];
+    float ZGyroTempCoeff[4];
 
 } __attribute__((packed)) __attribute__((aligned(4))) InertialSensorSettingsData;
 
@@ -107,21 +108,26 @@ typedef enum { INERTIALSENSORSETTINGS_ACCELBIAS_X=0, INERTIALSENSORSETTINGS_ACCE
 typedef enum { INERTIALSENSORSETTINGS_ACCELSCALE_X=0, INERTIALSENSORSETTINGS_ACCELSCALE_Y=1, INERTIALSENSORSETTINGS_ACCELSCALE_Z=2 } InertialSensorSettingsAccelScaleElem;
 /* Number of elements for field AccelScale */
 #define INERTIALSENSORSETTINGS_ACCELSCALE_NUMELEM 3
-// Field InitialGyroBias information
-/* Array element names for field InitialGyroBias */
-typedef enum { INERTIALSENSORSETTINGS_INITIALGYROBIAS_X=0, INERTIALSENSORSETTINGS_INITIALGYROBIAS_Y=1, INERTIALSENSORSETTINGS_INITIALGYROBIAS_Z=2 } InertialSensorSettingsInitialGyroBiasElem;
-/* Number of elements for field InitialGyroBias */
-#define INERTIALSENSORSETTINGS_INITIALGYROBIAS_NUMELEM 3
 // Field GyroScale information
 /* Array element names for field GyroScale */
 typedef enum { INERTIALSENSORSETTINGS_GYROSCALE_X=0, INERTIALSENSORSETTINGS_GYROSCALE_Y=1, INERTIALSENSORSETTINGS_GYROSCALE_Z=2 } InertialSensorSettingsGyroScaleElem;
 /* Number of elements for field GyroScale */
 #define INERTIALSENSORSETTINGS_GYROSCALE_NUMELEM 3
-// Field GyroTempCoeff information
-/* Array element names for field GyroTempCoeff */
-typedef enum { INERTIALSENSORSETTINGS_GYROTEMPCOEFF_X=0, INERTIALSENSORSETTINGS_GYROTEMPCOEFF_Y=1, INERTIALSENSORSETTINGS_GYROTEMPCOEFF_Z=2 } InertialSensorSettingsGyroTempCoeffElem;
-/* Number of elements for field GyroTempCoeff */
-#define INERTIALSENSORSETTINGS_GYROTEMPCOEFF_NUMELEM 3
+// Field XGyroTempCoeff information
+/* Array element names for field XGyroTempCoeff */
+typedef enum { INERTIALSENSORSETTINGS_XGYROTEMPCOEFF_1=0, INERTIALSENSORSETTINGS_XGYROTEMPCOEFF_T=1, INERTIALSENSORSETTINGS_XGYROTEMPCOEFF_T2=2, INERTIALSENSORSETTINGS_XGYROTEMPCOEFF_T3=3 } InertialSensorSettingsXGyroTempCoeffElem;
+/* Number of elements for field XGyroTempCoeff */
+#define INERTIALSENSORSETTINGS_XGYROTEMPCOEFF_NUMELEM 4
+// Field YGyroTempCoeff information
+/* Array element names for field YGyroTempCoeff */
+typedef enum { INERTIALSENSORSETTINGS_YGYROTEMPCOEFF_1=0, INERTIALSENSORSETTINGS_YGYROTEMPCOEFF_T=1, INERTIALSENSORSETTINGS_YGYROTEMPCOEFF_T2=2, INERTIALSENSORSETTINGS_YGYROTEMPCOEFF_T3=3 } InertialSensorSettingsYGyroTempCoeffElem;
+/* Number of elements for field YGyroTempCoeff */
+#define INERTIALSENSORSETTINGS_YGYROTEMPCOEFF_NUMELEM 4
+// Field ZGyroTempCoeff information
+/* Array element names for field ZGyroTempCoeff */
+typedef enum { INERTIALSENSORSETTINGS_ZGYROTEMPCOEFF_1=0, INERTIALSENSORSETTINGS_ZGYROTEMPCOEFF_T=1, INERTIALSENSORSETTINGS_ZGYROTEMPCOEFF_T2=2, INERTIALSENSORSETTINGS_ZGYROTEMPCOEFF_T3=3 } InertialSensorSettingsZGyroTempCoeffElem;
+/* Number of elements for field ZGyroTempCoeff */
+#define INERTIALSENSORSETTINGS_ZGYROTEMPCOEFF_NUMELEM 4
 
 
 // set/Get functions
@@ -129,12 +135,14 @@ extern void InertialSensorSettingsAccelBiasSet( float *NewAccelBias );
 extern void InertialSensorSettingsAccelBiasGet( float *NewAccelBias );
 extern void InertialSensorSettingsAccelScaleSet( float *NewAccelScale );
 extern void InertialSensorSettingsAccelScaleGet( float *NewAccelScale );
-extern void InertialSensorSettingsInitialGyroBiasSet( float *NewInitialGyroBias );
-extern void InertialSensorSettingsInitialGyroBiasGet( float *NewInitialGyroBias );
 extern void InertialSensorSettingsGyroScaleSet( float *NewGyroScale );
 extern void InertialSensorSettingsGyroScaleGet( float *NewGyroScale );
-extern void InertialSensorSettingsGyroTempCoeffSet( float *NewGyroTempCoeff );
-extern void InertialSensorSettingsGyroTempCoeffGet( float *NewGyroTempCoeff );
+extern void InertialSensorSettingsXGyroTempCoeffSet( float *NewXGyroTempCoeff );
+extern void InertialSensorSettingsXGyroTempCoeffGet( float *NewXGyroTempCoeff );
+extern void InertialSensorSettingsYGyroTempCoeffSet( float *NewYGyroTempCoeff );
+extern void InertialSensorSettingsYGyroTempCoeffGet( float *NewYGyroTempCoeff );
+extern void InertialSensorSettingsZGyroTempCoeffSet( float *NewZGyroTempCoeff );
+extern void InertialSensorSettingsZGyroTempCoeffGet( float *NewZGyroTempCoeff );
 
 
 #endif // INERTIALSENSORSETTINGS_H
