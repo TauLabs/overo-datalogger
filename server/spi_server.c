@@ -104,7 +104,7 @@ int main(int argc, char **argv)
 	int             i;
 	const char	*name;
 
-	bool gps_locked = false;
+	bool gps_time_set = false;
 
 	while ((c = getopt(argc, argv, "hm:r:l:d:v")) != EOF) {
 		switch (c) {
@@ -237,13 +237,10 @@ usage:
 		}
 
 		// Look for first GPS lock to set the system time
-		if (!gps_locked) {
-			GPSPositionData gpsPosition;
-			GPSPositionGet(&gpsPosition);
+		if (!gps_time_set) {
 			GPSTimeData gpsTime;
 			GPSTimeGet(&gpsTime);
-			if (gpsPosition.Status == GPSPOSITION_STATUS_FIX3D &&
-				gpsTime.Year > 2000) {
+			if (gpsTime.Year > 2000) {
 				
 				struct timeval   current_time_seconds;
 				struct timezone  timezone;
@@ -265,7 +262,7 @@ usage:
 					fprintf(stdout, "Error setting the time\n");
 				}
 
-				gps_locked = true;
+				gps_time_set = true;
 			}
 		}
 
