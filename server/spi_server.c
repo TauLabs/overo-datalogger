@@ -97,7 +97,7 @@ int main(int argc, char **argv)
 	int		c;
 	int		readcount = 0;
 	int		msglen = 0;
-	int		delay_time = 3000;
+	int		delay_time = 2000;
 	int		logcount = 0;
 	int             verbose = 0;
 
